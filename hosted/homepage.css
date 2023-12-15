@@ -1,0 +1,27 @@
+.hero.is-primary {
+  background-color: #333;
+  color: #fff;
+}
+
+.modal-card {
+  width: 80%;
+}
+
+.profile-section {
+  text-align: center;
+}
+
+.hero.is-primary {
+  background: url('path_to_your_background_image_or_video') no-repeat center center;
+  background-size: cover;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-image {
+  border: 3px solid #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
