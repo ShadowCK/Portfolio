@@ -52,51 +52,11 @@
     <!-- 作品一览区域 -->
     <section class='section'>
       <div class='container'>
-        <div class='columns is-multiline'>
-          <!-- 作品卡片示例 -->
-          <div class='column is-4'>
-            <div class='card js-modal-trigger' data-target='test-modal'>
-              <div class='card-image'>
-                <figure class='image is-4by3'>
-                  <img src='https://placehold.co/400x300' alt='作品图片' />
-                </figure>
-              </div>
-              <div class='card-content'>
-                <div class='media'>
-                  <div class='media-content'>
-                    <p class='title is-4'>作品名称</p>
-                    <p class='subtitle is-6'>简短描述</p>
-                  </div>
-                </div>
-
-                <div class='content'>
-                  点击查看更多信息。
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- 更多作品卡片... -->
+        <div id='works' class='columns is-multiline'>
+          <!-- 作品卡片 -->
         </div>
       </div>
     </section>
-
-    <!-- 作品信息Modal -->
-    <div class='modal' id='test-modal'>
-      <div class='modal-background'></div>
-      <div class='modal-card'>
-        <header class='modal-card-head'>
-          <p class='modal-card-title'>作品名称</p>
-          <button class='delete' aria-label='close'></button>
-        </header>
-        <section class='modal-card-body'>
-          <!-- 作品详细内容 -->
-          作品详细信息，如创作过程、使用技术等。
-        </section>
-        <footer class='modal-card-foot'>
-          <button class='button is-success'>关闭</button>
-        </footer>
-      </div>
-    </div>
 
     <script src='/assets/homepageBundle.js'></script>
   </body>

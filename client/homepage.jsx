@@ -1,47 +1,36 @@
-// Source: https://bulma.io/documentation/components/modal/
-document.addEventListener('DOMContentLoaded', () => {
-  // Functions to open and close a modal
-  function openModal($el) {
-    $el.classList.add('is-active');
-  }
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-  function closeModal($el) {
-    $el.classList.remove('is-active');
-  }
+const { PortfolioWork } = require('./components.jsx');
 
-  function closeAllModals() {
-    (document.querySelectorAll('.modal') || []).forEach(($modal) => {
-      closeModal($modal);
-    });
-  }
+const portfolioWorksData = [
+  {
+    id: 1,
+    title: '作品1',
+    description: '描述1',
+    image: 'https://placehold.co/400x300',
+  },
+  {
+    id: 2,
+    title: '作品2',
+    description: '描述2',
+    image: 'https://placehold.co/400x300',
+  },
+  // More works...
+];
 
-  // Add a click event on buttons to open a specific modal
-  (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
-    const modal = $trigger.dataset.target;
-    const $target = document.getElementById(modal);
-
-    $trigger.addEventListener('click', () => {
-      openModal($target);
-    });
-  });
-
-  // Add a click event on various child elements to close the parent modal
-  (
-    document.querySelectorAll(
-      '.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button',
-    ) || []
-  ).forEach(($close) => {
-    const $target = $close.closest('.modal');
-
-    $close.addEventListener('click', () => {
-      closeModal($target);
-    });
-  });
-
-  // Add a keyboard event to close all modals
-  document.addEventListener('keydown', (event) => {
-    if (event.code === 'Escape') {
-      closeAllModals();
-    }
-  });
-});
+window.onload = () => {
+  ReactDOM.render(
+    portfolioWorksData.map((work) => (
+      <div class="column is-4">
+        <PortfolioWork
+          key={work.id}
+          title={work.title}
+          description={work.description}
+          image={work.image}
+        />
+      </div>
+    )),
+    document.getElementById('works'),
+  );
+};
