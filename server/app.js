@@ -26,7 +26,7 @@ const app = express();
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      imgSrc: ["'self'", 'data:', 'https://placehold.co'], // 允许从placehold.co加载图片
+      imgSrc: ["'self'", 'data:', 'https://placehold.co'], // Allow images from https://placehold.co
     },
   }),
 );

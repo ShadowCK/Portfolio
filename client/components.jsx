@@ -41,13 +41,10 @@ class PortfolioWork extends React.Component {
             <p className="modal-card-title">{this.props.title}</p>
             <button className="delete" aria-label="close" onClick={this.closeModal}></button>
           </header>
-          <section className="modal-card-body">
-            作品详细信息，如创作过程、使用技术等。
-            {this.props.details}
-          </section>
+          <section className="modal-card-body">{this.props.details}</section>
           <footer className="modal-card-foot">
             <button className="button is-success" onClick={this.closeModal}>
-              关闭
+              Close
             </button>
           </footer>
         </div>
@@ -63,7 +60,7 @@ class PortfolioWork extends React.Component {
           {/* Card Image */}
           <div className="card-image" onClick={this.openModal}>
             <figure className="image is-4by3">
-              <img src={this.props.image} alt="作品图片" />
+              <img src={this.props.image} alt="Image of the work" />
             </figure>
           </div>
           {/* Card Content */}
@@ -71,10 +68,18 @@ class PortfolioWork extends React.Component {
             <div className="media">
               <div className="media-content">
                 <p className="title is-4">{this.props.title}</p>
+                <div className="tags">
+                  {this.props.tags &&
+                    this.props.tags.map((tag, index) => (
+                      <span key={index} className="tag">
+                        {tag}
+                      </span>
+                    ))}
+                </div>
                 <p className="subtitle is-6">{this.props.description}</p>
               </div>
             </div>
-            <div className="content">点击查看更多信息。</div>
+            <div className="content">Click to view details.</div>
           </div>
         </div>
         {this.renderModal()}
@@ -83,6 +88,51 @@ class PortfolioWork extends React.Component {
   }
 }
 
+const WorkDetail = ({ title, description, tools, role, links, timeRange }) => (
+  <div className="work-detail box">
+    <h2 className="title is-4">{title}</h2>
+    <p className="description mb-4">{description}</p>
+    <div className="content">
+      {tools && (
+        <p>
+          <strong>Tools:</strong> {tools.join(', ')}
+        </p>
+      )}
+      {role && (
+        <p>
+          <strong>Role:</strong> {role}
+        </p>
+      )}
+      {links && links.length > 0 && (
+        <p>
+          <strong>Links:</strong>{' '}
+          {links.map((link, index) => (
+            <span>
+              <a
+                key={index}
+                className="tag is-link"
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={link.href}
+              >
+                {link.text}
+              </a>
+              {index < links.length - 1 ? ' ' : ''}
+            </span>
+          ))}
+        </p>
+      )}
+      {timeRange && (
+        <p>
+          <strong>Time Range:</strong> {timeRange}
+        </p>
+      )}
+    </div>
+  </div>
+);
+
 module.exports = {
   PortfolioWork,
+  WorkDetail,
 };
