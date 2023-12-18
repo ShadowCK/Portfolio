@@ -418,6 +418,50 @@ const portfolioWorksData = [
       'Game Balance',
     ],
   },
+  {
+    id: 12,
+    order: 10000,
+    title: 'Graphical Snake',
+    description: 'To be added',
+    details: (
+      <WorkDetail
+        description="To be added"
+        tools={['C++', 'SMFL', 'Box2D']}
+        role="Solo Developer"
+        links={[
+          {
+            text: 'TBA',
+            href: '/',
+          },
+        ]}
+        timeRange="TBA"
+      />
+    ),
+    image: '/assets/images/graphical-snake-cover.png',
+    tags: ['Course Project', 'C++', 'SMFL', 'Box2D'],
+  },
+  {
+    id: 13,
+    order: 10000,
+    title: 'Play Cats: Tag!',
+    description: 'To be added',
+    details: (
+      <WorkDetail
+        description="To be added"
+        tools={['Lua', 'Roblox Studio']}
+        role="Programmer"
+        links={[
+          {
+            text: 'TBA',
+            href: '/',
+          },
+        ]}
+        timeRange="TBA"
+      />
+    ),
+    image: '/assets/images/play-cats-tag-cover.png',
+    tags: ['Team Project', 'Internship Work', 'Roblox', 'Lua', 'Roblox Studio'],
+  },
   // More works...
 ];
 
