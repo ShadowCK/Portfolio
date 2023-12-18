@@ -9,7 +9,7 @@ const express = require('express');
 // Compression middleware
 const compression = require('compression');
 // Favicon middleware
-// const favicon = require('serve-favicon');
+const favicon = require('serve-favicon');
 // Body parsing middleware
 const bodyParser = require('body-parser');
 // Handlebars view engine
@@ -31,8 +31,7 @@ app.use(
   }),
 );
 app.use('/assets', express.static(path.resolve(`${__dirname}/../hosted/`)));
-// TODO: Add favicon
-// app.use(favicon(`${__dirname}/../hosted/img/favicon.png`));
+app.use(favicon(`${__dirname}/../hosted/images/favicon.png`));
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
