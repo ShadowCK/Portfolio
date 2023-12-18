@@ -344,7 +344,7 @@ const portfolioWorksData = [
     details: (
       <WorkDetail
         description={`This is a course project for IGME-320, "Game Design and Development II". We used Scrum and Trello Board to manage the project. It proved to be very useful and motivating. I was one of the two programmers in the team, responsible for the item management system, sound system, debugging and QoL improvements. I also made a video trailer for the game. I enjoyed working with the team and learned that Unity sucks. It's just too heavy for a tiny game. Next time I'll try Godot or Unreal Engine. I wish I had more contribution to this game, but I decitated most of my time to Zhao Drift and Pong Hub. Note: as this is a team project, I may not be able to share the source code.`}
-        tools={['Unity', 'Vegas Pro', 'Trello Board', 'Scrum']}
+        tools={['Unity', 'C#', 'Vegas Pro', 'Trello Board', 'Scrum']}
         role="Programmer, Video Editter"
         links={[
           {
@@ -360,7 +360,15 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/illostath-legacy-cover.png',
-    tags: ['Course Project', '5-Person Team', 'Unity', 'Trello Board', 'Scrum', 'Video Trailer'],
+    tags: [
+      'Course Project',
+      '5-Person Team',
+      'Unity',
+      'C#',
+      'Trello Board',
+      'Scrum',
+      'Video Trailer',
+    ],
   },
   {
     id: 11,
