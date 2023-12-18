@@ -6,6 +6,7 @@ const { PortfolioWork, WorkDetail } = require('./components.jsx');
 const portfolioWorksData = [
   {
     id: 1,
+    order: 1,
     title: 'RIT Idle',
     description: 'An idle game where you play as an RIT student.',
     details: (
@@ -21,10 +22,11 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/rit-idle-cover.png',
-    tags: ['Course Project', 'Idle Game', 'Local Storage', 'HTML/CSS/JS', 'Audio'],
+    tags: ['Course Project', 'Web', 'Idle Game', 'Local Storage', 'HTML/CSS/JS', 'Audio'],
   },
   {
     id: 2,
+    order: 6,
     title: 'Lazy Garden',
     description: `A clicker/idle game. Grow flowers in your grandpa's garden and earn money.`,
     details: (
@@ -58,10 +60,11 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/lazy-garden-cover.png',
-    tags: ['Course Project', 'Clicker/Idle Game', 'p5.js', 'Aseprite'],
+    tags: ['Course Project', 'Web', 'Clicker/Idle Game', 'p5.js', 'Aseprite'],
   },
   {
     id: 3,
+    order: 2,
     title: 'Pong Hub',
     description: `Multiplayer Pong game with fun mechanics.`,
     details: (
@@ -125,6 +128,7 @@ const portfolioWorksData = [
     image: '/assets/images/pong-hub-cover.png',
     tags: [
       'Course Project',
+      'Web',
       'Node.js',
       'Express',
       'React',
@@ -137,6 +141,7 @@ const portfolioWorksData = [
   },
   {
     id: 4,
+    order: 101,
     title: 'SkillAPI Editor Returns',
     description: 'A refactored, more robust version of the SkillAPI Editor.',
     details: (
@@ -155,14 +160,14 @@ const portfolioWorksData = [
             following in his footsteps, hoping to meet him one day.
             <br />
             As for the project, I made 196 commits in 18 days, which was intense! I recall working
-            non-stop for 12 hours a day during the Thanksgiving break. The experience was exhilarating,
-            and the payoff was worth it. I transformed an outdated editor, parts of which predated
-            ES6, into a modern, robust, and extensible web application. I added features and
-            enhanced the UI/UX with innovations like Zen Mode, Compact Mode, and component comments
-            and tags. The original design required clicking into each component to edit or view
-            details; functional, yet cumbersome for quick checks. I prototyped a preview window that
-            was quite effective, but the tags and comments system proved to be even better—more
-            lightweight and intuitive.
+            non-stop for 12 hours a day during the Thanksgiving break. The experience was
+            exhilarating, and the payoff was worth it. I transformed the outdated editor, parts of
+            which predated ES6, into a modern, robust, and extensible web application. I added
+            features and enhanced the UI/UX with innovations like Zen Mode, Compact Mode, and
+            component comments and tags. The original design required clicking into each component
+            to edit or view details; functional, yet cumbersome for quick checks. I prototyped a
+            preview window that was quite effective, but the tags and comments system proved to be
+            even better—more lightweight and intuitive.
             <br />I also introduced Pinyin Sort to accommodate the plugin's popularity within the
             Chinese Minecraft community, a nod to my own heritage. But the crowning achievement was
             the save system overhaul. The original editor relied on DOM-related functions to update
@@ -189,10 +194,11 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/skillapi-editor-cover.png',
-    tags: ['Personal Project', 'Node.js'],
+    tags: ['Personal Project', 'Web', 'Node.js'],
   },
   {
     id: 5,
+    order: 102,
     title: 'myQuizzes',
     description: 'A web app for taking quizzes from the Open Trivia Database.',
     details: (
@@ -210,10 +216,11 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/my-quizzes-cover.png',
-    tags: ['Course Project', 'HTML/CSS/JS', 'Howler.js', 'Open Trivia Database'],
+    tags: ['Course Project', 'Web', 'HTML/CSS/JS', 'Howler.js', 'Open Trivia Database'],
   },
   {
     id: 6,
+    order: 4,
     title: 'Lost Castle',
     description: `A 3D scene of a lost castle, replicating the first dungeon of my Minecraft MMORPG server, "New World".`,
     details: (
@@ -247,6 +254,7 @@ const portfolioWorksData = [
   },
   {
     id: 7,
+    order: 5,
     title: 'Mecha Angel',
     description: `A shoot'em up game. Fight against the evil forces with your aircraft.`,
     details: (
@@ -272,6 +280,7 @@ const portfolioWorksData = [
   },
   {
     id: 8,
+    order: 3,
     title: 'Zhao Drift',
     description: `Send and receive messages in the form of drifting bottles.`,
     details: (
@@ -295,6 +304,7 @@ const portfolioWorksData = [
     image: '/assets/images/zhao-drift-cover.png',
     tags: [
       'Course Project',
+      'Web',
       'Node.js',
       'Http Server',
       'Bulma',
@@ -306,6 +316,7 @@ const portfolioWorksData = [
   },
   {
     id: 9,
+    order: 103,
     title: 'Balldio Visualizer',
     description: `An audio visualizer with balls and perlin noise.`,
     details: (
@@ -323,10 +334,11 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/balldio-visualizer-cover.png',
-    tags: ['Course Project', 'Canvas', 'Web Audio', 'Perlin Noise', 'Audio Node'],
+    tags: ['Course Project', 'Web', 'Canvas', 'Web Audio', 'Perlin Noise', 'Audio Node'],
   },
   {
     id: 10,
+    order: 7,
     title: `Illostath's Legacy`,
     description: `Casual game. Explore the Ethshar world as an alchemist.`,
     details: (
@@ -352,6 +364,7 @@ const portfolioWorksData = [
   },
   {
     id: 11,
+    order: 8,
     title: 'Cat Calamity',
     description: `A tabletop card game. Play as a cat after the human apocalypse. The world collapses each turn. Survive and be the last cat standing.`,
     details: (
@@ -410,18 +423,20 @@ const portfolioWorksData = [
 
 window.onload = () => {
   ReactDOM.render(
-    portfolioWorksData.map((work) => (
-      <div class="column is-4">
-        <PortfolioWork
-          key={work.id}
-          title={work.title}
-          description={work.description}
-          details={work.details}
-          image={work.image}
-          tags={work.tags}
-        />
-      </div>
-    )),
+    portfolioWorksData
+      .sort((a, b) => a.order - b.order || 0)
+      .map((work) => (
+        <div class="column is-4">
+          <PortfolioWork
+            key={work.id}
+            title={work.title}
+            description={work.description}
+            details={work.details}
+            image={work.image}
+            tags={work.tags}
+          />
+        </div>
+      )),
     document.getElementById('works'),
   );
 };
