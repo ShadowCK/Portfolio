@@ -220,7 +220,7 @@ const portfolioWorksData = [
   },
   {
     id: 6,
-    order: 4,
+    order: 5,
     title: 'Lost Castle',
     description: `A 3D scene of a lost castle, replicating the first dungeon of my Minecraft MMORPG server, "New World".`,
     details: (
@@ -254,7 +254,7 @@ const portfolioWorksData = [
   },
   {
     id: 7,
-    order: 5,
+    order: 4,
     title: 'Mecha Angel',
     description: `A shoot'em up game. Fight against the evil forces with your aircraft.`,
     details: (
