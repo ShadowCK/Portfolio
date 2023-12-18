@@ -11,6 +11,7 @@
   text-align: center;
 }
 
+/* TODO: change the url of this */
 .hero.is-primary {
   background: url('path_to_your_background_image_or_video') no-repeat center center;
   background-size: cover;
