@@ -180,11 +180,25 @@ const portfolioWorksData = [
             with a 12700, 80 skills take only 4 seconds—and just 15 seconds during garbage
             collection. Still, I aimed for better. The performance is now consistently fast,
             clocking in at only 30ms for those same 80 skills! That's incredibly satisfying!
+            <br />
+            Other exciting features include the ability to copy paste the active component across
+            skills, simply using Ctrl+C and Ctrl+V. The active component is highlighted in the
+            builder form (via the "Edit Effects" button). In addition, I wrote a pack.js script
+            using Archiver to pack only necessary files as a dist build. That way I can easily send
+            the editor to my friends.
           </>
         }
-        tools={['Node.js']}
+        tools={['Node.js', 'Archiver', 'pinyin']}
         role="Solo Developer"
         links={[
+          {
+            text: 'Editor v0.2.9',
+            href: 'https://people.rit.edu/~zj5148/skillapi-editor-returns-0.2.9/',
+          },
+          {
+            text: 'Original Editor',
+            href: 'https://eniripsa96.github.io/SkillAPI/',
+          },
           {
             text: 'Repo',
             href: 'https://github.com/ShadowCK/SkillAPIEditorReturns',
@@ -194,7 +208,7 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/skillapi-editor-cover.png',
-    tags: ['Personal Project', 'Web', 'Node.js'],
+    tags: ['Personal Project', 'Web', 'Node.js', 'Archiver', 'pinyin'],
   },
   {
     id: 5,
@@ -222,7 +236,7 @@ const portfolioWorksData = [
     id: 6,
     order: 5,
     title: 'Lost Castle',
-    description: `A 3D scene of a lost castle, replicating the first dungeon of my Minecraft MMORPG server, "New World".`,
+    description: `A 3D scene of a lost castle in the void, replicating the first dungeon of my Minecraft MMORPG server, "New World".`,
     details: (
       <WorkDetail
         description={`The final project for IGME-219, "3D Animation and Asset Production". The goal was to build a 3D scene with original assets. I decided to recreate the first dungeon of my Minecraft MMORPG server, "New World". I used Maya to make models for the castle and props, and Substance Painter to texture them. I added post processing in Unity so that the scene looks more appealing. I also made a script for the floating rocks so they move up and down, and pause when the player stands on them. However, the castle's model was not cleaned up (was a headache to me), causing its UV map to be messed up.`}
