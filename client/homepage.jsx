@@ -299,7 +299,7 @@ const portfolioWorksData = [
     description: `Send and receive messages in the form of drifting bottles.`,
     details: (
       <WorkDetail
-        description={`A course project for the advanced elective course, IGME-430, "Rich Media Web App Development II." Initially, I aimed to create an app for private chats with my girlfriend, featuring customizable options, and thus named it 'Zhao Chat.' However, I later pivoted to a more intriguing concept of chatting with random people in an aesthetically appealing experience. My professor commented, 'This project almost feels like an art piece. The ability to either destroy the bottle or send it back into the pool is really cool and interesting.' And I wholeheartedly agree. The concept is engaging, and the UI design is beautiful. I'm proud of this project. Given more time, I would refactor it to use Express, React, and Socket.io, and add additional features like user authentication, the ability to add comments to bottles, and user-generated pools (in contrast to the public one).`}
+        description={`A course project for the advanced elective course, IGME-430, "Rich Media Web App Development II." Initially, I aimed to create an app for private chats with my friends, featuring customizable options, and thus named it 'Zhao Chat.' However, I later pivoted to a more intriguing concept of chatting with random people in an aesthetically appealing experience. My professor commented, 'This project almost feels like an art piece. The ability to either destroy the bottle or send it back into the pool is really cool and interesting.' And I wholeheartedly agree. The concept is engaging, and the UI design is beautiful. I'm proud of this project. Given more time, I would refactor it to use Express, React, and Socket.io, and add additional features like user authentication, the ability to add comments to bottles, and user-generated pools (in contrast to the public one).`}
         tools={['Node.js', 'Bulma', 'Webpack', 'CircleCI', 'ESLint', 'Underscore']}
         role="Solo Developer"
         links={[
@@ -359,7 +359,7 @@ const portfolioWorksData = [
       <WorkDetail
         description={`This is a course project for IGME-320, "Game Design and Development II". We used Scrum and Trello Board to manage the project. It proved to be very useful and motivating. I was one of the two programmers in the team, responsible for the item management system, sound system, debugging and QoL improvements. I also made a video trailer for the game. I enjoyed working with the team and learned that Unity sucks. It's just too heavy for a tiny game. Next time I'll try Godot or Unreal Engine. I wish I had more contribution to this game, but I decitated most of my time to Zhao Drift and Pong Hub. Note: as this is a team project, I may not be able to share the source code.`}
         tools={['Unity', 'C#', 'Vegas Pro', 'Trello Board', 'Scrum']}
-        role="Programmer, Video Editter"
+        role="Programmer, Video Editor"
         links={[
           {
             text: 'Download Final Build',
@@ -464,21 +464,21 @@ const portfolioWorksData = [
   },
   {
     id: 13,
-    order: 10000,
+    order: -100,
     title: 'Play Cats: Tag!',
-    description: 'To be added',
+    description: 'A Roblox game where you play as a cat and play tag with other players.',
     details: (
       <WorkDetail
-        description="To be added"
+        description="Refactored the movement system and buff system to allow stack-able effects such as slow and speed-up at the same time. Cooperated with our UI designer to implement various UIs. The biggest challenge was using coroutines to implement the tagging/tagged visuals as it has various moving components that relies on delays. Also added VFX and SFX for many cats."
         tools={['Lua', 'Roblox Studio']}
         role="Programmer"
         links={[
           {
-            text: 'TBA',
-            href: '/',
+            text: 'Play',
+            href: 'https://www.roblox.com/games/13875652550/Play-Cats-Tag',
           },
         ]}
-        timeRange="TBA"
+        timeRange="2024 May - August"
       />
     ),
     image: '/assets/images/play-cats-tag-cover.png',
