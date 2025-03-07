@@ -469,7 +469,17 @@ const portfolioWorksData = [
     description: 'A Roblox game where you play as a cat and play tag with other players.',
     details: (
       <WorkDetail
-        description="Refactored the movement system and buff system to allow stack-able effects such as slow and speed-up at the same time. Cooperated with our UI designer to implement various UIs. The biggest challenge was using coroutines to implement the tagging/tagged visuals as it has various moving components that relies on delays. Also added VFX and SFX for many cats."
+        description={
+          <>
+            Refactored the movement system and buff system to allow stack-able effects such as slow
+            and speed-up at the same time. Cooperated with our UI designer to implement various UIs.
+            The biggest challenge was using coroutines to implement the tagging/tagged visuals as it
+            has various moving components that relies on delays. Also added VFX and SFX for many
+            cats.
+            <br />
+            The game amassed over <b>1 million visits</b> within two months without any promotions.
+          </>
+        }
         tools={['Lua', 'Roblox Studio']}
         role="Programmer"
         links={[
