@@ -423,7 +423,7 @@ const portfolioWorksData = [
             href: 'https://drive.google.com/file/d/1g8srxiX-jmlTNrfoVh4U_sAFnrzP5xqZ/view?usp=sharing',
           },
           {
-            text: 'Rulesheet',
+            text: 'Rule Sheet',
             href: 'https://drive.google.com/file/d/123sTj5ULfvzGiISluFtuGWOLBQjtTMB1/view?usp=sharing',
           },
         ]}
@@ -494,6 +494,42 @@ const portfolioWorksData = [
     image: '/assets/images/play-cats-tag-cover.png',
     tags: ['Team Project', 'Internship Work', 'Roblox', 'Lua', 'Roblox Studio'],
   },
+  {
+    id: 14,
+    order: -99,
+    title: 'Into the Darkness',
+    description:
+      'A puzzle game where everything in the scene is hidden. Find your path to gems using light orbs.',
+    details: (
+      <WorkDetail
+        description={
+          <>
+            A puzzle game where everything in the scene is hidden (transparent) by a self-made
+            shader. The player can summon orbiting / kinematic / huge / static light orbs to
+            illuminate the environment and interact with traps and mechanics, in pursue of mythical
+            gems. Features a check-point system, jump-pads, using render targets as data storage for
+            shaders, etc. All light orb’s time left and effect radii will change the transparency of
+            objects in the scene.
+          </>
+        }
+        tools={['Unreal Engine', 'C++']}
+        role="Programmer"
+        links={[
+          {
+            text: 'Download Latest Build',
+            href: 'https://drive.google.com/file/d/1voZyGl23TeeQa6uCyFwWBjam18u2Ec_x/view?usp=sharing',
+          },
+          {
+            text: 'View Demo Video',
+            href: 'https://youtu.be/YgVD6fI7ZWg',
+          },
+        ]}
+        timeRange="2024 Feb - Now"
+      />
+    ),
+    image: '/assets/images/into-the-darkness-cover.png',
+    tags: ['Personal Project', 'Unreal Engine', 'C++', 'Shader', 'Minimap', 'Puzzle'],
+  },
   // More works...
 ];
 
@@ -505,6 +541,7 @@ window.onload = () => {
         <div class="column is-4">
           <PortfolioWork
             key={work.id}
+            id={work.id}
             title={work.title}
             description={work.description}
             details={work.details}

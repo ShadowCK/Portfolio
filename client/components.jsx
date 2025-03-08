@@ -56,7 +56,7 @@ class PortfolioWork extends React.Component {
   render() {
     return (
       <>
-        <div className="card">
+        <div className="card" id={`work-${this.props.id}`}>
           {/* Card Image */}
           <div className="card-image" onClick={this.openModal}>
             <figure className="image is-4by3">
