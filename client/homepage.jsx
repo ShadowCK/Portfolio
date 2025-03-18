@@ -6,7 +6,7 @@ const { PortfolioWork, WorkDetail, YouTubeVideo } = require('./components.jsx');
 const portfolioWorksData = [
   {
     id: 1,
-    order: 1,
+    order: 10,
     title: 'RIT Idle',
     description: 'An idle game where you play as an RIT student.',
     details: (
@@ -64,7 +64,7 @@ const portfolioWorksData = [
   },
   {
     id: 3,
-    order: 2,
+    order: 11,
     title: 'Pong Hub',
     description: `Multiplayer Pong game with fun mechanics.`,
     details: (
@@ -141,7 +141,7 @@ const portfolioWorksData = [
   },
   {
     id: 4,
-    order: 101,
+    order: 50,
     title: 'SkillAPI Editor Returns',
     description: 'A refactored, more robust version of the SkillAPI Editor.',
     details: (
@@ -208,7 +208,7 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/skillapi-editor-cover.png',
-    tags: ['Personal Project', 'Web', 'Node.js', 'Archiver', 'pinyin'],
+    tags: ['Personal Project', 'Web', 'Node.js', 'Archiver', 'pinyin', 'Skill Editor'],
   },
   {
     id: 5,
@@ -234,7 +234,7 @@ const portfolioWorksData = [
   },
   {
     id: 6,
-    order: 5,
+    order: 7,
     title: 'Lost Castle',
     description: `A 3D scene of a lost castle in the void, replicating the first dungeon of my Minecraft MMORPG server, "New World".`,
     details: (
@@ -294,7 +294,7 @@ const portfolioWorksData = [
   },
   {
     id: 8,
-    order: 3,
+    order: 12,
     title: 'Zhao Drift',
     description: `Send and receive messages in the form of drifting bottles.`,
     details: (
@@ -352,7 +352,7 @@ const portfolioWorksData = [
   },
   {
     id: 10,
-    order: 7,
+    order: 5,
     title: `Illostath's Legacy`,
     description: `Casual game. Explore the Ethshar world as an alchemist.`,
     details: (
@@ -386,7 +386,7 @@ const portfolioWorksData = [
   },
   {
     id: 11,
-    order: 8,
+    order: 10001,
     title: 'Cat Calamity',
     description: `A tabletop card game. Play as a cat after the human apocalypse. The world collapses each turn. Survive and be the last cat standing.`,
     details: (
@@ -519,7 +519,15 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/play-cats-tag-cover.png',
-    tags: ['Team Project', 'Internship Work', 'Roblox', 'Lua', 'Roblox Studio'],
+    tags: [
+      'Team Project',
+      'Internship Work',
+      'Roblox',
+      'Lua',
+      'Roblox Studio',
+      'Internship',
+      'F84 Studio',
+    ],
   },
   {
     id: 14,
@@ -614,7 +622,7 @@ const portfolioWorksData = [
             the player needs to hide from guards and use the lightning to see through darkness.
             <br />
             Please forgive me for the poor SFX uses. The guards are actually "monsters" so I picked
-            some creepy sounds...
+            some creepy sounds... Also, no build is currently available for download.
             <br />
             <YouTubeVideo link="LAg7x_IE-HM?si=8s5AUZkNlq0K_6mT" />
           </>
@@ -622,10 +630,6 @@ const portfolioWorksData = [
         tools={['Unreal Engine']}
         role="Solo Developer"
         links={[
-          {
-            text: 'Download Latest Build',
-            href: 'https://drive.google.com/file/d/1ozyU-hb8KPSZcywwGYdEbtaTO10mNZrp/view?usp=sharing',
-          },
           {
             text: 'View Demo Video',
             href: 'https://www.youtube.com/watch?v=LAg7x_IE-HM',
@@ -636,6 +640,54 @@ const portfolioWorksData = [
     ),
     image: '/assets/images/escape-from-shawshank-cover.png',
     tags: ['Course Project', 'Unreal', 'VR', 'Escape Room', 'AI'],
+  },
+  {
+    id: 16,
+    order: 100,
+    title: 'TopLand Web (in Chinese)',
+    description: 'A web idle game inspired by my Minecraft MMORPG server, TopLand.',
+    details: (
+      <WorkDetail
+        description={<>To be added...</>}
+        tools={['Node.js']}
+        role="Solo Developer"
+        links={[
+          {
+            text: 'Play',
+            href: 'https://shadowck.github.io/TopLandWeb/',
+          },
+          {
+            text: 'Repo',
+            href: 'https://github.com/ShadowCK/TopLandWeb',
+          },
+        ]}
+        timeRange="2024 April - May"
+      />
+    ),
+    image: '/assets/images/topland-web-cover.png',
+    tags: ['Personal Project', 'Web', 'Idle'],
+  },
+  {
+    id: 17,
+    order: 100000,
+    title: 'Interstellar Drive',
+    description: 'TBA',
+    details: (
+      <WorkDetail
+        description={<>To be added...</>}
+        tools={['Unreal Engine']}
+        role="Programmer, UX Designer"
+        links={[
+          {
+            text: 'Play',
+            href: '/',
+          },
+        ]}
+        timeRange="2024 April - May"
+      />
+    ),
+    image: 'https://placehold.co/600x400',
+    tags: ['Team Project', 'Unreal Engine', 'Driving', 'Puzzle'],
   },
   // More works...
 ];
