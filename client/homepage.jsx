@@ -1,7 +1,7 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 
-const { PortfolioWork, WorkDetail } = require('./components.jsx');
+const { PortfolioWork, WorkDetail, YouTubeVideo } = require('./components.jsx');
 
 const portfolioWorksData = [
   {
@@ -444,23 +444,42 @@ const portfolioWorksData = [
     id: 12,
     order: 10000,
     title: 'Graphical Snake',
-    description: 'To be added',
+    description:
+      'Conquer the gravity and collect gems in two difficulties. Accuracy is a key to high score.',
     details: (
       <WorkDetail
-        description="To be added"
+        description={
+          <>
+            As a course project, this mini game was developed in C++ using SMFL and Box2D, with a
+            dynamic camera, custom font, text display in typing fashion, BGMs and sound effects. The
+            game itself is a simple snake game with a twist: the snake is affected by gravity (and
+            will not grow). The game features game options such as two difficulty levels and gem
+            count, where in hell mode the player cannot see their snake when close to the gem. The
+            game also has a score system mainly based on key presses, time elapsed and accuracy, the
+            accuracy decreases when the snake moves away from the gem.
+            <br />
+            <i>
+              Note: There is no executable for this mini game. Neither is the source code available
+              due to course policy. However, a demo video is provided to get a better understanding
+              of the game.
+            </i>
+            <br />
+            <YouTubeVideo link="XSzfin-ZCqM?si=4HNPptaetnpVAkcW" />
+          </>
+        }
         tools={['C++', 'SMFL', 'Box2D']}
         role="Solo Developer"
         links={[
           {
-            text: 'TBA',
-            href: '/',
+            text: 'View Demo Video',
+            href: 'https://youtu.be/XSzfin-ZCqM',
           },
         ]}
-        timeRange="TBA"
+        timeRange="2023 December"
       />
     ),
     image: '/assets/images/graphical-snake-cover.png',
-    tags: ['Course Project', 'C++', 'SMFL', 'Box2D'],
+    tags: ['Course Project', 'C++', 'SMFL', 'Box2D', 'Dynamic Camera'],
   },
   {
     id: 13,
@@ -492,7 +511,7 @@ const portfolioWorksData = [
             href: 'https://www.roblox.com/games/13875652550/Play-Cats-Tag',
           },
           {
-            text: 'Gameplay Video',
+            text: 'View Gameplay Video',
             href: 'https://www.youtube.com/watch?v=7CXE7jriAP4&ab_channel=OwletteKenz',
           },
         ]}
@@ -521,7 +540,7 @@ const portfolioWorksData = [
           </>
         }
         tools={['Unreal Engine', 'C++']}
-        role="Programmer"
+        role="Solo Developer"
         links={[
           {
             text: 'Download Latest Build',
@@ -537,6 +556,49 @@ const portfolioWorksData = [
     ),
     image: '/assets/images/into-the-darkness-cover.png',
     tags: ['Personal Project', 'Unreal Engine', 'C++', 'Shader', 'Minimap', 'Puzzle'],
+  },
+  {
+    id: 15,
+    order: -98,
+    title: 'Crank Cannon',
+    description:
+      'A rogue-lite shooting game inspired by Vampire Survivor for the handheld console Playdate.',
+    details: (
+      <WorkDetail
+        description={
+          <>
+            The game features progressive difficulty and a simple level-up system. The upgrades
+            include damage, shoot speed, bullet bounce, bullet penetration, knock-back power, extra
+            exp, etc. The biggest challenge was the performance limitation. Playdate isn't a console
+            for CPU heavy games - well, "CPU heavy" even though it's nothing in any modern PC. So I
+            had to make best use of optimization techniques like pre-rendered images, object
+            pooling, batch rendering, etc. I was a bit of a fool because it's best to make the game
+            in C++, which is 10X faster than Lua. In the future, I might get back and continue
+            working on the game, because it has a fun concept I'm passionate about.
+            <br />
+            Be aware that the build of the game is used for Playdate. You can sideload it if you
+            have one, or download Playdate SDK and run the pdx file in the Playdate Simulator.
+            <br />
+            <YouTubeVideo link="yRxvTdIcHKs?si=4aJu6fKMqUJzduG7" />
+          </>
+        }
+        tools={['Playdate SDK', 'Lua']}
+        role="Solo Developer"
+        links={[
+          {
+            text: 'Download Latest Build',
+            href: 'https://drive.google.com/file/d/1voZyGl23TeeQa6uCyFwWBjam18u2Ec_x/view?usp=sharing',
+          },
+          {
+            text: 'View Demo Video',
+            href: 'https://youtu.be/yRxvTdIcHKs',
+          },
+        ]}
+        timeRange="2024 Oct - Nov"
+      />
+    ),
+    image: '/assets/images/crank-cannon-cover.png',
+    tags: ['Personal Project', 'Playdate SDK', 'Lua', 'Roguelite', 'Shooting'],
   },
   // More works...
 ];

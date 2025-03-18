@@ -26,7 +26,14 @@ const app = express();
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      imgSrc: ["'self'", 'data:', 'https://placehold.co'], // Allow images from https://placehold.co
+      imgSrc: ["'self'", 'data:', 'https://placehold.co', 'https://i.ytimg.com'], // Allow placeholder images and Youtube thumbnails
+      frameSrc: [
+        "'self'",
+        'https://www.youtube.com',
+        'https://www.youtube-nocookie.com',
+        'https://www.google.com',
+      ], // Allow embedded Youtube videos
+      frameAncestors: ["'self'"],
     },
   }),
 );

@@ -22,6 +22,21 @@ class PortfolioWork extends React.Component {
     this.setState({
       isActive: false,
     });
+
+    // Pause all Youtube videos in the modal
+    if (!this.modalRef) {
+      return;
+    }
+    const iframes = this.modalRef.querySelectorAll('iframe');
+    iframes.forEach((iframe) => {
+      if (!/youtube(-nocookie)?\.com\/embed/.test(iframe.src)) {
+        return;
+      }
+      iframe.contentWindow.postMessage(
+        JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] }),
+        '*',
+      );
+    });
   }
 
   componentDidMount() {
@@ -34,7 +49,12 @@ class PortfolioWork extends React.Component {
 
   renderModal() {
     return ReactDOM.createPortal(
-      <div className={`modal ${this.state.isActive ? 'is-active' : ''}`}>
+      <div
+        ref={(el) => {
+          this.modalRef = el;
+        }}
+        className={`modal ${this.state.isActive ? 'is-active' : ''}`}
+      >
         <div className="modal-background" onClick={this.closeModal}></div>
         <div className="modal-card">
           <header className="modal-card-head">
@@ -90,7 +110,7 @@ class PortfolioWork extends React.Component {
 
 const WorkDetail = ({ title, description, tools, role, links, timeRange }) => (
   <div className="work-detail box">
-    <h2 className="title is-4">{title}</h2>
+    {title && <h2 className="title is-4">{title}</h2>}
     <p className="description mb-4">{description}</p>
     <div className="content">
       {tools && (
@@ -132,7 +152,26 @@ const WorkDetail = ({ title, description, tools, role, links, timeRange }) => (
   </div>
 );
 
+const YouTubeVideo = ({ width, height, link }) => {
+  const baseUrl = 'https://www.youtube-nocookie.com/embed/';
+  const [videoId, userQuery = ''] = link.split('?');
+  const fullUrl = `${baseUrl}${videoId}?${userQuery}&enablejsapi=1&rel=0`;
+  return (
+    <iframe
+      width={width || 560}
+      height={height || 315}
+      src={fullUrl}
+      title="YouTube video player"
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+      referrerPolicy="strict-origin-when-cross-origin"
+      allowFullScreen
+    ></iframe>
+  );
+};
+
 module.exports = {
   PortfolioWork,
   WorkDetail,
+  YouTubeVideo,
 };
