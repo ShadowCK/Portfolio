@@ -368,6 +368,8 @@ const portfolioWorksData = [
             this game, but I decitated most of my time to Zhao Drift and Pong Hub.
             <br />
             Note: as this is a team project, I am not able to share the source code.
+            <br />
+            <YouTubeVideo link="P4Q6Swxffjw?si=0HZHOoZQzoy1m6fz" />
           </>
         }
         tools={['Unity', 'C#', 'Vegas Pro', 'Trello Board', 'Scrum']}
@@ -386,15 +388,7 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/illostath-legacy-cover.png',
-    tags: [
-      'Course Project',
-      '5-Person Team',
-      'Unity',
-      'C#',
-      'Trello Board',
-      'Scrum',
-      'Video Trailer',
-    ],
+    tags: ['Course Project', 'Team of 5', 'Unity', 'C#', 'Trello Board', 'Scrum', 'Video Trailer'],
   },
   {
     id: 11,
@@ -425,11 +419,24 @@ const portfolioWorksData = [
             . My main focus was on the game balance, items and events ("calamities"). If you are
             interested, the design document includes everything about the game except the rules in
             detail.
+            <br />
+            The game is now transplanted to Tabletop Simulator as a workshop mod on{' '}
+            <a
+              href="https://steamcommunity.com/sharedfiles/filedetails/?id=3139751234&searchtext=cat+calamity"
+              target="_blank"
+            >
+              Steam
+            </a>
+            . You can play it by subscribing to the link below.
           </>
         }
         tools={['Brain', 'Heart', 'Soul']}
         role="Game Designer"
         links={[
+          {
+            text: 'Steam',
+            href: 'https://steamcommunity.com/sharedfiles/filedetails/?id=3139751234&searchtext=cat+calamity',
+          },
           {
             text: 'Design Doc',
             href: 'https://drive.google.com/file/d/1g8srxiX-jmlTNrfoVh4U_sAFnrzP5xqZ/view?usp=sharing',
@@ -445,11 +452,12 @@ const portfolioWorksData = [
     image: '/assets/images/cat-calamity-cover.png',
     tags: [
       'Course Project',
-      '5-Person Team',
+      'Team of 5',
       'Tabletop Game',
       'Card Game',
       'Game Design',
       'Game Balance',
+      'Tabletop Simulator',
     ],
   },
   {
@@ -511,6 +519,8 @@ const portfolioWorksData = [
             <b>DAU increased from 3200 to 5600</b>.
             <br />
             The game amassed over <b>1 million visits</b> within two months without any promotions.
+            <br />
+            <YouTubeVideo link="7CXE7jriAP4?si=SxQGPa4W00hdc1IT" />
           </>
         }
         tools={['Lua', 'Roblox Studio']}
@@ -555,6 +565,8 @@ const portfolioWorksData = [
             gems. Features a check-point system, jump-pads, using render targets as data storage for
             shaders, etc. All light orb’s time left and effect radii will change the transparency of
             objects in the scene.
+            <br />
+            <YouTubeVideo link="YgVD6fI7ZWg?si=5GPqE2LPRZjY9y3S" />
           </>
         }
         tools={['Unreal Engine', 'C++']}
@@ -858,6 +870,7 @@ const portfolioWorksData = [
       'Honorable Mention',
       'Triangle Game Jam',
       'Team Project',
+      'Team of 6',
       'Unreal Engine',
       'Perforce',
     ],
