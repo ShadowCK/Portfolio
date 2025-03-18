@@ -472,10 +472,14 @@ const portfolioWorksData = [
         description={
           <>
             Refactored the movement system and buff system to allow stack-able effects such as slow
-            and speed-up at the same time. Cooperated with our UI designer to implement various UIs.
-            The biggest challenge was using coroutines to implement the tagging/tagged visuals as it
-            has various moving components that relies on delays. Also added VFX and SFX for many
-            cats.
+            and speed-up at the same time. Cooperated with our UI designer to implement various UIs
+            such as a 3D nameplate. The biggest challenge was using coroutines to implement the
+            tagging/tagged visuals as it has various moving components that relies on delays. Also
+            added VFX and SFX for many cats. The gameplay video includes the nameplate and tagging /
+            tagged transition UI.
+            <br />
+            One week after adding the tagging / tagged transition UI, VFX and SFX to each cat, the{' '}
+            <b>DAU increased from 3200 to 5600</b>.
             <br />
             The game amassed over <b>1 million visits</b> within two months without any promotions.
           </>
@@ -486,6 +490,10 @@ const portfolioWorksData = [
           {
             text: 'Play',
             href: 'https://www.roblox.com/games/13875652550/Play-Cats-Tag',
+          },
+          {
+            text: 'Gameplay Video',
+            href: 'https://www.youtube.com/watch?v=7CXE7jriAP4&ab_channel=OwletteKenz',
           },
         ]}
         timeRange="2024 May - August"
