@@ -559,7 +559,7 @@ const portfolioWorksData = [
   },
   {
     id: 15,
-    order: -98,
+    order: -97,
     title: 'Crank Cannon',
     description:
       'A rogue-lite shooting game inspired by Vampire Survivor for the handheld console Playdate.',
@@ -599,6 +599,43 @@ const portfolioWorksData = [
     ),
     image: '/assets/images/crank-cannon-cover.png',
     tags: ['Personal Project', 'Playdate SDK', 'Lua', 'Roguelite', 'Shooting'],
+  },
+  {
+    id: 16,
+    order: -98,
+    title: 'Escape from Shawshank',
+    description: 'A VR escape room game inspired by the movie "The Shawshank Redemption".',
+    details: (
+      <WorkDetail
+        description={
+          <>
+            Has simple enemy AI (behavior tree). In the first level, the player (Andy) needs find
+            their cell in the prison and avoid getting caught by the guards. In the second level,
+            the player needs to hide from guards and use the lightning to see through darkness.
+            <br />
+            Please forgive me for the poor SFX uses. The guards are actually "monsters" so I picked
+            some creepy sounds...
+            <br />
+            <YouTubeVideo link="LAg7x_IE-HM?si=8s5AUZkNlq0K_6mT" />
+          </>
+        }
+        tools={['Unreal Engine']}
+        role="Solo Developer"
+        links={[
+          {
+            text: 'Download Latest Build',
+            href: 'https://drive.google.com/file/d/1ozyU-hb8KPSZcywwGYdEbtaTO10mNZrp/view?usp=sharing',
+          },
+          {
+            text: 'View Demo Video',
+            href: 'https://www.youtube.com/watch?v=LAg7x_IE-HM',
+          },
+        ]}
+        timeRange="2024 March - May"
+      />
+    ),
+    image: '/assets/images/escape-from-shawshank-cover.png',
+    tags: ['Course Project', 'Unreal', 'VR', 'Escape Room', 'AI'],
   },
   // More works...
 ];
