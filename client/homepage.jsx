@@ -577,7 +577,7 @@ const portfolioWorksData = [
             working on the game, because it has a fun concept I'm passionate about.
             <br />
             Be aware that the build of the game is used for Playdate. You can sideload it if you
-            have one, or download Playdate SDK and run the pdx file in the Playdate Simulator.
+            have one, or download Playdate SDK and run the pdx folder in the Playdate Simulator.
             <br />
             <YouTubeVideo link="yRxvTdIcHKs?si=4aJu6fKMqUJzduG7" />
           </>
@@ -587,7 +587,7 @@ const portfolioWorksData = [
         links={[
           {
             text: 'Download Latest Build',
-            href: 'https://drive.google.com/file/d/1voZyGl23TeeQa6uCyFwWBjam18u2Ec_x/view?usp=sharing',
+            href: 'https://drive.google.com/file/d/1ozyU-hb8KPSZcywwGYdEbtaTO10mNZrp/view?usp=sharing',
           },
           {
             text: 'View Demo Video',
