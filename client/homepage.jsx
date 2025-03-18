@@ -6,7 +6,7 @@ const { PortfolioWork, WorkDetail, YouTubeVideo } = require('./components.jsx');
 const portfolioWorksData = [
   {
     id: 1,
-    order: 10,
+    order: 13,
     title: 'RIT Idle',
     description: 'An idle game where you play as an RIT student.',
     details: (
@@ -141,7 +141,7 @@ const portfolioWorksData = [
   },
   {
     id: 4,
-    order: 50,
+    order: 10,
     title: 'SkillAPI Editor Returns',
     description: 'A refactored, more robust version of the SkillAPI Editor.',
     details: (
@@ -357,7 +357,19 @@ const portfolioWorksData = [
     description: `Casual game. Explore the Ethshar world as an alchemist.`,
     details: (
       <WorkDetail
-        description={`This is a course project for IGME-320, "Game Design and Development II". We used Scrum and Trello Board to manage the project. It proved to be very useful and motivating. I was one of the two programmers in the team, responsible for the item management system, sound system, debugging and QoL improvements. I also made a video trailer for the game. I enjoyed working with the team and learned that Unity sucks. It's just too heavy for a tiny game. Next time I'll try Godot or Unreal Engine. I wish I had more contribution to this game, but I decitated most of my time to Zhao Drift and Pong Hub. Note: as this is a team project, I may not be able to share the source code.`}
+        description={
+          <>
+            This is a course project for IGME-320, "Game Design and Development II". We used Scrum
+            and Trello Board to manage the project. It proved to be very useful and motivating. I
+            was one of the two programmers in the team, responsible for the item management system,
+            sound system, debugging and QoL improvements. I also made a video trailer for the game.
+            I enjoyed working with the team and learned that Unity sucks. It's just too heavy for a
+            tiny game. Next time I'll try Godot or Unreal Engine. I wish I had more contribution to
+            this game, but I decitated most of my time to Zhao Drift and Pong Hub.
+            <br />
+            Note: as this is a team project, I am not able to share the source code.
+          </>
+        }
         tools={['Unity', 'C#', 'Vegas Pro', 'Trello Board', 'Scrum']}
         role="Programmer, Video Editor"
         links={[
@@ -458,11 +470,9 @@ const portfolioWorksData = [
             game also has a score system mainly based on key presses, time elapsed and accuracy, the
             accuracy decreases when the snake moves away from the gem.
             <br />
-            <i>
-              Note: There is no executable for this mini game. Neither is the source code available
-              due to course policy. However, a demo video is provided to get a better understanding
-              of the game.
-            </i>
+            Note: There is no executable for this mini game. Neither is the source code available
+            due to course policy. However, a demo video is provided to get a better understanding of
+            the game.
             <br />
             <YouTubeVideo link="XSzfin-ZCqM?si=4HNPptaetnpVAkcW" />
           </>
@@ -688,6 +698,169 @@ const portfolioWorksData = [
     ),
     image: 'https://placehold.co/600x400',
     tags: ['Team Project', 'Unreal Engine', 'Driving', 'Puzzle'],
+  },
+  {
+    id: 18,
+    order: 100000,
+    title: 'Save the Crush',
+    description: 'TBA',
+    details: (
+      <WorkDetail
+        description={<>To be added...</>}
+        tools={['RPG Maker']}
+        role="Solo Developer"
+        links={[
+          {
+            text: 'Play',
+            href: '/',
+          },
+        ]}
+        timeRange="2016"
+      />
+    ),
+    image: 'https://placehold.co/600x400',
+    tags: [
+      'Personal Project',
+      'RPG Maker XP',
+      'RPG',
+      'Storyline Branches',
+      'Tower of the Sorcerer like',
+    ],
+  },
+  {
+    id: 19,
+    order: 100000,
+    title: 'New World',
+    description: 'TBA',
+    details: (
+      <WorkDetail
+        description={<>To be added...</>}
+        tools={['Minecraft', 'Java', 'Spigot API', 'Forge API']}
+        role="Solo Developer"
+        links={[
+          {
+            text: 'Play',
+            href: '/',
+          },
+        ]}
+        timeRange="2017 - 2021"
+      />
+    ),
+    image: 'https://placehold.co/600x400',
+    tags: ['Personal Project', 'MMORPG', 'Minecraft', 'Java'],
+  },
+  {
+    id: 20,
+    order: 100000,
+    title: 'My Portfolio',
+    description: 'Yes, this website.',
+    details: (
+      <WorkDetail
+        description={<>To be added...</>}
+        tools={['Node.js', 'Express']}
+        role="Solo Developer"
+        links={[
+          {
+            text: 'You are already here!',
+            href: '/',
+          },
+        ]}
+        timeRange="2023 Dec - Now"
+      />
+    ),
+    image: 'https://placehold.co/600x400',
+    tags: ['Personal Project', 'Web', 'Node.js', 'Express'],
+  },
+  {
+    id: 21,
+    order: -1000,
+    title: 'Backpack Go',
+    description: 'A Backpack Hero like mobile game.',
+    details: (
+      <WorkDetail
+        description={
+          <>
+            Contributed to designing and implementing items for combat. Implemented an indicator
+            showing next stages. Implemented an on-rails (linear) tutorial system, featuring dynamic
+            environment (mist and buildings), NPCs, dialogue, quests and smooth animation, boosting
+            <b>Day 1 Retention from 29% to 35%</b>. Implemented a WeChat Game Club activity reward
+            system, which made the game club posts rocket from less than <b>5 posts to 300 posts</b>{' '}
+            a day when it released.
+            <br />
+            Note: The game is only available in China (Wechat, Douyin) and Canada (Google Play, App
+            Store).
+            <br />
+            <YouTubeVideo link="NlaD7aWs3lA?si=Mu9znF9QR_BTYkle" />
+          </>
+        }
+        tools={['Cocos Creator', 'TypeScript']}
+        role="Programmer, Designer"
+        links={[
+          {
+            text: 'View Gameplay Video',
+            href: 'https://www.youtube.com/watch?v=NlaD7aWs3lA',
+          },
+        ]}
+        timeRange="2024 May - August"
+      />
+    ),
+    image: '/assets/images/backpack-go-cover.jpg',
+    tags: [
+      'Team Project',
+      'Cocos Creator',
+      'TypeScript',
+      'Mobile Game',
+      'Internship',
+      'Yoozoo Games',
+    ],
+  },
+  {
+    id: 22,
+    order: -200,
+    title: 'Grid Master',
+    description: 'A Backpack Hero like mobile game.',
+    details: (
+      <WorkDetail
+        description={
+          <>
+            Local PVP shooting game for the one-week{' '}
+            <a href="https://entrepreneurship.ncsu.edu/trianglegamejam/" target="_blank">
+              Triangle Game Jam
+            </a>{' '}
+            (Epic x Duke x UNC x NC State), twisting tic-tac-toe into capturing 9 dimensions. As
+            Lead Programmer and Designer, implemented shooting, auto aim, portals, power-ups, game
+            overlay, crosshair and mini-map. Made initial game design and sound choices. Devoted
+            passionate 115 hours. The game won Best Sound Design Award and Honorable Mention for
+            Best Game Award.
+            <br />
+            <YouTubeVideo link="NSNpAHGLr-o?si=DLGEfppAmb9IgZsp" />
+          </>
+        }
+        tools={['Unreal Engine', 'Perforce']}
+        role="Lead Programmer, Lead Designer"
+        links={[
+          {
+            text: 'Itch.io',
+            href: 'https://kerrylu.itch.io/gridmaster',
+          },
+          {
+            text: 'View Gameplay Video',
+            href: 'https://www.youtube.com/watch?v=NSNpAHGLr-o',
+          },
+        ]}
+        timeRange="2025 Feb 23 - March 1"
+      />
+    ),
+    image: '/assets/images/grid-master-cover.png',
+    tags: [
+      'Award Winning',
+      'Best Sound Design',
+      'Honorable Mention',
+      'Triangle Game Jam',
+      'Team Project',
+      'Unreal Engine',
+      'Perforce',
+    ],
   },
   // More works...
 ];
