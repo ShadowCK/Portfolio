@@ -691,7 +691,7 @@ const portfolioWorksData = [
   },
   {
     id: 17,
-    order: 100000,
+    order: -100000,
     title: 'Interstellar Drive',
     description: 'TBA',
     details: (
@@ -709,7 +709,7 @@ const portfolioWorksData = [
       />
     ),
     image: 'https://placehold.co/600x400',
-    tags: ['Team Project', 'Unreal Engine', 'Driving', 'Puzzle'],
+    tags: ['Capstone', 'Team Project', 'Unreal Engine', 'Driving', 'Puzzle'],
   },
   {
     id: 18,
@@ -785,7 +785,7 @@ const portfolioWorksData = [
   },
   {
     id: 21,
-    order: -1000,
+    order: -1,
     title: 'Backpack Go',
     description: 'A Backpack Hero like mobile game.',
     details: (
@@ -828,9 +828,9 @@ const portfolioWorksData = [
   },
   {
     id: 22,
-    order: -200,
+    order: -100,
     title: 'Grid Master',
-    description: 'A Backpack Hero like mobile game.',
+    description: 'Local 1V1 shooting game for Triangle Game Jam.',
     details: (
       <WorkDetail
         description={
