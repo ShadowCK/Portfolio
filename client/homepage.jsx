@@ -1,7 +1,5 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-
-const { PortfolioWork, WorkDetail, YouTubeVideo } = require('./components.jsx');
+import { createRoot } from 'react-dom/client';
+import { PortfolioWork, WorkDetail, YouTubeVideo } from './components.jsx';
 
 const portfolioWorksData = [
   {
@@ -13,7 +11,7 @@ const portfolioWorksData = [
       <WorkDetail
         description={`This was originally a course project for IGME-235, "Intro to Game Web Tech" - essentailly a web development course. I decided to continue working on it after the course ended, but only for a couple of weeks. I was quite a beginner at web development so my skills limited my ability to implement more features. I might come back to this project in the future.`}
         tools={['HTML', 'CSS', 'JavaScript', 'Howler.js']}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           { text: 'Play', href: 'https://shadowck.github.io/RIT-Idle/' },
           { text: 'Repo', href: 'https://github.com/ShadowCK/RIT-Idle' },
@@ -39,19 +37,23 @@ const portfolioWorksData = [
             transfer to the Game Design and Development program after my first semester. And this
             project was made during that semester for the course IGME.101 - "Interact Des & Alg Prob
             Solv I", one of the 3-course sequence that the NMID students have to take. I enjoyed{' '}
-            <a href="https://www.rit.edu/directory/wmhics-w-michelle-harris" target="_blank">
+            <a
+              href="https://www.rit.edu/directory/wmhics-w-michelle-harris"
+              target="_blank"
+              rel="noreferrer"
+            >
               Prof. Harris
             </a>
-            {"'"} lecture and had fun with p5.js. For the final project, we were asked to make
-            "Targets" and "Influencers" in a p5.js scene. I played a lot of idle games over the past
-            6, 7 years so I decided to make such a game, in which you can technically idle it
-            (however the idle gameplay wasn't the focus) or manually command your workers. My
-            biggest accomplishment was the waypoint system. Hold shift to place waypoints and view
-            the path. The workers will follow the path and do the work.
+            ' lecture and had fun with p5.js. For the final project, we were asked to make "Targets"
+            and "Influencers" in a p5.js scene. I played a lot of idle games over the past 6, 7
+            years so I decided to make such a game, in which you can technically idle it (however
+            the idle gameplay wasn't the focus) or manually command your workers. My biggest
+            accomplishment was the waypoint system. Hold shift to place waypoints and view the path.
+            The workers will follow the path and do the work.
           </>
         }
         tools={['P5.js', 'Aseprite']}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           { text: 'Play', href: 'https://shadowck.github.io/Lazy-Garden/' },
           { text: 'Repo', href: 'https://github.com/ShadowCK/Lazy-Garden' },
@@ -117,7 +119,7 @@ const portfolioWorksData = [
           'MongoDB',
           'Redis',
         ]}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           { text: 'Play', href: 'https://pong-hub-afa594aad9a7.herokuapp.com/' },
           { text: 'Repo', href: 'https://github.com/ShadowCK/Pong-Hub' },
@@ -189,7 +191,7 @@ const portfolioWorksData = [
           </>
         }
         tools={['Node.js', 'Archiver', 'pinyin']}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           {
             text: 'Editor v0.2.9',
@@ -219,7 +221,7 @@ const portfolioWorksData = [
       <WorkDetail
         description={`A course project for IGME-235, 'Intro to Game Web Tech' - essentially a web development course. This was the first web app I ever made, and it remains one of my proudest works. I dedicated a considerable amount of time to refining its user experience and learned a great deal about web development in the process. The app features a sound manager that supports sound variants, leveraging the basic functionality of Howler.js. The UI is smooth and dynamic, with almost every action accompanied by visual transitions and sound feedback. It boasts a leaderboard using the Local Storage API, featuring a well-thought-out scoring system, a sidebar for question navigation, and a settings panel that appears when you hover over its exposed edge (when taking a quiz). At that time, I didn’t know any CSS frameworks, so I wrote all the CSS rules myself - a whopping 700 lines! The main.js file was extensive too, with 1150 lines, mainly because I consolidated most functions into one script. This course marked the beginning of my web development journey and my first serious foray into JavaScript. However, my passion for these projects was stronger than ever. I knew nothing and was eager to try everything. If you ask me to write 700 lines of CSS now, I'd probably kill myself. It's fascinating, isn't it? Looking back at our childhood, we were thrilled by any simple game, even things that can hardly be called games. But now, we've become so selective, so experienced, so mature, and perhaps, a bit more jaded.`}
         tools={['HTML/CSS/JS', 'Howler.js', 'Open Trivia Database']}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           {
             text: 'Play',
@@ -241,7 +243,7 @@ const portfolioWorksData = [
       <WorkDetail
         description={`The final project for IGME-219, "3D Animation and Asset Production". The goal was to build a 3D scene with original assets. I decided to recreate the first dungeon of my Minecraft MMORPG server, "New World". I used Maya to make models for the castle and props, and Substance Painter to texture them. I added post processing in Unity so that the scene looks more appealing. I also made a script for the floating rocks so they move up and down, and pause when the player stands on them. However, the castle's model was not cleaned up (was a headache to me), causing its UV map to be messed up.`}
         tools={['Maya', 'Substance Painter', 'Unity', 'C#']}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           {
             text: 'Download Final Build',
@@ -275,7 +277,7 @@ const portfolioWorksData = [
       <WorkDetail
         description={`A course project for IGME-202, "Interactive Media Development." We were tasked with creating a shmup (shoot 'em up) game. My original concept was ambitious: a side-scrolling shooter featuring two distinct modes – a gunner mode (reminiscent of Contra) and an aircraft mode, inspired by the Viking unit from StarCraft II. In this design, players would collect energy cores to temporarily switch to the more powerful and score-heavy aircraft mode. The final showdown was planned to be an intense battle in aircraft mode (without the need for energy cores at this point). The two modes were designed to offer varied gameplay experiences – one focusing on survival and collection, the other on destruction and scoring, with one mode featuring auto-fire and the other allowing for manual, free-directional shooting. However, due to time constraints and other course commitments, the project's scope was significantly reduced. The final version featured only the aircraft mode and omitted the boss fight. Nonetheless, I successfully implemented several key features: five enemy types, a dynamic health bar, a seamlessly scrolling background, two difficulty levels, enemy waves, a scoring system, and level-up enhancements triggered at specific score milestones. Additionally, I introduced a unique mechanic where bullets can destroy each other, enhancing the gameplay strategy. Meteors were also added as an obstacle, offering a tactical element by blocking enemy bullets.`}
         tools={['Unity', 'C#']}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           {
             text: 'Play',
@@ -301,7 +303,7 @@ const portfolioWorksData = [
       <WorkDetail
         description={`A course project for the advanced elective course, IGME-430, "Rich Media Web App Development II." Initially, I aimed to create an app for private chats with my friends, featuring customizable options, and thus named it 'Zhao Chat.' However, I later pivoted to a more intriguing concept of chatting with random people in an aesthetically appealing experience. My professor commented, 'This project almost feels like an art piece. The ability to either destroy the bottle or send it back into the pool is really cool and interesting.' And I wholeheartedly agree. The concept is engaging, and the UI design is beautiful. I'm proud of this project. Given more time, I would refactor it to use Express, React, and Socket.io, and add additional features like user authentication, the ability to add comments to bottles, and user-generated pools (in contrast to the public one).`}
         tools={['Node.js', 'Bulma', 'Webpack', 'CircleCI', 'ESLint', 'Underscore']}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           {
             text: 'Play',
@@ -337,7 +339,7 @@ const portfolioWorksData = [
       <WorkDetail
         description={`Human auditory perception of frequency is based on a logarithmic function. In this visualization, the columns representing frequency within the central circular ring are arranged in accordance with this phenomenon. Additionally, the width of the columns for lower frequencies is larger, reflecting the human ear's increased sensitivity to these frequencies. The color of the ring is determined by Perlin noise, creating a smooth gradient. The balls are another representation of volumes on the frequency spectrum. Unlike the ring, they are aligned linearly, with colors ranging from hue 0 to 360. The application also implements a beat detection algorithm. The ring and balls react to the beat, creating a dynamic and interesting visual effect that you will notice when you try it out. The app includes audio nodes and toggleable visual effects (by modifying the pixels of the canvas' imageData), enhancing the experience. Unfortunately, due to time constraints, I wasn't able to implement a file upload system to support playing local music. I had also originally planned to support the Spotify API.`}
         tools={['Canvas', 'Web Audio', 'HTML/CSS/JS', 'ES6 Module']}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           {
             text: 'Play',
@@ -373,7 +375,7 @@ const portfolioWorksData = [
           </>
         }
         tools={['Unity', 'C#', 'Vegas Pro', 'Trello Board', 'Scrum']}
-        role="Programmer, Video Editor"
+        roleName="Programmer, Video Editor"
         links={[
           {
             text: 'Download Final Build',
@@ -405,15 +407,15 @@ const portfolioWorksData = [
             are not entirely accurate. This is because, as new content was added, the listed names
             weren't updated. In essence, every team member significantly contributed to most aspects
             of the project, except for the art. The lovely art was done by{' '}
-            <a href="https://www.linkedin.com/in/liamarmitage/" target="_blank">
+            <a href="https://www.linkedin.com/in/liamarmitage/" target="_blank" rel="noreferrer">
               Liam
             </a>
             ,{' '}
-            <a href="https://www.linkedin.com/in/conrad-chaffee/" target="_blank">
+            <a href="https://www.linkedin.com/in/conrad-chaffee/" target="_blank" rel="noreferrer">
               Conrad
             </a>{' '}
             and{' '}
-            <a href="https://www.linkedin.com/in/petercat/" target="_blank">
+            <a href="https://www.linkedin.com/in/petercat/" target="_blank" rel="noreferrer">
               Peter
             </a>
             . My main focus was on the game balance, items and events ("calamities"). If you are
@@ -424,6 +426,7 @@ const portfolioWorksData = [
             <a
               href="https://steamcommunity.com/sharedfiles/filedetails/?id=3139751234&searchtext=cat+calamity"
               target="_blank"
+              rel="noreferrer"
             >
               Steam
             </a>
@@ -431,7 +434,7 @@ const portfolioWorksData = [
           </>
         }
         tools={['Brain', 'Heart', 'Soul']}
-        role="Game Designer"
+        roleName="Game Designer"
         links={[
           {
             text: 'Steam',
@@ -486,7 +489,7 @@ const portfolioWorksData = [
           </>
         }
         tools={['C++', 'SMFL', 'Box2D']}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           {
             text: 'View Demo Video',
@@ -524,7 +527,7 @@ const portfolioWorksData = [
           </>
         }
         tools={['Lua', 'Roblox Studio']}
-        role="Programmer"
+        roleName="Programmer"
         links={[
           {
             text: 'Play',
@@ -570,7 +573,7 @@ const portfolioWorksData = [
           </>
         }
         tools={['Unreal Engine', 'C++']}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           {
             text: 'Download Latest Build',
@@ -613,7 +616,7 @@ const portfolioWorksData = [
           </>
         }
         tools={['Playdate SDK', 'Lua']}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           {
             text: 'Download Latest Build',
@@ -650,7 +653,7 @@ const portfolioWorksData = [
           </>
         }
         tools={['Unreal Engine']}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           {
             text: 'View Demo Video',
@@ -672,7 +675,7 @@ const portfolioWorksData = [
       <WorkDetail
         description={<>To be added...</>}
         tools={['Node.js']}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           {
             text: 'Play',
@@ -698,7 +701,7 @@ const portfolioWorksData = [
       <WorkDetail
         description={<>To be added...</>}
         tools={['Unreal Engine']}
-        role="Programmer, UX Designer"
+        roleName="Programmer, UX Designer"
         links={[
           {
             text: 'Play',
@@ -720,7 +723,7 @@ const portfolioWorksData = [
       <WorkDetail
         description={<>To be added...</>}
         tools={['RPG Maker']}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           {
             text: 'Play',
@@ -748,7 +751,7 @@ const portfolioWorksData = [
       <WorkDetail
         description={<>To be added...</>}
         tools={['Minecraft', 'Java', 'Spigot API', 'Forge API']}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           {
             text: 'Play',
@@ -770,7 +773,7 @@ const portfolioWorksData = [
       <WorkDetail
         description={<>To be added...</>}
         tools={['Node.js', 'Express']}
-        role="Solo Developer"
+        roleName="Solo Developer"
         links={[
           {
             text: 'You are already here!',
@@ -806,7 +809,7 @@ const portfolioWorksData = [
           </>
         }
         tools={['Cocos Creator', 'TypeScript']}
-        role="Programmer, Designer"
+        roleName="Programmer, Designer"
         links={[
           {
             text: 'View Gameplay Video',
@@ -836,7 +839,11 @@ const portfolioWorksData = [
         description={
           <>
             Local PVP shooting game for the one-week{' '}
-            <a href="https://entrepreneurship.ncsu.edu/trianglegamejam/" target="_blank">
+            <a
+              href="https://entrepreneurship.ncsu.edu/trianglegamejam/"
+              target="_blank"
+              rel="noreferrer"
+            >
               Triangle Game Jam
             </a>{' '}
             (Epic x Duke x UNC x NC State), twisting tic-tac-toe into capturing 9 dimensions. As
@@ -849,7 +856,7 @@ const portfolioWorksData = [
           </>
         }
         tools={['Unreal Engine', 'Perforce']}
-        role="Lead Programmer, Lead Designer"
+        roleName="Lead Programmer, Lead Designer"
         links={[
           {
             text: 'Itch.io',
@@ -879,13 +886,14 @@ const portfolioWorksData = [
 ];
 
 window.onload = () => {
-  ReactDOM.render(
+  const container = document.getElementById('works');
+  const root = createRoot(container);
+  root.render(
     portfolioWorksData
       .sort((a, b) => a.order - b.order || 0)
       .map((work) => (
-        <div class="column is-4">
+        <div className="column is-4" key={`${work.id}-${work.title}`}>
           <PortfolioWork
-            key={work.id}
             id={work.id}
             title={work.title}
             description={work.description}
@@ -895,6 +903,5 @@ window.onload = () => {
           />
         </div>
       )),
-    document.getElementById('works'),
   );
 };

@@ -1,5 +1,5 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 class PortfolioWork extends React.Component {
   constructor(props) {
@@ -55,15 +55,24 @@ class PortfolioWork extends React.Component {
         }}
         className={`modal ${this.state.isActive ? 'is-active' : ''}`}
       >
-        <div className="modal-background" onClick={this.closeModal}></div>
+        <div
+          className="modal-background"
+          onClick={this.closeModal}
+          role="button"
+          aria-label="Close modal"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') this.closeModal();
+          }}
+        />
         <div className="modal-card">
           <header className="modal-card-head">
             <p className="modal-card-title">{this.props.title}</p>
-            <button className="delete" aria-label="close" onClick={this.closeModal}></button>
+            <button type="button" className="delete" aria-label="close" onClick={this.closeModal} />
           </header>
           <section className="modal-card-body">{this.props.details}</section>
           <footer className="modal-card-foot">
-            <button className="button is-success" onClick={this.closeModal}>
+            <button type="button" className="button is-success" onClick={this.closeModal}>
               Close
             </button>
           </footer>
@@ -78,20 +87,38 @@ class PortfolioWork extends React.Component {
       <>
         <div className="card" id={`work-${this.props.id}`}>
           {/* Card Image */}
-          <div className="card-image" onClick={this.openModal}>
+          <div
+            className="card-image"
+            onClick={this.openModal}
+            role="button"
+            aria-label="Open work details"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') this.openModal();
+            }}
+          >
             <figure className="image is-4by3">
-              <img src={this.props.image} alt="Image of the work" />
+              <img src={this.props.image} alt={this.props.title || 'Work cover'} />
             </figure>
           </div>
           {/* Card Content */}
-          <div className="card-content" onClick={this.openModal}>
+          <div
+            className="card-content"
+            onClick={this.openModal}
+            role="button"
+            aria-label="Open work details"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') this.openModal();
+            }}
+          >
             <div className="media">
               <div className="media-content">
                 <p className="title is-4">{this.props.title}</p>
                 <div className="tags">
                   {this.props.tags &&
-                    this.props.tags.map((tag, index) => (
-                      <span key={index} className="tag">
+                    this.props.tags.map((tag) => (
+                      <span key={String(tag)} className="tag">
                         {tag}
                       </span>
                     ))}
@@ -108,51 +135,52 @@ class PortfolioWork extends React.Component {
   }
 }
 
-const WorkDetail = ({ title, description, tools, role, links, timeRange }) => (
-  <div className="work-detail box">
-    {title && <h2 className="title is-4">{title}</h2>}
-    <p className="description mb-4">{description}</p>
-    <div className="content">
-      {tools && (
-        <p>
-          <strong>Tools:</strong> {tools.join(', ')}
-        </p>
-      )}
-      {role && (
-        <p>
-          <strong>Role:</strong> {role}
-        </p>
-      )}
-      {links && links.length > 0 && (
-        <p>
-          <strong>Links:</strong>{' '}
-          {links.map((link, index) => (
-            <span>
-              <a
-                key={index}
-                className="tag is-link"
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                title={link.href}
-              >
-                {link.text}
-              </a>
-              {index < links.length - 1 ? ' ' : ''}
-            </span>
-          ))}
-        </p>
-      )}
-      {timeRange && (
-        <p>
-          <strong>Time Range:</strong> {timeRange}
-        </p>
-      )}
+function WorkDetail({ title, description, tools, roleName, links, timeRange }) {
+  return (
+    <div className="work-detail box">
+      {title && <h2 className="title is-4">{title}</h2>}
+      <p className="description mb-4">{description}</p>
+      <div className="content">
+        {tools && (
+          <p>
+            <strong>Tools:</strong> {tools.join(', ')}
+          </p>
+        )}
+        {roleName && (
+          <p>
+            <strong>Role:</strong> {roleName}
+          </p>
+        )}
+        {links && links.length > 0 && (
+          <p>
+            <strong>Links:</strong>{' '}
+            {links.map((link, index) => (
+              <span key={link.href || link.text || index}>
+                <a
+                  className="tag is-link"
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={link.href}
+                >
+                  {link.text}
+                </a>
+                {index < links.length - 1 ? ' ' : ''}
+              </span>
+            ))}
+          </p>
+        )}
+        {timeRange && (
+          <p>
+            <strong>Time Range:</strong> {timeRange}
+          </p>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+}
 
-const YouTubeVideo = ({ width, height, link }) => {
+function YouTubeVideo({ width, height, link }) {
   const baseUrl = 'https://www.youtube-nocookie.com/embed/';
   const [videoId, userQuery = ''] = link.split('?');
   const fullUrl = `${baseUrl}${videoId}?${userQuery}&enablejsapi=1&rel=0`;
@@ -166,12 +194,8 @@ const YouTubeVideo = ({ width, height, link }) => {
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
       referrerPolicy="strict-origin-when-cross-origin"
       allowFullScreen
-    ></iframe>
+    />
   );
-};
+}
 
-module.exports = {
-  PortfolioWork,
-  WorkDetail,
-  YouTubeVideo,
-};
+export { PortfolioWork, WorkDetail, YouTubeVideo };

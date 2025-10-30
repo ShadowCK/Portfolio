@@ -1,16 +1,50 @@
 {
-  "extends": ["airbnb/base", "prettier"],
+  "parser": "@babel/eslint-parser",
+  "plugins": ["react", "react-hooks", "jsx-a11y"],
+  "extends": [
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "prettier"
+  ],
   "rules": {
     "no-underscore-dangle": "off",
     "no-plusplus": "off",
-    "import/extensions": "off"
+    "import/extensions": "off",
+    // Using React 17+ automatic JSX runtime; no need to import React
+    "react/react-in-jsx-scope": "off",
+    // Development-time relaxations to reduce noise
+    "react/prop-types": "off",
+    "react/destructuring-assignment": "off",
+    "react/no-unescaped-entities": "off",
+    "react/no-deprecated": "warn",
+    "react/sort-comp": "off",
+    "react/no-array-index-key": "warn",
+    "react/jsx-key": "warn",
+    "react/button-has-type": "warn",
+    "jsx-a11y/aria-role": "warn",
+    "jsx-a11y/no-static-element-interactions": "warn",
+    "jsx-a11y/click-events-have-key-events": "warn",
+    "jsx-a11y/img-redundant-alt": "warn"
   },
-  // For dev purpose only. Will be removed after project is done.
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "requireConfigFile": false
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx"]
+      }
+    }
   },
   "env": {
     "browser": true,
