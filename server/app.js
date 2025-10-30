@@ -29,6 +29,13 @@ app.use(
         'https://www.google.com',
       ], // Allow embedded Youtube videos
       frameAncestors: ["'self'"],
+      styleSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        'https://cdn.jsdelivr.net',
+        'https://cdnjs.cloudflare.com',
+      ],
+      fontSrc: ["'self'", 'data:', 'https://cdn.jsdelivr.net', 'https://cdnjs.cloudflare.com'],
     },
   }),
 );
@@ -48,5 +55,5 @@ app.listen(port, (err) => {
   if (err) {
     throw err;
   }
-  console.log(`Listening on port ${port}`);
+  // Server started
 });

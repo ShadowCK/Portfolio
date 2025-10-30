@@ -48,34 +48,62 @@ class PortfolioWork extends React.Component {
   }
 
   renderModal() {
+    const active = this.state.isActive;
     return ReactDOM.createPortal(
       <div
         ref={(el) => {
           this.modalRef = el;
         }}
-        className={`modal ${this.state.isActive ? 'is-active' : ''}`}
       >
+        {/* Dimmer 包裹 Modal，避免点击 Modal 触发关闭 */}
         <div
-          className="modal-background"
-          onClick={this.closeModal}
+          className={`ui page dimmer modals ${active ? 'visible active' : ''}`}
+          onClick={(e) => {
+            // 仅当点击在模态框外部时才关闭
+            const modalEl = this.modalRef && this.modalRef.querySelector('.ui.modal');
+            if (modalEl && modalEl.contains(e.target)) return;
+            this.closeModal();
+          }}
           role="button"
           aria-label="Close modal"
           tabIndex={0}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') this.closeModal();
           }}
-        />
-        <div className="modal-card">
-          <header className="modal-card-head">
-            <p className="modal-card-title">{this.props.title}</p>
-            <button type="button" className="delete" aria-label="close" onClick={this.closeModal} />
-          </header>
-          <section className="modal-card-body">{this.props.details}</section>
-          <footer className="modal-card-foot">
-            <button type="button" className="button is-success" onClick={this.closeModal}>
-              Close
-            </button>
-          </footer>
+          style={{ cursor: 'pointer' }}
+        >
+          <div
+            className={`ui standard modal ${active ? 'visible active' : ''}`}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`modal-title-${this.props.id}`}
+          >
+            <div className="header" id={`modal-title-${this.props.id}`}>
+              {this.props.title}
+              <button
+                type="button"
+                aria-label="close"
+                className="ui right floated icon button mini"
+                onClick={this.closeModal}
+              >
+                <i aria-hidden className="close icon" />
+              </button>
+            </div>
+            <div className="content">{this.props.details}</div>
+            <div className="actions">
+              <div
+                className="ui primary button"
+                onClick={this.closeModal}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') this.closeModal();
+                }}
+              >
+                Close
+              </div>
+            </div>
+          </div>
         </div>
       </div>,
       this.modalRoot,
@@ -83,12 +111,23 @@ class PortfolioWork extends React.Component {
   }
 
   render() {
+    const tagColor = (tag) => {
+      const t = String(tag).toLowerCase();
+      if (/(award|best|honorable)/.test(t)) return 'yellow';
+      if (/(react|web)/.test(t)) return 'blue';
+      if (/(node|express|mongo|redis)/.test(t)) return 'green';
+      if (/(unity|c#|unreal|c\+\+)/.test(t)) return 'black';
+      if (/(design|ui|ux)/.test(t)) return 'purple';
+      if (/(personal|team|course|internship)/.test(t)) return 'teal';
+      if (/(lua|playdate|roblox)/.test(t)) return 'orange';
+      return 'grey';
+    };
     return (
       <>
-        <div className="card" id={`work-${this.props.id}`}>
+        <div className="ui fluid card" id={`work-${this.props.id}`}>
           {/* Card Image */}
           <div
-            className="card-image"
+            className="image"
             onClick={this.openModal}
             role="button"
             aria-label="Open work details"
@@ -97,13 +136,11 @@ class PortfolioWork extends React.Component {
               if (e.key === 'Enter' || e.key === ' ') this.openModal();
             }}
           >
-            <figure className="image is-4by3">
-              <img src={this.props.image} alt={this.props.title || 'Work cover'} />
-            </figure>
+            <img src={this.props.image} alt={this.props.title || 'Work cover'} />
           </div>
           {/* Card Content */}
           <div
-            className="card-content"
+            className="content"
             onClick={this.openModal}
             role="button"
             aria-label="Open work details"
@@ -112,21 +149,23 @@ class PortfolioWork extends React.Component {
               if (e.key === 'Enter' || e.key === ' ') this.openModal();
             }}
           >
-            <div className="media">
-              <div className="media-content">
-                <p className="title is-4">{this.props.title}</p>
-                <div className="tags">
-                  {this.props.tags &&
-                    this.props.tags.map((tag) => (
-                      <span key={String(tag)} className="tag">
-                        {tag}
-                      </span>
-                    ))}
-                </div>
-                <p className="subtitle is-6">{this.props.description}</p>
+            <div className="header">{this.props.title}</div>
+            <div className="meta">
+              <div className="ui tiny labels">
+                {this.props.tags &&
+                  this.props.tags.map((tag) => (
+                    <span key={String(tag)} className={`ui ${tagColor(tag)} label`}>
+                      {tag}
+                    </span>
+                  ))}
               </div>
             </div>
-            <div className="content">Click to view details.</div>
+            <div className="description" style={{ marginTop: '.5rem' }}>
+              {this.props.description}
+            </div>
+            <div className="extra content">
+              <span className="right floated">Click to view details</span>
+            </div>
           </div>
         </div>
         {this.renderModal()}
@@ -137,27 +176,32 @@ class PortfolioWork extends React.Component {
 
 function WorkDetail({ title, description, tools, roleName, links, timeRange }) {
   return (
-    <div className="work-detail box">
-      {title && <h2 className="title is-4">{title}</h2>}
-      <p className="description mb-4">{description}</p>
-      <div className="content">
+    <div className="work-detail ui segment">
+      {title && <h2 className="ui header">{title}</h2>}
+      <div className="description" style={{ marginBottom: '1rem' }}>
+        {description}
+      </div>
+      <div className="ui relaxed list">
         {tools && (
-          <p>
-            <strong>Tools:</strong> {tools.join(', ')}
-          </p>
+          <div className="item">
+            <div className="header">Tools</div>
+            <div>{tools.join(', ')}</div>
+          </div>
         )}
         {roleName && (
-          <p>
-            <strong>Role:</strong> {roleName}
-          </p>
+          <div className="item">
+            <div className="header">Role</div>
+            <div>{roleName}</div>
+          </div>
         )}
         {links && links.length > 0 && (
-          <p>
-            <strong>Links:</strong>{' '}
-            {links.map((link, index) => (
-              <span key={link.href || link.text || index}>
+          <div className="item">
+            <div className="header">Links</div>
+            <div className="ui tiny buttons">
+              {links.map((link, index) => (
                 <a
-                  className="tag is-link"
+                  key={link.href || link.text || index}
+                  className="ui mini button"
                   href={link.href}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -165,15 +209,15 @@ function WorkDetail({ title, description, tools, roleName, links, timeRange }) {
                 >
                   {link.text}
                 </a>
-                {index < links.length - 1 ? ' ' : ''}
-              </span>
-            ))}
-          </p>
+              ))}
+            </div>
+          </div>
         )}
         {timeRange && (
-          <p>
-            <strong>Time Range:</strong> {timeRange}
-          </p>
+          <div className="item">
+            <div className="header">Time Range</div>
+            <div>{timeRange}</div>
+          </div>
         )}
       </div>
     </div>

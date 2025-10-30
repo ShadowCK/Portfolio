@@ -407,7 +407,11 @@ const portfolioWorksData = [
             are not entirely accurate. This is because, as new content was added, the listed names
             weren't updated. In essence, every team member significantly contributed to most aspects
             of the project, except for the art. The lovely art was done by{' '}
-            <a href="https://www.linkedin.com/in/liamarmitage/" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.linkedin.com/in/liamarmitage/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Liam
             </a>
             ,{' '}
@@ -580,7 +584,7 @@ const portfolioWorksData = [
             <YouTubeVideo link="YgVD6fI7ZWg?si=5GPqE2LPRZjY9y3S" />
           </>
         }
-        tools={['Unreal Engine', 'C++']}
+        tools={['Unreal', 'C++']}
         roleName="Solo Developer"
         links={[
           {
@@ -596,7 +600,7 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/into-the-darkness-cover.png',
-    tags: ['Personal Project', 'Unreal Engine', 'C++', 'Shader', 'Minimap', 'Puzzle'],
+    tags: ['Personal Project', 'Unreal', 'C++', 'Shader', 'Minimap', 'Puzzle'],
   },
   {
     id: 15,
@@ -660,7 +664,7 @@ const portfolioWorksData = [
             <YouTubeVideo link="LAg7x_IE-HM?si=8s5AUZkNlq0K_6mT" />
           </>
         }
-        tools={['Unreal Engine']}
+        tools={['Unreal']}
         roleName="Solo Developer"
         links={[
           {
@@ -708,7 +712,7 @@ const portfolioWorksData = [
     details: (
       <WorkDetail
         description={<>To be added...</>}
-        tools={['Unreal Engine']}
+        tools={['Unreal']}
         roleName="Programmer, UX Designer"
         links={[
           {
@@ -720,7 +724,7 @@ const portfolioWorksData = [
       />
     ),
     image: 'https://placehold.co/600x450',
-    tags: ['Capstone', 'Team Project', 'Unreal Engine', 'Driving', 'Rhythm', 'Puzzle'],
+    tags: ['Capstone', 'Team Project', 'Unreal', 'Driving', 'Rhythm', 'Puzzle'],
   },
   {
     id: 18,
@@ -863,7 +867,7 @@ const portfolioWorksData = [
             <YouTubeVideo link="NSNpAHGLr-o?si=DLGEfppAmb9IgZsp" />
           </>
         }
-        tools={['Unreal Engine', 'Perforce']}
+        tools={['Unreal', 'Perforce']}
         roleName="Lead Programmer, Lead Designer"
         links={[
           {
@@ -886,7 +890,7 @@ const portfolioWorksData = [
       'Triangle Game Jam',
       'Team Project',
       'Team of 6',
-      'Unreal Engine',
+      'Unreal',
       'Perforce',
     ],
   },
@@ -900,16 +904,15 @@ window.onload = () => {
     portfolioWorksData
       .sort((a, b) => a.order - b.order || 0)
       .map((work) => (
-        <div className="column is-4" key={`${work.id}-${work.title}`}>
-          <PortfolioWork
-            id={work.id}
-            title={work.title}
-            description={work.description}
-            details={work.details}
-            image={work.image}
-            tags={work.tags}
-          />
-        </div>
+        <PortfolioWork
+          key={`${work.id}-${work.title}`}
+          id={work.id}
+          title={work.title}
+          description={work.description}
+          details={work.details}
+          image={work.image}
+          tags={work.tags}
+        />
       )),
   );
 };

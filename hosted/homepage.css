@@ -1,33 +1,130 @@
-.hero.is-primary {
-  background-color: #333;
-  color: #fff;
-}
-
-.modal-card {
-  width: 80%;
-}
-
+/* Fomantic UI custom touches */
 .profile-section {
   text-align: center;
 }
 
-/* TODO: change the url of this */
-.hero.is-primary {
-  background: url('path_to_your_background_image_or_video') no-repeat center center;
-  background-size: cover;
-}
-
-.card {
-  transition: all 0.3s ease-in-out;
+.ui.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
 }
 
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.ui.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .profile-image {
   border: 3px solid #fff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Masthead */
+.masthead {
+  background: #1b1c1d;
+}
+
+.masthead-inner {
+  padding: 4rem 0;
+  min-height: 72vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center blocks */
+  justify-content: center;
+}
+
+.masthead-subtitle {
+  font-size: 1.25rem !important;
+  margin: 2.5rem auto 2.5rem auto !important;
+  text-align: center;
+  line-height: 1.6;
+  max-width: 1000px;
+  font-weight: 400 !important;
+  opacity: 0.9 !important;
+}
+
+.profile-bio {
+  margin-top: 3rem;
+  margin-bottom: 3.5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.masthead .ui.big.buttons {
+  margin-top: 2.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+}
+
+/* Landing typography refinements */
+.masthead-title {
+  font-size: 2.75rem !important;
+  letter-spacing: 0.2px;
+}
+
+@media (min-width: 992px) {
+  .masthead-title {
+    font-size: 3.25rem !important;
+  }
+  .masthead-subtitle {
+    font-size: 1.35rem !important;
+    max-width: 1100px;
+  }
+  .profile-bio {
+    font-size: 1.0625rem; /* 17px */
+    line-height: 1.85;
+    max-width: 900px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .masthead-title {
+    font-size: 3.5rem !important;
+  }
+  .masthead-subtitle {
+    font-size: 1.45rem !important;
+    max-width: 1200px;
+  }
+}
+
+/* Button group spacing in landing */
+.masthead .ui.big.buttons .button {
+  padding: 0.9rem 1.3rem;
+}
+.masthead .ui.big.buttons .or {
+  margin: 0 1.25rem !important;
+}
+
+/* Profile */
+.profile-name {
+  margin-top: 1rem !important;
+}
+
+.profile-edu {
+  font-weight: 400 !important;
+}
+
+.profile-bio {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.social-list {
+  justify-content: center;
+}
+
+.site-menu.ui.menu {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Modal layering to ensure visibility without Fomantic JS */
+.ui.page.dimmer.modals {
+  z-index: 1000;
+}
+
+.ui.modal.visible.active {
+  z-index: 1100;
+  display: block;
 }
