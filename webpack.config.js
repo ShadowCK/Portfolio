@@ -1,6 +1,10 @@
-const path = require('path');
+import { fileURLToPath } from 'url';
+import { dirname, resolve as pathResolve } from 'path';
 
-module.exports = {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+export default {
   entry: {
     homepage: './client/homepage.jsx',
   },
@@ -22,7 +26,7 @@ module.exports = {
     aggregateTimeout: 200,
   },
   output: {
-    path: path.resolve(__dirname, 'hosted'),
+    path: pathResolve(__dirname, 'hosted'),
     filename: '[name]Bundle.js',
   },
 };

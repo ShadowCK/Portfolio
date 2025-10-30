@@ -1,0 +1,11 @@
+{
+  "extends": ["html-validate:recommended"],
+  "rules": {
+    "no-dup-attr": "error",
+    "attr-quotes": "off",
+    "void-style": "off",
+    "element-required-attributes": "warn",
+    "no-raw-characters": "warn"
+  },
+  "elements": ["html5"]
+}

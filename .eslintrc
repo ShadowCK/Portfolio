@@ -14,6 +14,8 @@
     "import/extensions": "off",
     // Using React 17+ automatic JSX runtime; no need to import React
     "react/react-in-jsx-scope": "off",
+    // Ensure external links opened in new tab are safe
+    "react/jsx-no-target-blank": ["error", { "allowReferrer": false }],
     // Development-time relaxations to reduce noise
     "react/prop-types": "off",
     "react/destructuring-assignment": "off",

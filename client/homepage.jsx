@@ -40,7 +40,7 @@ const portfolioWorksData = [
             <a
               href="https://www.rit.edu/directory/wmhics-w-michelle-harris"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Prof. Harris
             </a>
@@ -407,15 +407,23 @@ const portfolioWorksData = [
             are not entirely accurate. This is because, as new content was added, the listed names
             weren't updated. In essence, every team member significantly contributed to most aspects
             of the project, except for the art. The lovely art was done by{' '}
-            <a href="https://www.linkedin.com/in/liamarmitage/" target="_blank" rel="noreferrer">
+            <a href="https://www.linkedin.com/in/liamarmitage/" target="_blank" rel="noopener noreferrer">
               Liam
             </a>
             ,{' '}
-            <a href="https://www.linkedin.com/in/conrad-chaffee/" target="_blank" rel="noreferrer">
+            <a
+              href="https://www.linkedin.com/in/conrad-chaffee/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Conrad
             </a>{' '}
             and{' '}
-            <a href="https://www.linkedin.com/in/petercat/" target="_blank" rel="noreferrer">
+            <a
+              href="https://www.linkedin.com/in/petercat/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Peter
             </a>
             . My main focus was on the game balance, items and events ("calamities"). If you are
@@ -426,7 +434,7 @@ const portfolioWorksData = [
             <a
               href="https://steamcommunity.com/sharedfiles/filedetails/?id=3139751234&searchtext=cat+calamity"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Steam
             </a>
@@ -711,8 +719,8 @@ const portfolioWorksData = [
         timeRange="2024 April - May"
       />
     ),
-    image: 'https://placehold.co/600x400',
-    tags: ['Capstone', 'Team Project', 'Unreal Engine', 'Driving', 'Puzzle'],
+    image: 'https://placehold.co/600x450',
+    tags: ['Capstone', 'Team Project', 'Unreal Engine', 'Driving', 'Rhythm', 'Puzzle'],
   },
   {
     id: 18,
@@ -733,7 +741,7 @@ const portfolioWorksData = [
         timeRange="2016"
       />
     ),
-    image: 'https://placehold.co/600x400',
+    image: 'https://placehold.co/600x450',
     tags: [
       'Personal Project',
       'RPG Maker XP',
@@ -761,7 +769,7 @@ const portfolioWorksData = [
         timeRange="2017 - 2021"
       />
     ),
-    image: 'https://placehold.co/600x400',
+    image: 'https://placehold.co/600x450',
     tags: ['Personal Project', 'MMORPG', 'Minecraft', 'Java'],
   },
   {
@@ -783,7 +791,7 @@ const portfolioWorksData = [
         timeRange="2023 Dec - Now"
       />
     ),
-    image: 'https://placehold.co/600x400',
+    image: 'https://placehold.co/600x450',
     tags: ['Personal Project', 'Web', 'Node.js', 'Express'],
   },
   {
@@ -842,7 +850,7 @@ const portfolioWorksData = [
             <a
               href="https://entrepreneurship.ncsu.edu/trianglegamejam/"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               Triangle Game Jam
             </a>{' '}

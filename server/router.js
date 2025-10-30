@@ -1,7 +1,7 @@
-const controllers = require('./controllers');
+import { getHomepage } from './controllers/index.js';
 
 const router = (app) => {
-  app.get('/', controllers.getHomepage);
+  app.get('/', getHomepage);
 };
 
-module.exports = router;
+export default router;
