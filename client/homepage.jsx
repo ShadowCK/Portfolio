@@ -1,14 +1,14 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { PortfolioWork, WorkDetail, YouTubeVideo } from './components.jsx';
 import './theme.js';
 
-// Tag ordering methodology (game industry focus):
-// 1) Meta/project-type tags (show real deliverables and collaboration)
-// 2) Engines/platforms (core game dev stack)
-// 3) Programming languages (implementation capability)
-// 4) Curated 5 high-value others (strongly related to combat/technical design)
-// 5) Remaining tags at the end, alphabetical
+// Tag ordering and grouping (multi-row filters):
+// 1) Meta tags (project type)
+// 2) Engine & Language (combined)
+// 3) Gameplay (e.g., Driving, Clicker Game)
+// 4) Tech (e.g., AI, Shader, VR, Socket.io)
+// 5) Others (uncategorized, not excluded)
 
 // 1) Meta tags (highest priority, fixed order)
 const META_PRIORITY = [
@@ -19,7 +19,7 @@ const META_PRIORITY = [
   'Course Project',
 ];
 
-// 2) Engines/platforms (second priority group; fixed internal order; others alphabetical)
+// Engines/platforms priority (used in Engine & Language group)
 const ENGINE_PRIORITY = [
   'Unreal',
   'Unity',
@@ -31,11 +31,48 @@ const ENGINE_PRIORITY = [
   'Tabletop Simulator',
 ];
 
-// 3) Languages (third priority group; fixed internal order; others alphabetical)
+// Languages priority (used in Engine & Language group)
 const LANGUAGE_PRIORITY = ['C++', 'C#', 'TypeScript', 'Lua', 'Java', 'JavaScript'];
 
-// 4) High-value "other" tags (relevant to AI/rendering/multiplayer/pipeline)
-const HIGH_VALUE_OTHERS = ['Capstone', 'AI', 'Shader', 'VR', 'Socket.io'];
+// Gameplay tags (order here defines priority within the Gameplay group)
+const GAMEPLAY_PRIORITY = [
+  'Skill Editor',
+  'Mobile Game',
+  'Driving',
+  'Roguelite',
+  'RPG',
+  'Puzzle',
+  'Shooting',
+  'Escape Room',
+  'Tabletop Game',
+  'Card Game',
+  'Rhythm',
+  'MMORPG',
+  'Clicker Game',
+  'Idle Game',
+  'Tower of the Sorcerer like',
+];
+
+// Tech tags (order here defines priority within the Tech group)
+const TECH_PRIORITY = [
+  'AI',
+  'Shader',
+  'VR',
+  'Socket.io',
+  'MongoDB',
+  'Redis',
+  'Web Audio',
+  'Local Storage',
+  'Http Server',
+  'React',
+  'Express',
+  'Phaser',
+  'Matter.js',
+  'Canvas',
+  'Webpack',
+  'ESLint',
+  'Perforce',
+];
 
 // Exclude any tag that contains one of these substrings (case-insensitive).
 // Tags containing these substrings will not be shown in the tag filter menu.
@@ -50,29 +87,24 @@ const EXCLUDE_MATCH = [
   'Best Sound Design',
   'Box2D',
   'Bulma',
-  'Canvas',
   'CircleCI',
   'Dynamic Camera',
-  'Matter.js',
-  'MongoDB',
   'Node.js',
   'Open Trivia Database',
   'p5.js',
   'Perlin Noise',
   'pinyin',
-  'Perforce',
-  'Phaser',
-  'React',
-  'Redis',
   'Roblox',
   'SMFL',
   'Storyline Branches',
   'Substance Painter',
-  'Tower of the Sorcerer like',
   'Triangle Game Jam',
   'Underscore',
-  'Web Audio',
-  'Webpack',
+  'F84 Studio',
+  'Yoozoo Games',
+  'Game Balance',
+  'Game Design',
+  'Honorable Mention',
 ];
 
 const portfolioWorksData = [
@@ -791,7 +823,7 @@ const portfolioWorksData = [
       />
     ),
     image: 'https://placehold.co/600x450',
-    tags: ['Capstone', 'Team Project', 'Unreal', 'Driving', 'Rhythm', 'Puzzle'],
+    tags: ['Capstone', 'Team Project', 'Unreal', 'Driving', 'Rhythm', 'Puzzle', 'Perforce'],
   },
   {
     id: 18,
@@ -966,16 +998,14 @@ const portfolioWorksData = [
 
 function PortfolioApp() {
   const [selected, setSelected] = useState(() => new Set());
-  const tagMenuRef = useRef(null);
 
-  const allTags = useMemo(() => {
+  const groupedTags = useMemo(() => {
     const tagSet = new Set();
     portfolioWorksData.forEach((work) =>
       (work.tags || []).forEach((tag) => tagSet.add(String(tag))),
     );
-    // Filter out any tags that match the exclude rules
-    const filteredTags = Array.from(tagSet).filter((t) => {
-      // Normalize to lowercase for case-insensitive contains check
+    // Exclude tags by contains (ci) and exact (cs)
+    const all = Array.from(tagSet).filter((t) => {
       const lower = String(t).toLowerCase();
       const byContains = EXCLUDE_CONTAINS.some(
         (substr) => substr && lower.includes(substr.toLowerCase()),
@@ -983,30 +1013,43 @@ function PortfolioApp() {
       const byExact = EXCLUDE_MATCH.includes(String(t));
       return !(byContains || byExact);
     });
-    // Grouped sorting: META(0) -> ENGINE(1) -> LANGUAGE(2) -> HIGH_VALUE_OTHERS(3) -> OTHERS(4)
-    const getGroupKey = (tag) => {
-      const metaPos = META_PRIORITY.indexOf(tag);
-      if (metaPos !== -1) return [0, metaPos, tag];
 
-      const enginePos = ENGINE_PRIORITY.indexOf(tag);
-      if (enginePos !== -1) return [1, enginePos, tag];
-
-      const languagePos = LANGUAGE_PRIORITY.indexOf(tag);
-      if (languagePos !== -1) return [2, languagePos, tag];
-
-      const otherPos = HIGH_VALUE_OTHERS.indexOf(tag);
-      if (otherPos !== -1) return [3, otherPos, tag];
-
-      return [4, Number.POSITIVE_INFINITY, tag];
+    // Build groups with fixed priority order, then alphabetical for the rest
+    const takeInOrder = (priorityList, pool) => {
+      const taken = [];
+      const restSet = new Set(pool);
+      priorityList.forEach((p) => {
+        if (restSet.has(p)) {
+          taken.push(p);
+          restSet.delete(p);
+        }
+      });
+      const remaining = Array.from(restSet).sort((a, b) => a.localeCompare(b));
+      return { list: taken.concat(remaining), remainingSet: restSet };
     };
 
-    return filteredTags.sort((tagA, tagB) => {
-      const [groupA, orderA, textA] = getGroupKey(tagA);
-      const [groupB, orderB, textB] = getGroupKey(tagB);
-      if (groupA !== groupB) return groupA - groupB;
-      if (orderA !== orderB) return orderA - orderB;
-      return textA.localeCompare(textB);
-    });
+    // Meta
+    const metaPool = all.filter((t) => META_PRIORITY.includes(t));
+    const meta = takeInOrder(META_PRIORITY, metaPool).list;
+
+    // Engine & Language (combined)
+    const ENGINE_LANG_PRIORITY = [...ENGINE_PRIORITY, ...LANGUAGE_PRIORITY];
+    const engineLangPool = all.filter((t) => ENGINE_LANG_PRIORITY.includes(t));
+    const engineLang = takeInOrder(ENGINE_LANG_PRIORITY, engineLangPool).list;
+
+    // Gameplay
+    const gameplayPool = all.filter((t) => GAMEPLAY_PRIORITY.includes(t));
+    const gameplay = takeInOrder(GAMEPLAY_PRIORITY, gameplayPool).list;
+
+    // Tech
+    const techPool = all.filter((t) => TECH_PRIORITY.includes(t));
+    const tech = takeInOrder(TECH_PRIORITY, techPool).list;
+
+    // Others = not in any of the above
+    const known = new Set([...meta, ...engineLang, ...gameplay, ...tech]);
+    const others = all.filter((t) => !known.has(t)).sort((a, b) => a.localeCompare(b));
+
+    return { meta, engineLang, gameplay, tech, others };
   }, []);
 
   const toggleTag = (tag) => {
@@ -1023,54 +1066,55 @@ function PortfolioApp() {
     return portfolioWorksData.filter((w) => (w.tags || []).some((t) => selected.has(String(t))));
   }, [selected]);
 
-  // Enable horizontal scrolling via mouse wheel on the tag menu
+  // Enable horizontal scrolling via mouse wheel on ALL tag menus
   useEffect(() => {
-    const el = tagMenuRef.current;
-    if (!el) return undefined;
-    const onWheel = (e) => {
-      const dominant = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-      if (dominant !== 0) {
-        el.scrollLeft += dominant;
-        e.preventDefault();
+    const elements = Array.from(document.querySelectorAll('.tag-scroll'));
+    const cleanups = [];
+
+    elements.forEach((el) => {
+      const node = el;
+      const onWheel = (e) => {
+        const dominant = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+        if (dominant !== 0) {
+          node.scrollLeft += dominant;
+          e.preventDefault();
+        }
+      };
+      const updateFade = () => {
+        const atStart = node.scrollLeft <= 1;
+        const atEnd = node.scrollLeft + node.clientWidth >= node.scrollWidth - 1;
+        node.classList.toggle('fade-left', !atStart);
+        node.classList.toggle('fade-right', !atEnd);
+      };
+
+      node.addEventListener('wheel', onWheel, { passive: false });
+      node.addEventListener('scroll', updateFade, { passive: true });
+
+      let ro;
+      if (typeof ResizeObserver !== 'undefined') {
+        ro = new ResizeObserver(updateFade);
+        ro.observe(node);
+      } else {
+        window.addEventListener('resize', updateFade, { passive: true });
       }
-    };
-    const updateFade = () => {
-      const atStart = el.scrollLeft <= 1;
-      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
-      el.classList.toggle('fade-left', !atStart);
-      el.classList.toggle('fade-right', !atEnd);
-    };
 
-    el.addEventListener('wheel', onWheel, { passive: false });
-    el.addEventListener('scroll', updateFade, { passive: true });
+      updateFade();
 
-    // Observe size changes to recalc fade visibility
-    let ro;
-    if (typeof ResizeObserver !== 'undefined') {
-      ro = new ResizeObserver(updateFade);
-      ro.observe(el);
-    } else {
-      window.addEventListener('resize', updateFade, { passive: true });
-    }
+      cleanups.push(() => {
+        node.removeEventListener('wheel', onWheel, { passive: false });
+        node.removeEventListener('scroll', updateFade, { passive: true });
+        if (ro) ro.disconnect();
+        else window.removeEventListener('resize', updateFade, { passive: true });
+      });
+    });
 
-    // Initial state
-    updateFade();
-
-    return () => {
-      el.removeEventListener('wheel', onWheel, { passive: false });
-      el.removeEventListener('scroll', updateFade, { passive: true });
-      if (ro) ro.disconnect();
-      else window.removeEventListener('resize', updateFade, { passive: true });
-    };
+    return () => cleanups.forEach((fn) => fn());
   }, []);
 
   return (
     <div>
-      <div
-        ref={tagMenuRef}
-        className="ui secondary pointing menu small stackable tag-scroll"
-        title="Scroll to see more tags"
-      >
+      {/* Meta */}
+      <div className="ui secondary pointing menu small stackable tag-scroll" title="Meta tags">
         <div
           className={`item ${selected.size === 0 ? 'active' : ''}`}
           role="button"
@@ -1080,7 +1124,78 @@ function PortfolioApp() {
         >
           All
         </div>
-        {allTags.map((tag) => (
+        {groupedTags.meta.map((tag) => (
+          <div
+            key={tag}
+            className={`item ${selected.has(tag) ? 'active' : ''}`}
+            role="button"
+            tabIndex={0}
+            onClick={() => toggleTag(tag)}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleTag(tag) : null)}
+            title={`Filter by ${tag}`}
+          >
+            {tag}
+          </div>
+        ))}
+      </div>
+
+      {/* Engine & Language */}
+      <div
+        className="ui secondary pointing menu small stackable tag-scroll"
+        title="Engine & Language tags"
+      >
+        {groupedTags.engineLang.map((tag) => (
+          <div
+            key={tag}
+            className={`item ${selected.has(tag) ? 'active' : ''}`}
+            role="button"
+            tabIndex={0}
+            onClick={() => toggleTag(tag)}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleTag(tag) : null)}
+            title={`Filter by ${tag}`}
+          >
+            {tag}
+          </div>
+        ))}
+      </div>
+
+      {/* Gameplay */}
+      <div className="ui secondary pointing menu small stackable tag-scroll" title="Gameplay tags">
+        {groupedTags.gameplay.map((tag) => (
+          <div
+            key={tag}
+            className={`item ${selected.has(tag) ? 'active' : ''}`}
+            role="button"
+            tabIndex={0}
+            onClick={() => toggleTag(tag)}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleTag(tag) : null)}
+            title={`Filter by ${tag}`}
+          >
+            {tag}
+          </div>
+        ))}
+      </div>
+
+      {/* Tech */}
+      <div className="ui secondary pointing menu small stackable tag-scroll" title="Tech tags">
+        {groupedTags.tech.map((tag) => (
+          <div
+            key={tag}
+            className={`item ${selected.has(tag) ? 'active' : ''}`}
+            role="button"
+            tabIndex={0}
+            onClick={() => toggleTag(tag)}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleTag(tag) : null)}
+            title={`Filter by ${tag}`}
+          >
+            {tag}
+          </div>
+        ))}
+      </div>
+
+      {/* Others */}
+      <div className="ui secondary pointing menu small stackable tag-scroll" title="Other tags">
+        {groupedTags.others.map((tag) => (
           <div
             key={tag}
             className={`item ${selected.has(tag) ? 'active' : ''}`}
