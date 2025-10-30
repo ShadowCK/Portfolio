@@ -55,11 +55,11 @@ class PortfolioWork extends React.Component {
           this.modalRef = el;
         }}
       >
-        {/* Dimmer 包裹 Modal，避免点击 Modal 触发关闭 */}
+        {/* Wrap modal with Dimmer to prevent clicks inside the modal from closing it */}
         <div
           className={`ui page dimmer modals ${active ? 'visible active' : ''}`}
           onClick={(e) => {
-            // 仅当点击在模态框外部时才关闭
+            // Close only when clicking outside the modal dialog
             const modalEl = this.modalRef && this.modalRef.querySelector('.ui.modal');
             if (modalEl && modalEl.contains(e.target)) return;
             this.closeModal();

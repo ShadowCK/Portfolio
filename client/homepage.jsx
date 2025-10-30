@@ -3,6 +3,78 @@ import { createRoot } from 'react-dom/client';
 import { PortfolioWork, WorkDetail, YouTubeVideo } from './components.jsx';
 import './theme.js';
 
+// Tag ordering methodology (game industry focus):
+// 1) Meta/project-type tags (show real deliverables and collaboration)
+// 2) Engines/platforms (core game dev stack)
+// 3) Programming languages (implementation capability)
+// 4) Curated 5 high-value others (strongly related to combat/technical design)
+// 5) Remaining tags at the end, alphabetical
+
+// 1) Meta tags (highest priority, fixed order)
+const META_PRIORITY = [
+  'Award Winning',
+  'Internship',
+  'Personal Project',
+  'Team Project',
+  'Course Project',
+];
+
+// 2) Engines/platforms (second priority group; fixed internal order; others alphabetical)
+const ENGINE_PRIORITY = [
+  'Unreal',
+  'Unity',
+  'Cocos Creator',
+  'Roblox Studio',
+  'Web',
+  'Playdate SDK',
+  'RPG Maker XP',
+  'Tabletop Simulator',
+];
+
+// 3) Languages (third priority group; fixed internal order; others alphabetical)
+const LANGUAGE_PRIORITY = ['C++', 'C#', 'TypeScript', 'Lua', 'Java', 'JavaScript'];
+
+// 4) High-value "other" tags (relevant to AI/rendering/multiplayer/pipeline)
+const HIGH_VALUE_OTHERS = ['Capstone', 'AI', 'Shader', 'VR', 'Socket.io'];
+
+// Exclude any tag that contains one of these substrings (case-insensitive).
+// Tags containing these substrings will not be shown in the tag filter menu.
+const EXCLUDE_CONTAINS = ['Team of'];
+
+// Exclude any tag that exactly equals one of these strings.
+// Exact match; case-sensitive.
+const EXCLUDE_MATCH = [
+  'Archiver',
+  'Aseprite',
+  'Audio Node',
+  'Best Sound Design',
+  'Box2D',
+  'Bulma',
+  'Canvas',
+  'CircleCI',
+  'Dynamic Camera',
+  'Matter.js',
+  'MongoDB',
+  'Node.js',
+  'Open Trivia Database',
+  'p5.js',
+  'Perlin Noise',
+  'pinyin',
+  'Perforce',
+  'Phaser',
+  'React',
+  'Redis',
+  'Roblox',
+  'SMFL',
+  'Storyline Branches',
+  'Substance Painter',
+  'Tower of the Sorcerer like',
+  'Triangle Game Jam',
+  'Underscore',
+  'Web Audio',
+  'Webpack',
+];
+
 const portfolioWorksData = [
   {
     id: 1,
@@ -64,7 +136,7 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/lazy-garden-cover.png',
-    tags: ['Course Project', 'Web', 'Clicker/Idle Game', 'p5.js', 'Aseprite'],
+    tags: ['Course Project', 'Web', 'Clicker Game', 'Idle Game', 'p5.js', 'Aseprite'],
   },
   {
     id: 3,
@@ -392,7 +464,7 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/illostath-legacy-cover.png',
-    tags: ['Course Project', 'Team of 5', 'Unity', 'C#', 'Trello Board', 'Scrum', 'Video Trailer'],
+    tags: ['Course Project', 'Team Project', 'Team of 5', 'Unity', 'C#'],
   },
   {
     id: 11,
@@ -469,6 +541,7 @@ const portfolioWorksData = [
     image: '/assets/images/cat-calamity-cover.png',
     tags: [
       'Course Project',
+      'Team Project',
       'Team of 5',
       'Tabletop Game',
       'Card Game',
@@ -518,7 +591,7 @@ const portfolioWorksData = [
   },
   {
     id: 13,
-    order: -100,
+    order: -300,
     title: 'Play Cats: Tag!',
     description: 'A Roblox game where you play as a cat and play tag with other players.',
     details: (
@@ -556,15 +629,7 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/play-cats-tag-cover.png',
-    tags: [
-      'Team Project',
-      'Internship Work',
-      'Roblox',
-      'Lua',
-      'Roblox Studio',
-      'Internship',
-      'F84 Studio',
-    ],
+    tags: ['Team Project', 'Roblox', 'Lua', 'Roblox Studio', 'Internship', 'F84 Studio'],
   },
   {
     id: 14,
@@ -802,7 +867,7 @@ const portfolioWorksData = [
   },
   {
     id: 21,
-    order: -1,
+    order: -100,
     title: 'Backpack Go',
     description: 'A Backpack Hero like mobile game.',
     details: (
@@ -845,7 +910,7 @@ const portfolioWorksData = [
   },
   {
     id: 22,
-    order: -100,
+    order: -200,
     title: 'Grid Master',
     description: 'Local 1V1 shooting game for Triangle Game Jam.',
     details: (
@@ -904,9 +969,44 @@ function PortfolioApp() {
   const tagMenuRef = useRef(null);
 
   const allTags = useMemo(() => {
-    const s = new Set();
-    portfolioWorksData.forEach((w) => (w.tags || []).forEach((t) => s.add(String(t))));
-    return Array.from(s).sort((a, b) => a.localeCompare(b));
+    const tagSet = new Set();
+    portfolioWorksData.forEach((work) =>
+      (work.tags || []).forEach((tag) => tagSet.add(String(tag))),
+    );
+    // Filter out any tags that match the exclude rules
+    const filteredTags = Array.from(tagSet).filter((t) => {
+      // Normalize to lowercase for case-insensitive contains check
+      const lower = String(t).toLowerCase();
+      const byContains = EXCLUDE_CONTAINS.some(
+        (substr) => substr && lower.includes(substr.toLowerCase()),
+      );
+      const byExact = EXCLUDE_MATCH.includes(String(t));
+      return !(byContains || byExact);
+    });
+    // Grouped sorting: META(0) -> ENGINE(1) -> LANGUAGE(2) -> HIGH_VALUE_OTHERS(3) -> OTHERS(4)
+    const getGroupKey = (tag) => {
+      const metaPos = META_PRIORITY.indexOf(tag);
+      if (metaPos !== -1) return [0, metaPos, tag];
+
+      const enginePos = ENGINE_PRIORITY.indexOf(tag);
+      if (enginePos !== -1) return [1, enginePos, tag];
+
+      const languagePos = LANGUAGE_PRIORITY.indexOf(tag);
+      if (languagePos !== -1) return [2, languagePos, tag];
+
+      const otherPos = HIGH_VALUE_OTHERS.indexOf(tag);
+      if (otherPos !== -1) return [3, otherPos, tag];
+
+      return [4, Number.POSITIVE_INFINITY, tag];
+    };
+
+    return filteredTags.sort((tagA, tagB) => {
+      const [groupA, orderA, textA] = getGroupKey(tagA);
+      const [groupB, orderB, textB] = getGroupKey(tagB);
+      if (groupA !== groupB) return groupA - groupB;
+      if (orderA !== orderB) return orderA - orderB;
+      return textA.localeCompare(textB);
+    });
   }, []);
 
   const toggleTag = (tag) => {
