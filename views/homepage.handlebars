@@ -38,6 +38,12 @@
             target='_blank'
             rel='noopener noreferrer'
           >Resume</a>
+          <div class='item'>
+            <div class='ui toggle checkbox'>
+              <input type='checkbox' id='theme-toggle' tabindex='0' class='hidden' />
+              <label for='theme-toggle'>Dark</label>
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -45,7 +51,7 @@
     <!-- Landing：照片 + 个人介绍 + 链接（约一屏） -->
     <section class='ui inverted vertical segment masthead'>
       <div class='ui centered grid masthead-inner'>
-        <div class='sixteen wide mobile twelve wide tablet ten wide computer column'>
+        <div class='sixteen wide mobile twelve tablet ten computer column'>
           <img
             class='ui centered circular image profile-image'
             src='/assets/images/me-small.png'
@@ -104,9 +110,7 @@
     <!-- Works -->
     <section class='ui vertical segment' id='works-section'>
       <div class='ui container'>
-        <div id='works' class='ui three stackable cards'>
-          <!-- Cards -->
-        </div>
+        <div id='portfolio-root'></div>
       </div>
     </section>
 

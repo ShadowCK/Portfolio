@@ -1,7 +1,19 @@
 version: 2.1
 orbs:
-  node: circleci/node@5.0.2
+  node: circleci/node@7.2.1
+
+jobs:
+  build-and-test:
+    executor: node/default
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          name: Lint and validate
+          command: npm run testall
+
 workflows:
   node-tests:
     jobs:
-      - node/test
+      - build-and-test

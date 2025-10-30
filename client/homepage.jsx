@@ -1,5 +1,7 @@
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { PortfolioWork, WorkDetail, YouTubeVideo } from './components.jsx';
+import './theme.js';
 
 const portfolioWorksData = [
   {
@@ -20,7 +22,7 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/rit-idle-cover.png',
-    tags: ['Course Project', 'Web', 'Idle Game', 'Local Storage', 'HTML/CSS/JS', 'Audio'],
+    tags: ['Course Project', 'Web', 'Idle Game', 'Local Storage', 'HTML/CSS/JS'],
   },
   {
     id: 2,
@@ -702,7 +704,7 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/topland-web-cover.png',
-    tags: ['Personal Project', 'Web', 'Idle'],
+    tags: ['Personal Project', 'Web', 'Idle Game'],
   },
   {
     id: 17,
@@ -897,22 +899,124 @@ const portfolioWorksData = [
   // More works...
 ];
 
-window.onload = () => {
-  const container = document.getElementById('works');
-  const root = createRoot(container);
-  root.render(
-    portfolioWorksData
-      .sort((a, b) => a.order - b.order || 0)
-      .map((work) => (
-        <PortfolioWork
-          key={`${work.id}-${work.title}`}
-          id={work.id}
-          title={work.title}
-          description={work.description}
-          details={work.details}
-          image={work.image}
-          tags={work.tags}
-        />
-      )),
+function PortfolioApp() {
+  const [selected, setSelected] = useState(() => new Set());
+  const tagMenuRef = useRef(null);
+
+  const allTags = useMemo(() => {
+    const s = new Set();
+    portfolioWorksData.forEach((w) => (w.tags || []).forEach((t) => s.add(String(t))));
+    return Array.from(s).sort((a, b) => a.localeCompare(b));
+  }, []);
+
+  const toggleTag = (tag) => {
+    const next = new Set(selected);
+    if (next.has(tag)) next.delete(tag);
+    else next.add(tag);
+    setSelected(next);
+  };
+
+  const clearAll = () => setSelected(new Set());
+
+  const filtered = useMemo(() => {
+    if (!selected.size) return portfolioWorksData;
+    return portfolioWorksData.filter((w) => (w.tags || []).some((t) => selected.has(String(t))));
+  }, [selected]);
+
+  // Enable horizontal scrolling via mouse wheel on the tag menu
+  useEffect(() => {
+    const el = tagMenuRef.current;
+    if (!el) return undefined;
+    const onWheel = (e) => {
+      const dominant = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+      if (dominant !== 0) {
+        el.scrollLeft += dominant;
+        e.preventDefault();
+      }
+    };
+    const updateFade = () => {
+      const atStart = el.scrollLeft <= 1;
+      const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+      el.classList.toggle('fade-left', !atStart);
+      el.classList.toggle('fade-right', !atEnd);
+    };
+
+    el.addEventListener('wheel', onWheel, { passive: false });
+    el.addEventListener('scroll', updateFade, { passive: true });
+
+    // Observe size changes to recalc fade visibility
+    let ro;
+    if (typeof ResizeObserver !== 'undefined') {
+      ro = new ResizeObserver(updateFade);
+      ro.observe(el);
+    } else {
+      window.addEventListener('resize', updateFade, { passive: true });
+    }
+
+    // Initial state
+    updateFade();
+
+    return () => {
+      el.removeEventListener('wheel', onWheel, { passive: false });
+      el.removeEventListener('scroll', updateFade, { passive: true });
+      if (ro) ro.disconnect();
+      else window.removeEventListener('resize', updateFade, { passive: true });
+    };
+  }, []);
+
+  return (
+    <div>
+      <div
+        ref={tagMenuRef}
+        className="ui secondary pointing menu small stackable tag-scroll"
+        title="Scroll to see more tags"
+      >
+        <div
+          className={`item ${selected.size === 0 ? 'active' : ''}`}
+          role="button"
+          tabIndex={0}
+          onClick={clearAll}
+          onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? clearAll() : null)}
+        >
+          All
+        </div>
+        {allTags.map((tag) => (
+          <div
+            key={tag}
+            className={`item ${selected.has(tag) ? 'active' : ''}`}
+            role="button"
+            tabIndex={0}
+            onClick={() => toggleTag(tag)}
+            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleTag(tag) : null)}
+            title={`Filter by ${tag}`}
+          >
+            {tag}
+          </div>
+        ))}
+      </div>
+
+      <div className="ui three stackable cards" aria-live="polite">
+        {filtered
+          .slice()
+          .sort((a, b) => a.order - b.order || 0)
+          .map((work) => (
+            <PortfolioWork
+              key={`${work.id}-${work.title}`}
+              id={work.id}
+              title={work.title}
+              description={work.description}
+              details={work.details}
+              image={work.image}
+              tags={work.tags}
+            />
+          ))}
+      </div>
+    </div>
   );
+}
+
+window.onload = () => {
+  const container = document.getElementById('portfolio-root');
+  const root = createRoot(container);
+  root.render(<PortfolioApp />);
 };
