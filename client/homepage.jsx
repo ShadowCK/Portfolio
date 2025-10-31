@@ -1097,28 +1097,38 @@ function PortfolioApp() {
     else sidebarEl.classList.remove('visible');
   }, [sidebarOpen]);
 
-  // Show left-edge handle only when inline Filters button is not visible in viewport
+  // Show left-edge handle only when the inline Filters button has fully scrolled above the viewport
+  // Dual guard: require (1) fully above (bottom <= 0), and (2) not intersecting by both IO and math checks
   const inlineFiltersRef = useRef(null);
   const [showHandle, setShowHandle] = useState(false);
   useEffect(() => {
     const el = inlineFiltersRef.current;
     if (!el) return undefined;
-
+    const lastIntersectingRef = { current: true };
     const compute = () => {
       const rect = el.getBoundingClientRect();
-      const inView =
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth);
-      setShowHandle(!inView);
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const vw = window.innerWidth || document.documentElement.clientWidth;
+      // Any overlap with viewport (math fallback): true if any part is visible
+      const intersectsMath = !(
+        rect.bottom <= 0 ||
+        rect.top >= vh ||
+        rect.right <= 0 ||
+        rect.left >= vw
+      );
+      // Only when element's bottom crosses the top edge (fully above)
+      const fullyAbove = rect.bottom <= 0;
+      const shouldShow = fullyAbove && !lastIntersectingRef.current && !intersectsMath;
+      setShowHandle(shouldShow);
     };
 
     const io = new IntersectionObserver(
       (entries) => {
-        if (entries[0]) setShowHandle(!entries[0].isIntersecting);
+        if (!entries[0]) return;
+        lastIntersectingRef.current = entries[0].isIntersecting; // true if any part is visible
+        compute();
       },
-      { root: null, threshold: 1.0 },
+      { root: null, threshold: 0 },
     );
     io.observe(el);
 
