@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { createPortal } from 'react-dom';
 import { PortfolioWork, WorkDetail, YouTubeVideo, Carousel } from './components.jsx';
 import './theme.js';
+import { t, useI18n } from './i18n.js';
 
 // Initialize Microsoft Clarity (project id provided via meta tag)
 (() => {
@@ -1020,6 +1021,8 @@ const portfolioWorksData = [
 function PortfolioApp() {
   const [selected, setSelected] = useState(() => new Set());
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  // Subscribe to language changes so t(...) texts re-render on toggle
+  useI18n();
 
   const groupedTags = useMemo(() => {
     const tagSet = new Set();
@@ -1027,12 +1030,12 @@ function PortfolioApp() {
       (work.tags || []).forEach((tag) => tagSet.add(String(tag))),
     );
     // Exclude tags by contains (ci) and exact (cs)
-    const all = Array.from(tagSet).filter((t) => {
-      const lower = String(t).toLowerCase();
+    const all = Array.from(tagSet).filter((tag) => {
+      const lower = String(tag).toLowerCase();
       const byContains = EXCLUDE_CONTAINS.some(
         (substr) => substr && lower.includes(substr.toLowerCase()),
       );
-      const byExact = EXCLUDE_MATCH.includes(String(t));
+      const byExact = EXCLUDE_MATCH.includes(String(tag));
       return !(byContains || byExact);
     });
 
@@ -1051,25 +1054,25 @@ function PortfolioApp() {
     };
 
     // Meta
-    const metaPool = all.filter((t) => META_PRIORITY.includes(t));
+    const metaPool = all.filter((tag) => META_PRIORITY.includes(tag));
     const meta = takeInOrder(META_PRIORITY, metaPool).list;
 
     // Engine & Language (combined)
     const ENGINE_LANG_PRIORITY = [...ENGINE_PRIORITY, ...LANGUAGE_PRIORITY];
-    const engineLangPool = all.filter((t) => ENGINE_LANG_PRIORITY.includes(t));
+    const engineLangPool = all.filter((tag) => ENGINE_LANG_PRIORITY.includes(tag));
     const engineLang = takeInOrder(ENGINE_LANG_PRIORITY, engineLangPool).list;
 
     // Gameplay
-    const gameplayPool = all.filter((t) => GAMEPLAY_PRIORITY.includes(t));
+    const gameplayPool = all.filter((tag) => GAMEPLAY_PRIORITY.includes(tag));
     const gameplay = takeInOrder(GAMEPLAY_PRIORITY, gameplayPool).list;
 
     // Tech
-    const techPool = all.filter((t) => TECH_PRIORITY.includes(t));
+    const techPool = all.filter((tag) => TECH_PRIORITY.includes(tag));
     const tech = takeInOrder(TECH_PRIORITY, techPool).list;
 
     // Others = not in any of the above
     const known = new Set([...meta, ...engineLang, ...gameplay, ...tech]);
-    const others = all.filter((t) => !known.has(t)).sort((a, b) => a.localeCompare(b));
+    const others = all.filter((tag) => !known.has(tag)).sort((a, b) => a.localeCompare(b));
 
     return { meta, engineLang, gameplay, tech, others };
   }, []);
@@ -1085,7 +1088,9 @@ function PortfolioApp() {
 
   const filtered = useMemo(() => {
     if (!selected.size) return portfolioWorksData;
-    return portfolioWorksData.filter((w) => (w.tags || []).some((t) => selected.has(String(t))));
+    return portfolioWorksData.filter((w) =>
+      (w.tags || []).some((tag) => selected.has(String(tag))),
+    );
   }, [selected]);
 
   // Manage global pusher dim state and click-to-close
@@ -1161,11 +1166,11 @@ function PortfolioApp() {
     <>
       {(() => {
         const rows = [
-          { key: 'meta', title: 'Meta', list: groupedTags.meta },
-          { key: 'engineLang', title: 'Engine & Language', list: groupedTags.engineLang },
-          { key: 'gameplay', title: 'Gameplay', list: groupedTags.gameplay },
-          { key: 'tech', title: 'Tech', list: groupedTags.tech },
-          { key: 'others', title: 'Others', list: groupedTags.others },
+          { key: 'meta', title: t('meta'), list: groupedTags.meta },
+          { key: 'engineLang', title: t('engine_language'), list: groupedTags.engineLang },
+          { key: 'gameplay', title: t('gameplay'), list: groupedTags.gameplay },
+          { key: 'tech', title: t('tech'), list: groupedTags.tech },
+          { key: 'others', title: t('others'), list: groupedTags.others },
         ];
         const visibleRows = rows.filter((r) => r.list && r.list.length > 0);
         const sidebarMount = document.getElementById('sidebar-root') || document.body;
@@ -1173,14 +1178,14 @@ function PortfolioApp() {
         return createPortal(
           <>
             <div className="item">
-              <div className="header">Filters</div>
+              <div className="header">{t('filters')}</div>
               <div className="menu">
                 <button
                   type="button"
                   className="ui basic fluid button"
                   onClick={() => setSidebarOpen(false)}
                 >
-                  Close
+                  {t('close')}
                 </button>
               </div>
             </div>
@@ -1197,7 +1202,7 @@ function PortfolioApp() {
                       onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? clearAll() : null)}
                       title="Show all works"
                     >
-                      All
+                      {t('all')}
                     </div>
                   )}
                   {r.list.map((tag) => (
@@ -1210,7 +1215,7 @@ function PortfolioApp() {
                       onKeyDown={(e) =>
                         e.key === 'Enter' || e.key === ' ' ? toggleTag(tag) : null
                       }
-                      title={`Filter by ${tag}`}
+                      title={`Filter: ${tag}`}
                     >
                       {tag}
                     </div>
@@ -1228,7 +1233,7 @@ function PortfolioApp() {
           type="button"
           className={`ui circular icon button filters-handle ${showHandle ? 'visible' : ''}`}
           aria-label="Open filters"
-          title="Open filters"
+          title={t('open_filters')}
           onClick={(e) => {
             e.stopPropagation();
             setSidebarOpen(true);
@@ -1248,14 +1253,18 @@ function PortfolioApp() {
               e.stopPropagation();
               setSidebarOpen(true);
             }}
-            title="Open filters"
+            title={t('open_filters')}
           >
-            <i className="filter icon" /> Filters
+            <i className="filter icon" /> {t('filters')}
           </button>
         </div>
         <div className="middle">
           {selected.size > 0 && (
-            <div className="selected-tags-scroll ui labels" role="list" aria-label="Selected tags">
+            <div
+              className="selected-tags-scroll ui labels"
+              role="list"
+              aria-label={t('selected_tags')}
+            >
               {Array.from(selected).map((tag) => (
                 <div
                   key={tag}
@@ -1291,9 +1300,9 @@ function PortfolioApp() {
                 e.stopPropagation();
                 clearAll();
               }}
-              title="Clear all filters"
+              title={t('clear_all')}
             >
-              Clear All
+              {t('clear_all')}
             </button>
           )}
         </div>

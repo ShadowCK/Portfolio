@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { t as i18nT, useI18n } from './i18n.js';
 
 function Carousel({
   images,
@@ -9,6 +10,8 @@ function Carousel({
   showIndicators = true,
   size = 'medium',
 }) {
+  // Re-render translated labels on language change
+  useI18n();
   const safeImages = useMemo(() => (Array.isArray(images) ? images.filter(Boolean) : []), [images]);
   const [index, setIndex] = useState(0);
   const timerRef = useRef(null);
@@ -119,7 +122,7 @@ function Carousel({
       className="ui basic segment"
       role="region"
       aria-roledescription="carousel"
-      aria-label="Profile Photos"
+      aria-label={i18nT('slides')}
       /* No tabindex to avoid a11y lint; keyboard works via focused controls inside */
       style={{ textAlign: 'center' }}
     >
@@ -128,8 +131,8 @@ function Carousel({
           type="button"
           className="ui icon button"
           onClick={prev}
-          title="Previous photo"
-          aria-label="Previous"
+          title={i18nT('previous')}
+          aria-label={i18nT('previous')}
         >
           <i className="chevron left icon" />
         </button>
@@ -138,8 +141,8 @@ function Carousel({
           type="button"
           className="ui icon button"
           onClick={next}
-          title="Next photo"
-          aria-label="Next"
+          title={i18nT('next')}
+          aria-label={i18nT('next')}
         >
           <i className="chevron right icon" />
         </button>
@@ -170,13 +173,13 @@ function Carousel({
       </div>
 
       {showIndicators && count > 1 && (
-        <div className="ui tiny buttons" aria-label="Slides">
+        <div className="ui tiny buttons" aria-label={i18nT('slides')}>
           {safeImages.map((img, i) => (
             <button
               key={`ind-${img.src || img.alt || 'slide'}`}
               type="button"
               className={`ui mini button ${i === index ? 'primary' : ''}`}
-              aria-label={`Go to slide ${i + 1}`}
+              aria-label={`${i18nT('slides')} ${i + 1}`}
               onClick={() => setIndex(i)}
             >
               {i + 1}
