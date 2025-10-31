@@ -9,7 +9,8 @@
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       return 'dark';
     }
-    return 'light';
+    // Default to dark when no saved preference and no system hint
+    return 'dark';
   };
 
   const applyTheme = (theme) => {

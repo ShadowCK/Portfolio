@@ -13,6 +13,7 @@ import './theme.js';
 // 1) Meta tags (highest priority, fixed order)
 const META_PRIORITY = [
   'Award Winning',
+  'Capstone',
   'Internship',
   'Personal Project',
   'Team Project',
@@ -29,6 +30,7 @@ const ENGINE_PRIORITY = [
   'Playdate SDK',
   'RPG Maker XP',
   'Tabletop Simulator',
+  'Minecraft',
 ];
 
 // Languages priority (used in Engine & Language group)
@@ -60,6 +62,7 @@ const TECH_PRIORITY = [
   'VR',
   'Socket.io',
   'MongoDB',
+  'HTML/CSS/JS',
   'Redis',
   'Web Audio',
   'Local Storage',
@@ -105,6 +108,9 @@ const EXCLUDE_MATCH = [
   'Game Balance',
   'Game Design',
   'Honorable Mention',
+  'Howler.js',
+  'Maya',
+  'Minimap',
 ];
 
 const portfolioWorksData = [
@@ -1113,102 +1119,50 @@ function PortfolioApp() {
 
   return (
     <div>
-      {/* Meta */}
-      <div className="ui secondary pointing menu small stackable tag-scroll" title="Meta tags">
-        <div
-          className={`item ${selected.size === 0 ? 'active' : ''}`}
-          role="button"
-          tabIndex={0}
-          onClick={clearAll}
-          onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? clearAll() : null)}
-        >
-          All
-        </div>
-        {groupedTags.meta.map((tag) => (
+      {/* Render only non-empty tag rows; put All on the first visible row */}
+      {(() => {
+        const rows = [
+          { key: 'meta', title: 'Meta tags', list: groupedTags.meta },
+          { key: 'engineLang', title: 'Engine & Language tags', list: groupedTags.engineLang },
+          { key: 'gameplay', title: 'Gameplay tags', list: groupedTags.gameplay },
+          { key: 'tech', title: 'Tech tags', list: groupedTags.tech },
+          { key: 'others', title: 'Other tags', list: groupedTags.others },
+        ];
+        const visibleRows = rows.filter((r) => r.list && r.list.length > 0);
+        return visibleRows.map((r, idx) => (
           <div
-            key={tag}
-            className={`item ${selected.has(tag) ? 'active' : ''}`}
-            role="button"
-            tabIndex={0}
-            onClick={() => toggleTag(tag)}
-            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleTag(tag) : null)}
-            title={`Filter by ${tag}`}
+            key={r.key}
+            className="ui secondary pointing menu small stackable tag-scroll"
+            title={r.title}
           >
-            {tag}
+            {idx === 0 && (
+              <div
+                className={`item ${selected.size === 0 ? 'active' : ''}`}
+                role="button"
+                tabIndex={0}
+                onClick={clearAll}
+                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? clearAll() : null)}
+                title="Show all works"
+              >
+                All
+              </div>
+            )}
+            {r.list.map((tag) => (
+              <div
+                key={tag}
+                className={`item ${selected.has(tag) ? 'active' : ''}`}
+                role="button"
+                tabIndex={0}
+                onClick={() => toggleTag(tag)}
+                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleTag(tag) : null)}
+                title={`Filter by ${tag}`}
+              >
+                {tag}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-
-      {/* Engine & Language */}
-      <div
-        className="ui secondary pointing menu small stackable tag-scroll"
-        title="Engine & Language tags"
-      >
-        {groupedTags.engineLang.map((tag) => (
-          <div
-            key={tag}
-            className={`item ${selected.has(tag) ? 'active' : ''}`}
-            role="button"
-            tabIndex={0}
-            onClick={() => toggleTag(tag)}
-            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleTag(tag) : null)}
-            title={`Filter by ${tag}`}
-          >
-            {tag}
-          </div>
-        ))}
-      </div>
-
-      {/* Gameplay */}
-      <div className="ui secondary pointing menu small stackable tag-scroll" title="Gameplay tags">
-        {groupedTags.gameplay.map((tag) => (
-          <div
-            key={tag}
-            className={`item ${selected.has(tag) ? 'active' : ''}`}
-            role="button"
-            tabIndex={0}
-            onClick={() => toggleTag(tag)}
-            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleTag(tag) : null)}
-            title={`Filter by ${tag}`}
-          >
-            {tag}
-          </div>
-        ))}
-      </div>
-
-      {/* Tech */}
-      <div className="ui secondary pointing menu small stackable tag-scroll" title="Tech tags">
-        {groupedTags.tech.map((tag) => (
-          <div
-            key={tag}
-            className={`item ${selected.has(tag) ? 'active' : ''}`}
-            role="button"
-            tabIndex={0}
-            onClick={() => toggleTag(tag)}
-            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleTag(tag) : null)}
-            title={`Filter by ${tag}`}
-          >
-            {tag}
-          </div>
-        ))}
-      </div>
-
-      {/* Others */}
-      <div className="ui secondary pointing menu small stackable tag-scroll" title="Other tags">
-        {groupedTags.others.map((tag) => (
-          <div
-            key={tag}
-            className={`item ${selected.has(tag) ? 'active' : ''}`}
-            role="button"
-            tabIndex={0}
-            onClick={() => toggleTag(tag)}
-            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleTag(tag) : null)}
-            title={`Filter by ${tag}`}
-          >
-            {tag}
-          </div>
-        ))}
-      </div>
+        ));
+      })()}
 
       <div className="ui three stackable cards" aria-live="polite">
         {filtered
