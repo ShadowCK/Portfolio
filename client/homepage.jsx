@@ -1143,6 +1143,55 @@ const portfolioWorksData = [
       'Perforce',
     ],
   },
+  {
+    id: 24,
+    order: -106,
+    title: 'Three Letters',
+    cardDesc_en: 'A web idle game inspired by my Minecraft MMORPG server, TopLand.',
+    cardDesc_zh: '一款受我的 Minecraft MMORPG 服务器 TopLand 启发的网页放置类游戏。',
+    detailDescription_en: (
+      <>
+        A short dream-core, weird-core Renpy game telling a story about a desperate student, Zhao
+        Jin, encountering a cyber entity while applying to game companies. He must decide whether to
+        trust it or not, by the three email letters he received from his department head, Ernesto
+        Escobar. The game explores themes of ambition, trust, and the blurred lines between reality
+        and virtuality. The game is at its early development and now features three different
+        endings.
+        <br />
+        <div className="scrolling content">
+          <YouTubeVideo link="01dPhIPSn8c?si=l2_1VWR_4_kaOkG5" />
+          <YouTubeVideo link="5Nhq4gqfHLw?si=Fwv3kMVzdDfySjnR" />
+          <YouTubeVideo link="8S_YeO5uAXM?si=2X6R-Sz5VkaTePxf" />
+        </div>
+      </>
+    ),
+    detailDescription_zh: (
+      <>
+        一款短篇的梦核/怪核风格 Ren'Py 作品，讲述在投递游戏公司时身处困境的学生金钊，
+        邂逅一个网络实体的故事。他需要根据系主任 Ernesto Escobar 发来的三封邮件，
+        决定是否信任它。作品探讨了野心、信任，以及现实与虚拟之间模糊的边界。
+        目前仍处于早期开发阶段，已包含三个不同结局。
+        <br />
+        <div className="scrolling content">
+          <YouTubeVideo link="01dPhIPSn8c?si=l2_1VWR_4_kaOkG5" />
+          <YouTubeVideo link="5Nhq4gqfHLw?si=Fwv3kMVzdDfySjnR" />
+          <YouTubeVideo link="8S_YeO5uAXM?si=2X6R-Sz5VkaTePxf" />
+        </div>
+      </>
+    ),
+    tools: ['Renpy', 'Python'],
+    roleName: 'Solo Developer',
+    links: [
+      {
+        text: 'Download Latest Build',
+        href: 'https://drive.google.com/file/d/1qZ-4iybUor7hcxLa-FTMGqSgDUQr5ty9/view?usp=sharing',
+      },
+      { text: 'Repo', href: 'https://github.com/ShadowCK/ThreeLetters' },
+    ],
+    timeRange: '2025 October - Now',
+    image: '/assets/images/three-letters-cover.png',
+    tags: ['Personal Project', 'Renpy', 'Python', 'Visual Novel'],
+  },
   // More works...
 ];
 

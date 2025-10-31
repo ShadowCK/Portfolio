@@ -59,6 +59,7 @@ i18next.use(LanguageDetector).init({
         click_to_view_details: 'Click to view details',
         // Tag translations (English labels mirror original; used as keys)
         tag: {
+          visual_novel: 'Visual Novel',
           rhythm: 'Rhythm',
           puzzle: 'Puzzle',
           capstone: 'Capstone',
@@ -216,6 +217,7 @@ i18next.use(LanguageDetector).init({
         time_range: '时间范围',
         click_to_view_details: '点击查看详情',
         tag: {
+          visual_novel: '视觉小说',
           rhythm: '节奏',
           puzzle: '解谜',
           capstone: '毕业设计',
