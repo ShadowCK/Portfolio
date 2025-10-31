@@ -4,14 +4,11 @@
   const className = 'theme-dark';
   let isDarkCurrent = false;
 
-  const updateWorkTagLabels = (isDark) => {
+  const updateButtonsAndLabels = (isDark) => {
     try {
-      const labels = document.querySelectorAll(
-        '#portfolio-root .ui.card .meta .ui.labels .ui.label',
-      );
-      labels.forEach((el) => {
-        if (isDark) el.classList.add('inverted');
-        else el.classList.remove('inverted');
+      const nodes = document.querySelectorAll('.ui.button, .ui.label');
+      nodes.forEach((el) => {
+        el.classList.toggle('inverted', !!isDark);
       });
     } catch (e) {
       // no-op
@@ -33,7 +30,7 @@
     const el = document.body || document.documentElement;
     el.classList.toggle(className, isDark);
     isDarkCurrent = isDark;
-    updateWorkTagLabels(isDarkCurrent);
+    updateButtonsAndLabels(isDarkCurrent);
     const toggle = document.getElementById('theme-toggle');
     if (toggle) toggle.checked = isDark;
   };
@@ -65,15 +62,15 @@
       }
     }
 
-    // Observe portfolio content changes to re-apply inverted labels in dark mode
-    const root = document.getElementById('portfolio-root');
-    if (root && typeof MutationObserver !== 'undefined') {
-      const mo = new MutationObserver(() => updateWorkTagLabels(isDarkCurrent));
-      mo.observe(root, { childList: true, subtree: true });
+    // Observe document body for dynamic UI changes to re-apply inverted classes in dark mode
+    if (typeof MutationObserver !== 'undefined') {
+      const target = document.body || document.documentElement;
+      const mo = new MutationObserver(() => updateButtonsAndLabels(isDarkCurrent));
+      mo.observe(target, { childList: true, subtree: true });
     }
 
     // Also re-apply on window load (React mounts after DOMContentLoaded)
-    window.addEventListener('load', () => updateWorkTagLabels(isDarkCurrent));
+    window.addEventListener('load', () => updateButtonsAndLabels(isDarkCurrent));
   };
 
   if (document.readyState === 'loading') {
