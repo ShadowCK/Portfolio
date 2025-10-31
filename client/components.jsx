@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { t as i18nT, tTag, useI18n } from './i18n.js';
+import { t as i18nT, tTag, tRole, tLink, localizeTimeRange, useI18n } from './i18n.js';
 
 function Carousel({
   images,
@@ -376,13 +376,13 @@ function WorkDetail({ title, description, tools, roleName, links, timeRange }) {
         {tools && (
           <div className="item">
             <div className="header">{i18nT('tools')}</div>
-            <div>{tools.join(', ')}</div>
+            <div>{tools.map((x) => tTag(x)).join(', ')}</div>
           </div>
         )}
         {roleName && (
           <div className="item">
             <div className="header">{i18nT('role')}</div>
-            <div>{roleName}</div>
+            <div>{tRole(roleName)}</div>
           </div>
         )}
         {links && links.length > 0 && (
@@ -398,7 +398,7 @@ function WorkDetail({ title, description, tools, roleName, links, timeRange }) {
                   rel="noopener noreferrer"
                   title={link.href}
                 >
-                  {link.text}
+                  {tLink(link.text)}
                 </a>
               ))}
             </div>
@@ -407,7 +407,7 @@ function WorkDetail({ title, description, tools, roleName, links, timeRange }) {
         {timeRange && (
           <div className="item">
             <div className="header">{i18nT('time_range')}</div>
-            <div>{timeRange}</div>
+            <div>{localizeTimeRange(timeRange)}</div>
           </div>
         )}
       </div>

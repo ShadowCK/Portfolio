@@ -131,6 +131,49 @@ i18next.use(LanguageDetector).init({
           minecraft: 'Minecraft',
           rpg: 'RPG',
           rpg_maker_xp: 'RPG Maker XP',
+          // Extra tools reusing tag translations for WorkDetail.tools
+          box2d: 'Box2D',
+          vegas_pro: 'Vegas Pro',
+          trello_board: 'Trello Board',
+          scrum: 'Scrum',
+          spigot_api: 'Spigot API',
+          forge_api: 'Forge API',
+          es6_module: 'ES6 Module',
+          audio_node: 'Audio Node',
+          java: 'Java',
+          unreal: 'Unreal',
+          brain: 'Brain',
+          heart: 'Heart',
+          soul: 'Soul',
+        },
+        // Link text translations (common link button texts)
+        link: {
+          play: 'Play',
+          repo: 'Repo',
+          download_final_build: 'Download Final Build',
+          download_latest_build: 'Download Latest Build',
+          view_demo_video: 'View Demo Video',
+          view_gameplay_video: 'View Gameplay Video',
+          video_trailer: 'Video Trailer',
+          view_floor_plan: 'View Floor Plan',
+          view_mood_board: 'View Mood Board',
+          download_written_plan: 'Download Written Plan',
+          original_editor: 'Original Editor',
+          itch_io: 'Itch.io',
+          steam: 'Steam',
+          design_doc: 'Design Doc',
+          rule_sheet: 'Rule Sheet',
+          you_are_already_here: 'You are already here!',
+        },
+        // Role name translations for detail sections
+        role_name: {
+          solo_developer: 'Solo Developer',
+          programmer: 'Programmer',
+          programmer_designer: 'Programmer, Designer',
+          lead_programmer_lead_designer: 'Lead Programmer, Lead Designer',
+          programmer_video_editor: 'Programmer, Video Editor',
+          game_designer: 'Game Designer',
+          programmer_ux_designer: 'Programmer, UX Designer',
         },
       },
     },
@@ -245,6 +288,47 @@ i18next.use(LanguageDetector).init({
           minecraft: 'Minecraft',
           rpg: 'RPG',
           rpg_maker_xp: 'RPG Maker XP',
+          // Extra tools used in WorkDetail.tools
+          box2d: 'Box2D',
+          vegas_pro: 'Vegas Pro',
+          trello_board: 'Trello 看板',
+          scrum: 'Scrum',
+          spigot_api: 'Spigot API',
+          forge_api: 'Forge API',
+          es6_module: 'ES6 模块',
+          audio_node: '音频节点',
+          java: 'Java',
+          unreal: 'Unreal',
+          brain: '大脑',
+          heart: '心脏',
+          soul: '灵魂',
+        },
+        link: {
+          play: '游玩',
+          repo: '仓库',
+          download_final_build: '下载最终版本',
+          download_latest_build: '下载最新版本',
+          view_demo_video: '查看演示视频',
+          view_gameplay_video: '查看实机视频',
+          video_trailer: '预告片',
+          view_floor_plan: '查看平面图',
+          view_mood_board: '查看情绪板',
+          download_written_plan: '下载文字方案',
+          original_editor: '原版编辑器',
+          itch_io: 'Itch.io',
+          steam: 'Steam',
+          design_doc: '设定文档',
+          rule_sheet: '规则表',
+          you_are_already_here: '你已经在这里啦！',
+        },
+        role_name: {
+          solo_developer: '独立开发',
+          programmer: '程序',
+          programmer_designer: '程序、策划',
+          lead_programmer_lead_designer: '主程序、主策划',
+          programmer_video_editor: '程序、视频剪辑',
+          game_designer: '策划',
+          programmer_ux_designer: '程序、UX设计师',
         },
       },
     },
@@ -324,6 +408,91 @@ if (document.readyState === 'loading') {
 }
 
 export { t, getLang, setLang };
+// Translate a role display name with fallback to original
+export function tRole(raw) {
+  const s = String(raw || '').trim();
+  if (!s) return s;
+  // Normalize common combinations
+  const key = s
+    .toLowerCase()
+    .replace(/\s*&\s*|\s*，\s*|\s*\/\s*|\s*\+\s*|\s*and\s*/g, '_')
+    .replace(/[^a-z0-9_]+/g, '_')
+    .replace(/^_+|_+$/g, '');
+  const translated = i18next.t(`role_name.${key}`, { defaultValue: s });
+  return translated;
+}
+
+// Translate a link text with fallback
+export function tLink(raw) {
+  const s = String(raw || '').trim();
+  if (!s) return s;
+  const key = s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '');
+  return i18next.t(`link.${key}`, { defaultValue: s });
+}
+
+// Localize time range by replacing month names and common tokens when zh
+export function localizeTimeRange(raw) {
+  const s = String(raw || '');
+  if (getLang() !== 'zh') return s;
+  let out = s;
+  // Normalize common token "Now" -> "至今"
+  out = out.replace(/\bNow\b/gi, '至今');
+
+  // Month mapping (full and abbreviated) -> month number
+  const monthToNum = {
+    january: 1,
+    jan: 1,
+    february: 2,
+    feb: 2,
+    march: 3,
+    mar: 3,
+    april: 4,
+    apr: 4,
+    may: 5,
+    june: 6,
+    jun: 6,
+    july: 7,
+    jul: 7,
+    august: 8,
+    aug: 8,
+    september: 9,
+    sept: 9,
+    sep: 9,
+    october: 10,
+    oct: 10,
+    november: 11,
+    nov: 11,
+    december: 12,
+    dec: 12,
+  };
+  const monthAlt = Object.keys(monthToNum).join('|');
+
+  // 1) Replace patterns like "Month Day" (e.g., Nov 30, November 7)
+  const monthDayRe = new RegExp(`\\b(${monthAlt})\\s+(\\d{1,2})(?:st|nd|rd|th)?\\b`, 'gi');
+  out = out.replace(
+    monthDayRe,
+    (_, mon, d) => `${monthToNum[mon.toLowerCase()]}月${parseInt(d, 10)}日`,
+  );
+
+  // 2) Replace patterns like "Day Month" (e.g., 30 Nov, 7 September)
+  const dayMonthRe = new RegExp(`\\b(\\d{1,2})(?:st|nd|rd|th)?\\s+(${monthAlt})\\b`, 'gi');
+  out = out.replace(
+    dayMonthRe,
+    (_, d, mon) => `${monthToNum[mon.toLowerCase()]}月${parseInt(d, 10)}日`,
+  );
+
+  // 3) Replace standalone months that remain with "n月"
+  const monthOnlyRe = new RegExp(`\\b(${monthAlt})\\b`, 'gi');
+  out = out.replace(monthOnlyRe, (_, mon) => `${monthToNum[mon.toLowerCase()]}月`);
+
+  // 4) Append 年 to 4-digit years (19xx/20xx) when not already followed by 年
+  out = out.replace(/\b(19|20)\d{2}\b(?!年)/g, '$&年');
+
+  return out;
+}
 // Normalize a tag string into a key (e.g., 'C++' -> 'c_plus_plus')
 function tagKey(raw) {
   return String(raw)
