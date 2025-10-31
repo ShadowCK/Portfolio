@@ -19,7 +19,7 @@ i18next.use(LanguageDetector).init({
     en: {
       translation: {
         masthead_bio_html:
-          'As an <b>INFP</b>, I embody responsibility, diligence, and altruism. My passion lies in programming, particularly in game development and web applications. I also do video editing and 3D modeling. Proficient in Java, JavaScript, C++, C#, and Lua.',
+          'As an <b>INFP</b>, I see imagination as more than escape—it’s a promise waiting to be built. I pour my sense of responsibility and empathy into game worlds and interactive experiences that feel alive. I chose to focus on being a game designer—to bridge creativity and technology, crafting experiences that are not only functional but emotionally resonant.',
         masthead_subtitles_html:
           '<b>Looking for 2026 Fall new grad positions &ndash; Combat Designer / Technical Designer</b><br />MEng, Game Design, Development &amp; Innovation &ndash; Duke University (2024-2026)<br />BS, Game Design &amp; Development &ndash; Rochester Institute of Technology (2021-2024)',
         lang_toggle_to_en: 'Switch to English',
@@ -180,7 +180,7 @@ i18next.use(LanguageDetector).init({
     zh: {
       translation: {
         masthead_bio_html:
-          '作为一名<b>INFP</b>，我追求责任、勤奋与帮助他人。我的热情在编程，尤其是游戏开发与 Web 应用。我也做视频剪辑与 3D 建模。熟悉 Java、JavaScript、C++、C# 和 Lua。',
+          '作为一名 <b>INFP</b>，我认为想象力不是逃避现实的庇护所，而是通往创造的承诺与起点。我将自己的责任感与共情力注入那些鲜活的游戏世界与互动体验中。我选择专注于成为一名游戏策划——在创造力与技术之间架起桥梁，打造既具功能性又能引发情感共鸣的体验。',
         masthead_subtitles_html:
           '<b>寻求 2026 秋季应届职位 —— 战斗策划 / 技术策划</b><br />硕士，游戏设计、开发与创新 —— 杜克大学（2024–2026）<br />学士，游戏设计与开发 —— 罗切斯特理工学院（2021–2024）',
         lang_toggle_to_en: '切换到英文',

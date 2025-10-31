@@ -924,7 +924,7 @@ const portfolioWorksData = [
             href: '/',
           },
         ]}
-        timeRange="2024 April - May"
+        timeRange="2024 September - Now"
       />
     ),
     image: 'https://placehold.co/600x450',
@@ -1458,7 +1458,7 @@ window.onload = () => {
     ];
     const carouselRoot = createRoot(carouselNode);
     carouselRoot.render(
-      <Carousel images={images} autoPlay interval={4000} circular showIndicators size="large" />,
+      <Carousel images={images} autoPlay interval={4000} circular showIndicators size="medium" />,
     );
   }
 };
