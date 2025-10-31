@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { createPortal } from 'react-dom';
 import { PortfolioWork, WorkDetail, YouTubeVideo } from './components.jsx';
 import './theme.js';
 
@@ -1073,53 +1074,67 @@ function PortfolioApp() {
     return portfolioWorksData.filter((w) => (w.tags || []).some((t) => selected.has(String(t))));
   }, [selected]);
 
-  // Enable horizontal scrolling via mouse wheel on ALL tag menus
+  // Manage global pusher dim state and click-to-close
   useEffect(() => {
-    const elements = Array.from(document.querySelectorAll('.tag-scroll'));
-    const cleanups = [];
+    const pusher = document.getElementById('global-pusher');
+    if (!pusher) return undefined;
+    if (sidebarOpen) pusher.classList.add('dimmed');
+    else pusher.classList.remove('dimmed');
+    const onPusherClick = () => {
+      if (sidebarOpen) setSidebarOpen(false);
+    };
+    pusher.addEventListener('click', onPusherClick);
+    return () => {
+      pusher.removeEventListener('click', onPusherClick);
+    };
+  }, [sidebarOpen]);
 
-    elements.forEach((el) => {
-      const node = el;
-      const onWheel = (e) => {
-        const dominant = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-        if (dominant !== 0) {
-          node.scrollLeft += dominant;
-          e.preventDefault();
-        }
-      };
-      const updateFade = () => {
-        const atStart = node.scrollLeft <= 1;
-        const atEnd = node.scrollLeft + node.clientWidth >= node.scrollWidth - 1;
-        node.classList.toggle('fade-left', !atStart);
-        node.classList.toggle('fade-right', !atEnd);
-      };
+  // Toggle 'visible' class on the real sidebar element (#sidebar-root)
+  useEffect(() => {
+    const sidebarEl = document.getElementById('sidebar-root');
+    if (!sidebarEl) return;
+    if (sidebarOpen) sidebarEl.classList.add('visible');
+    else sidebarEl.classList.remove('visible');
+  }, [sidebarOpen]);
 
-      node.addEventListener('wheel', onWheel, { passive: false });
-      node.addEventListener('scroll', updateFade, { passive: true });
+  // Show left-edge handle only when inline Filters button is not visible in viewport
+  const inlineFiltersRef = useRef(null);
+  const [showHandle, setShowHandle] = useState(false);
+  useEffect(() => {
+    const el = inlineFiltersRef.current;
+    if (!el) return undefined;
 
-      let ro;
-      if (typeof ResizeObserver !== 'undefined') {
-        ro = new ResizeObserver(updateFade);
-        ro.observe(node);
-      } else {
-        window.addEventListener('resize', updateFade, { passive: true });
-      }
+    const compute = () => {
+      const rect = el.getBoundingClientRect();
+      const inView =
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth);
+      setShowHandle(!inView);
+    };
 
-      updateFade();
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]) setShowHandle(!entries[0].isIntersecting);
+      },
+      { root: null, threshold: 1.0 },
+    );
+    io.observe(el);
 
-      cleanups.push(() => {
-        node.removeEventListener('wheel', onWheel, { passive: false });
-        node.removeEventListener('scroll', updateFade, { passive: true });
-        if (ro) ro.disconnect();
-        else window.removeEventListener('resize', updateFade, { passive: true });
-      });
-    });
+    window.addEventListener('resize', compute, { passive: true });
+    window.addEventListener('scroll', compute, { passive: true });
+    compute();
 
-    return () => cleanups.forEach((fn) => fn());
+    return () => {
+      io.disconnect();
+      window.removeEventListener('resize', compute);
+      window.removeEventListener('scroll', compute);
+    };
   }, []);
 
   return (
-    <div id="works-pusher" className="ui pushable">
+    <>
       {(() => {
         const rows = [
           { key: 'meta', title: 'Meta', list: groupedTags.meta },
@@ -1129,8 +1144,10 @@ function PortfolioApp() {
           { key: 'others', title: 'Others', list: groupedTags.others },
         ];
         const visibleRows = rows.filter((r) => r.list && r.list.length > 0);
-        return (
-          <div className={`ui left vertical sidebar menu ${sidebarOpen ? 'visible' : ''}`}>
+        const sidebarMount = document.getElementById('sidebar-root') || document.body;
+        if (!sidebarMount) return null;
+        return createPortal(
+          <>
             <div className="item">
               <div className="header">Filters</div>
               <div className="menu">
@@ -1177,19 +1194,32 @@ function PortfolioApp() {
                 </div>
               </div>
             ))}
-          </div>
+          </>,
+          sidebarMount,
         );
       })()}
 
-      <div
-        className={`pusher ${sidebarOpen ? 'dimmed' : ''}`}
-        onClick={() => (sidebarOpen ? setSidebarOpen(false) : null)}
-        role="presentation"
-      >
-        <div className="ui clearing basic segment">
+      {!sidebarOpen && showHandle && (
+        <button
+          type="button"
+          className={`ui circular icon button filters-handle ${showHandle ? 'visible' : ''}`}
+          aria-label="Open filters"
+          title="Open filters"
+          onClick={(e) => {
+            e.stopPropagation();
+            setSidebarOpen(true);
+          }}
+        >
+          <i className="filter icon" />
+        </button>
+      )}
+
+      <div className="ui basic segment filters-row">
+        <div className="left">
           <button
             type="button"
-            className="ui icon button"
+            className="ui icon button filters-inline"
+            ref={inlineFiltersRef}
             onClick={(e) => {
               e.stopPropagation();
               setSidebarOpen(true);
@@ -1198,36 +1228,70 @@ function PortfolioApp() {
           >
             <i className="filter icon" /> Filters
           </button>
+        </div>
+        <div className="middle">
+          {selected.size > 0 && (
+            <div className="selected-tags-scroll ui labels" role="list" aria-label="Selected tags">
+              {Array.from(selected).map((tag) => (
+                <div
+                  key={tag}
+                  className="ui label"
+                  role="button"
+                  tabIndex={0}
+                  title={`Selected: ${tag}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleTag(tag);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      toggleTag(tag);
+                    }
+                  }}
+                >
+                  {tag}
+                  <i className="delete icon" aria-hidden="true" />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="right">
           {selected.size > 0 && (
             <button
               type="button"
-              className="ui basic button right floated"
-              onClick={clearAll}
+              className="ui basic button"
+              onClick={(e) => {
+                e.stopPropagation();
+                clearAll();
+              }}
               title="Clear all filters"
             >
               Clear All
             </button>
           )}
         </div>
-
-        <div className="ui three stackable cards" aria-live="polite">
-          {filtered
-            .slice()
-            .sort((a, b) => a.order - b.order || 0)
-            .map((work) => (
-              <PortfolioWork
-                key={`${work.id}-${work.title}`}
-                id={work.id}
-                title={work.title}
-                description={work.description}
-                details={work.details}
-                image={work.image}
-                tags={work.tags}
-              />
-            ))}
-        </div>
       </div>
-    </div>
+
+      <div className="ui three stackable cards" aria-live="polite">
+        {filtered
+          .slice()
+          .sort((a, b) => a.order - b.order || 0)
+          .map((work) => (
+            <PortfolioWork
+              key={`${work.id}-${work.title}`}
+              id={work.id}
+              title={work.title}
+              description={work.description}
+              details={work.details}
+              image={work.image}
+              tags={work.tags}
+            />
+          ))}
+      </div>
+    </>
   );
 }
 
