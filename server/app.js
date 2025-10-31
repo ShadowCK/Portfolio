@@ -21,6 +21,9 @@ const app = express();
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", 'https://www.clarity.ms', 'https://scripts.clarity.ms', 'https://*.clarity.ms'],
+      connectSrc: ["'self'", 'https://www.clarity.ms', 'https://scripts.clarity.ms', 'https://*.clarity.ms'],
       imgSrc: ["'self'", 'data:', 'https://placehold.co', 'https://i.ytimg.com'], // Allow placeholder images and Youtube thumbnails
       frameSrc: [
         "'self'",
