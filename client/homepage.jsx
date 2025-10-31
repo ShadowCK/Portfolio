@@ -301,7 +301,7 @@ const portfolioWorksData = [
   },
   {
     id: 4,
-    order: 10,
+    order: -100,
     title: 'SkillAPI Editor Returns',
     cardDesc_en: 'A refactored, more robust version of the SkillAPI Editor.',
     cardDesc_zh: '对 SkillAPI Editor 的重构与增强版本，更现代、更稳健。',
@@ -883,28 +883,41 @@ const portfolioWorksData = [
     tags: ['Course Project', 'Unreal', 'VR', 'Escape Room', 'AI'],
   },
   {
-    id: 16,
-    order: 100,
-    title: 'TopLand Web (in Chinese)',
-    description: 'A web idle game inspired by my Minecraft MMORPG server, TopLand.',
-    details: (
-      <WorkDetail
-        description={<>To be added...</>}
-        tools={['Node.js']}
-        roleName="Solo Developer"
-        links={[
-          {
-            text: 'Play',
-            href: 'https://shadowck.github.io/TopLandWeb/',
-          },
-          {
-            text: 'Repo',
-            href: 'https://github.com/ShadowCK/TopLandWeb',
-          },
-        ]}
-        timeRange="2024 April - May"
-      />
+    id: 23,
+    order: -105,
+    title: 'TopLand Web',
+    cardDesc_en: 'A web idle game inspired by my Minecraft MMORPG server, TopLand.',
+    cardDesc_zh: '受我 Minecraft MMORPG 服务器 TopLand 启发的网页放置游戏。',
+    detailDescription_en: (
+      <>
+        Top Land is my second commercial Minecraft server—an ARPG inspired by Trove, Age of Wonders,
+        V Rising, and Genshin Impact. Unlike New World, Top Land didn’t go beyond the test phase
+        after I started college, but the idea was strong. Before graduating from RIT, I built
+        TopLand Web, combining my love for and deep understanding of idle and RPG games. It features
+        reincarnation, unique equipment and skill systems (skill books, talents, buff stores), and a
+        modern look using Fomantic UI. It also ships with an area encyclopedia, save system (import/
+        export) and a settings panel to accommodate different player bases. You can raise level caps
+        and proficiencies to unlock EXP bonuses, more classes, new areas, rarer items, and more.
+      </>
     ),
+    detailDescription_zh: (
+      <>
+        Top Land 是我的第二个商业化 Minecraft 服务器，它是一款受宝藏世界、奇迹时代、V Rising 和 原神
+        启发的 ARPG。与 New World 不同，Top Land 在我上大学后没有走出测试阶段，但构想十分出色。 在
+        RIT 毕业前，我做了 TopLand Web，把我对放置类与 RPG
+        的热爱与理解结合起来。它包含转生、独特的装备与技能系统（技能书、天赋、增益商店），并使用
+        Fomantic
+        UI呈现现代化界面。同时内置区域图鉴、存档系统（支持导入/导出）与设置面板，以适配不同玩家群体。
+        你可以提升等级上限与熟练度，解锁经验加成、更多职业、挑战新区域、收集更稀有的道具，等等。
+      </>
+    ),
+    tools: ['Node.js'],
+    roleName: 'Solo Developer',
+    links: [
+      { text: 'Play', href: 'https://shadowck.github.io/TopLandWeb/' },
+      { text: 'Repo', href: 'https://github.com/ShadowCK/TopLandWeb' },
+    ],
+    timeRange: '2024 April - May',
     image: '/assets/images/topland-web-cover.png',
     tags: ['Personal Project', 'Web', 'Idle Game'],
   },
@@ -1025,7 +1038,7 @@ const portfolioWorksData = [
   },
   {
     id: 21,
-    order: -100,
+    order: -110,
     title: 'Backpack Go',
     cardDesc_en: 'A Backpack Hero like mobile game.',
     cardDesc_zh: '一款玩法类似 Backpack Hero 的手游。',
