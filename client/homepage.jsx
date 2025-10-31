@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createPortal } from 'react-dom';
-import { PortfolioWork, WorkDetail, YouTubeVideo } from './components.jsx';
+import { PortfolioWork, WorkDetail, YouTubeVideo, Carousel } from './components.jsx';
 import './theme.js';
 
 // Tag ordering and grouping (multi-row filters):
@@ -1299,4 +1299,17 @@ window.onload = () => {
   const container = document.getElementById('portfolio-root');
   const root = createRoot(container);
   root.render(<PortfolioApp />);
+  // Mount profile carousel in masthead
+  const carouselNode = document.getElementById('profile-carousel-root');
+  if (carouselNode) {
+    const images = [
+      { src: '/assets/images/me-1.jpg', alt: 'Photo of me' },
+      { src: '/assets/images/me-2.jpg', alt: 'Photo of me' },
+      { src: '/assets/images/me-3.jpg', alt: 'Photo of me' },
+    ];
+    const carouselRoot = createRoot(carouselNode);
+    carouselRoot.render(
+      <Carousel images={images} autoPlay interval={4000} circular showIndicators size="large" />,
+    );
+  }
 };

@@ -1,5 +1,192 @@
-import React from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
+
+function Carousel({
+  images,
+  autoPlay = true,
+  interval = 3000,
+  circular = true,
+  showIndicators = true,
+  size = 'medium',
+}) {
+  const safeImages = useMemo(() => (Array.isArray(images) ? images.filter(Boolean) : []), [images]);
+  const [index, setIndex] = useState(0);
+  const timerRef = useRef(null);
+  const containerRef = useRef(null);
+  const count = safeImages.length;
+  // No automatic sizing by measurement (disabled) — allow natural flow
+
+  const next = useCallback(() => {
+    if (!count) return;
+    setIndex((i) => (i + 1) % count);
+  }, [count]);
+  const prev = useCallback(() => {
+    if (!count) return;
+    setIndex((i) => (i - 1 + count) % count);
+  }, [count]);
+
+  // autoplay
+  useEffect(() => {
+    if (!autoPlay || count <= 1) return undefined;
+    timerRef.current = setInterval(() => {
+      setIndex((i) => (i + 1) % count);
+    }, Math.max(1200, interval));
+    return () => clearInterval(timerRef.current);
+  }, [autoPlay, interval, count]);
+
+  // pause on hover
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node || !timerRef.current) return undefined;
+    const onEnter = () => timerRef.current && clearInterval(timerRef.current);
+    const onLeave = () => {
+      if (autoPlay && count > 1) {
+        timerRef.current = setInterval(
+          () => setIndex((i) => (i + 1) % count),
+          Math.max(1200, interval),
+        );
+      }
+    };
+    node.addEventListener('mouseenter', onEnter);
+    node.addEventListener('mouseleave', onLeave);
+    return () => {
+      node.removeEventListener('mouseenter', onEnter);
+      node.removeEventListener('mouseleave', onLeave);
+    };
+  }, [autoPlay, interval, count]);
+
+  // keyboard
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return undefined;
+    const onKey = (e) => {
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prev();
+      }
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        next();
+      }
+    };
+    node.addEventListener('keydown', onKey);
+    return () => node.removeEventListener('keydown', onKey);
+  }, [prev, next]);
+
+  // swipe (basic)
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return undefined;
+    let startX = 0;
+    let dx = 0;
+    let touching = false;
+    const onTouchStart = (e) => {
+      touching = true;
+      startX = e.touches[0].clientX;
+      dx = 0;
+    };
+    const onTouchMove = (e) => {
+      if (!touching) return;
+      dx = e.touches[0].clientX - startX;
+    };
+    const onTouchEnd = () => {
+      if (!touching) return;
+      touching = false;
+      if (Math.abs(dx) > 40) {
+        if (dx < 0) next();
+        else prev();
+      }
+    };
+    node.addEventListener('touchstart', onTouchStart, { passive: true });
+    node.addEventListener('touchmove', onTouchMove, { passive: true });
+    node.addEventListener('touchend', onTouchEnd, { passive: true });
+    return () => {
+      node.removeEventListener('touchstart', onTouchStart);
+      node.removeEventListener('touchmove', onTouchMove);
+      node.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [next, prev]);
+
+  // Note: previously used ResizeObserver to sync container size; intentionally removed.
+
+  // No auto height/width adjustments; container min size is set once when the first image loads.
+
+  if (!count) return null;
+
+  return (
+    <div
+      ref={containerRef}
+      className="ui basic segment"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Profile Photos"
+      /* No tabindex to avoid a11y lint; keyboard works via focused controls inside */
+      style={{ textAlign: 'center' }}
+    >
+      <div className="ui buttons" aria-label="Carousel controls" style={{ marginBottom: '.5rem' }}>
+        <button
+          type="button"
+          className="ui icon button"
+          onClick={prev}
+          title="Previous photo"
+          aria-label="Previous"
+        >
+          <i className="chevron left icon" />
+        </button>
+        <div className="or" />
+        <button
+          type="button"
+          className="ui icon button"
+          onClick={next}
+          title="Next photo"
+          aria-label="Next"
+        >
+          <i className="chevron right icon" />
+        </button>
+      </div>
+
+      {/* Container centers image; content size is unrestricted. */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginBottom: '.5rem',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+      >
+        {safeImages.map((img, i) => (
+          <img
+            key={img.src || i}
+            src={img.src}
+            alt={img.alt || `Photo ${i + 1}`}
+            className={`ui centered ${circular ? 'circular ' : ''}${size} image profile-image`}
+            data-visible={i === index ? 'true' : 'false'}
+            style={{
+              display: i === index ? 'block' : 'none',
+            }}
+          />
+        ))}
+      </div>
+
+      {showIndicators && count > 1 && (
+        <div className="ui tiny buttons" aria-label="Slides">
+          {safeImages.map((img, i) => (
+            <button
+              key={`ind-${img.src || img.alt || 'slide'}`}
+              type="button"
+              className={`ui mini button ${i === index ? 'primary' : ''}`}
+              aria-label={`Go to slide ${i + 1}`}
+              onClick={() => setIndex(i)}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 class PortfolioWork extends React.Component {
   constructor(props) {
@@ -70,7 +257,6 @@ class PortfolioWork extends React.Component {
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') this.closeModal();
           }}
-          style={{ cursor: 'pointer' }}
         >
           <div
             className={`ui standard modal ${active ? 'visible active' : ''}`}
@@ -242,4 +428,4 @@ function YouTubeVideo({ width, height, link }) {
   );
 }
 
-export { PortfolioWork, WorkDetail, YouTubeVideo };
+export { PortfolioWork, WorkDetail, YouTubeVideo, Carousel };
