@@ -18,6 +18,10 @@ i18next.use(LanguageDetector).init({
   resources: {
     en: {
       translation: {
+        masthead_bio_html:
+          'As an <b>INFP</b>, I embody responsibility, diligence, and altruism. My passion lies in programming, particularly in game development and web applications. I also do video editing and 3D modeling. Proficient in Java, JavaScript, C++, C#, and Lua.',
+        masthead_subtitles_html:
+          '<b>Looking for 2026 Fall new grad positions &ndash; Combat Designer / Technical Designer</b><br />MEng, Game Design, Development &amp; Innovation &ndash; Duke University (2024-2026)<br />BS, Game Design &amp; Development &ndash; Rochester Institute of Technology (2021-2024)',
         lang_toggle_to_en: 'Switch to English',
         lang_toggle_to_zh: 'Switch to Chinese',
         nav_dark: 'Dark',
@@ -30,9 +34,6 @@ i18next.use(LanguageDetector).init({
           'MEng, Game Design, Development & Innovation – Duke University (2024-2026)',
         masthead_subtitle_3:
           'BS, Game Design & Development – Rochester Institute of Technology (2021-2024)',
-        masthead_bio_before: 'As an',
-        masthead_bio_after:
-          'I embody responsibility, diligence, and altruism. My passion lies in programming, particularly in game development and web applications. I also do video editing and 3D modeling. Proficient in Java, JavaScript, C++, C#, and Lua.',
         filters: 'Filters',
         clear_all: 'Clear All',
         close: 'Close',
@@ -135,6 +136,10 @@ i18next.use(LanguageDetector).init({
     },
     zh: {
       translation: {
+        masthead_bio_html:
+          '作为一名<b>INFP</b>，我追求责任、勤奋与帮助他人。我的热情在编程，尤其是游戏开发与 Web 应用。我也做视频剪辑与 3D 建模。熟悉 Java、JavaScript、C++、C# 和 Lua。',
+        masthead_subtitles_html:
+          '<b>寻求 2026 秋季应届职位 —— 战斗策划 / 技术策划</b><br />硕士，游戏设计、开发与创新 —— 杜克大学（2024–2026）<br />学士，游戏设计与开发 —— 罗切斯特理工学院（2021–2024）',
         lang_toggle_to_en: '切换到英文',
         lang_toggle_to_zh: '切换到中文',
         nav_dark: '深色',
@@ -144,9 +149,6 @@ i18next.use(LanguageDetector).init({
         masthead_subtitle_1: '寻求 2026 秋季应届职位 —— 战斗策划 / 技术策划',
         masthead_subtitle_2: '硕士，游戏设计、开发与创新 —— 杜克大学（2024–2026）',
         masthead_subtitle_3: '学士，游戏设计与开发 —— 罗切斯特理工学院（2021–2024）',
-        masthead_bio_before: '作为一名',
-        masthead_bio_after:
-          '，我追求责任、勤奋与帮助他人。我的热情在编程，尤其是游戏开发与 Web 应用。我也做视频剪辑与 3D 建模。熟悉 Java、JavaScript、C++、C# 和 Lua。',
         filters: '筛选',
         clear_all: '清除全部',
         close: '关闭',
@@ -289,6 +291,13 @@ function wireLanguageToggle() {
       const node = nodes[i];
       const key = node.getAttribute('data-i18n');
       if (key) node.textContent = t(key);
+    }
+    // Replace innerHTML of any element marked with data-i18n-html (trusted static content)
+    const htmlNodes = document.querySelectorAll('[data-i18n-html]');
+    for (let i = 0; i < htmlNodes.length; i += 1) {
+      const node = htmlNodes[i];
+      const key = node.getAttribute('data-i18n-html');
+      if (key) node.innerHTML = t(key);
     }
   };
 

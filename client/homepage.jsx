@@ -1286,7 +1286,7 @@ function PortfolioApp() {
             {visibleRows.map((r, idx) => (
               <div className="item" key={r.key}>
                 <div className="header">{r.title}</div>
-                <div className="menu" title={`${r.title} tags`}>
+                <div className="menu" title={r.title}>
                   {idx === 0 && (
                     <div
                       className={`item ${selected.size === 0 ? 'active' : ''}`}
@@ -1294,7 +1294,7 @@ function PortfolioApp() {
                       tabIndex={0}
                       onClick={clearAll}
                       onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? clearAll() : null)}
-                      title="Show all works"
+                      title={t('all')}
                     >
                       {t('all')}
                     </div>
@@ -1309,7 +1309,7 @@ function PortfolioApp() {
                       onKeyDown={(e) =>
                         e.key === 'Enter' || e.key === ' ' ? toggleTag(tag) : null
                       }
-                      title={`Filter: ${tTag(tag)}`}
+                      title={tTag(tag)}
                     >
                       {tTag(tag)}
                     </div>
@@ -1326,7 +1326,7 @@ function PortfolioApp() {
         <button
           type="button"
           className={`ui circular icon button filters-handle ${showHandle ? 'visible' : ''}`}
-          aria-label="Open filters"
+          aria-label={t('open_filters')}
           title={t('open_filters')}
           onClick={(e) => {
             e.stopPropagation();
@@ -1365,7 +1365,7 @@ function PortfolioApp() {
                   className="ui label"
                   role="button"
                   tabIndex={0}
-                  title={`Selected: ${tTag(tag)}`}
+                  title={tTag(tag)}
                   onClick={(e) => {
                     e.stopPropagation();
                     toggleTag(tag);

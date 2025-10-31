@@ -126,7 +126,7 @@ function Carousel({
       /* No tabindex to avoid a11y lint; keyboard works via focused controls inside */
       style={{ textAlign: 'center' }}
     >
-      <div className="ui buttons" aria-label="Carousel controls" style={{ marginBottom: '.5rem' }}>
+      <div className="ui buttons" aria-label={i18nT('slides')} style={{ marginBottom: '.5rem' }}>
         <button
           type="button"
           className="ui icon button"
@@ -162,7 +162,7 @@ function Carousel({
           <img
             key={img.src || i}
             src={img.src}
-            alt={img.alt || `Photo ${i + 1}`}
+            alt={img.alt || `${i18nT('slides')} ${i + 1}`}
             className={`ui centered ${circular ? 'circular ' : ''}${size} image profile-image`}
             data-visible={i === index ? 'true' : 'false'}
             style={{
@@ -255,7 +255,7 @@ class PortfolioWork extends React.Component {
             this.closeModal();
           }}
           role="button"
-          aria-label="Close modal"
+          aria-label={i18nT('close')}
           tabIndex={0}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') this.closeModal();
@@ -271,7 +271,7 @@ class PortfolioWork extends React.Component {
               {this.props.title}
               <button
                 type="button"
-                aria-label="close"
+                aria-label={i18nT('close')}
                 className="ui right floated icon button mini"
                 onClick={this.closeModal}
               >
