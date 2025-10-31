@@ -2,6 +2,21 @@
 (function initTheme() {
   const storageKey = 'theme';
   const className = 'theme-dark';
+  let isDarkCurrent = false;
+
+  const updateWorkTagLabels = (isDark) => {
+    try {
+      const labels = document.querySelectorAll(
+        '#portfolio-root .ui.card .meta .ui.labels .ui.label',
+      );
+      labels.forEach((el) => {
+        if (isDark) el.classList.add('inverted');
+        else el.classList.remove('inverted');
+      });
+    } catch (e) {
+      // no-op
+    }
+  };
 
   const getPreferred = () => {
     const saved = localStorage.getItem(storageKey);
@@ -17,6 +32,8 @@
     const isDark = theme === 'dark';
     const el = document.body || document.documentElement;
     el.classList.toggle(className, isDark);
+    isDarkCurrent = isDark;
+    updateWorkTagLabels(isDarkCurrent);
     const toggle = document.getElementById('theme-toggle');
     if (toggle) toggle.checked = isDark;
   };
@@ -47,6 +64,16 @@
         mq.addListener((ev) => applyTheme(ev.matches ? 'dark' : 'light'));
       }
     }
+
+    // Observe portfolio content changes to re-apply inverted labels in dark mode
+    const root = document.getElementById('portfolio-root');
+    if (root && typeof MutationObserver !== 'undefined') {
+      const mo = new MutationObserver(() => updateWorkTagLabels(isDarkCurrent));
+      mo.observe(root, { childList: true, subtree: true });
+    }
+
+    // Also re-apply on window load (React mounts after DOMContentLoaded)
+    window.addEventListener('load', () => updateWorkTagLabels(isDarkCurrent));
   };
 
   if (document.readyState === 'loading') {
