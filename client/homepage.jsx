@@ -912,22 +912,43 @@ const portfolioWorksData = [
     id: 17,
     order: -100000,
     title: 'Interstellar Drive',
-    description: 'TBA',
-    details: (
-      <WorkDetail
-        description={<>To be added...</>}
-        tools={['Unreal']}
-        roleName="Programmer, UX Designer"
-        links={[
-          {
-            text: 'Play',
-            href: '/',
-          },
-        ]}
-        timeRange="2024 September - Now"
-      />
+    cardDesc_en:
+      'Capstone project: space road-trip adventure combining driving, rhythm, and puzzle.',
+    cardDesc_zh: '毕业设计：太空公路旅行冒险，结合驾驶、节奏与解谜。',
+    detailDescription_en: (
+      <>
+        Interstellar Drive takes inspiration from It Takes Two and road trips, sets the journey in
+        space, and tells a story about an underdog guitarist David and an alien singer Sam. David is
+        “abducted” by Sam to join an interstellar music festival. To get there, they drive a special
+        car across various planets and fight against imperium powers that aim to unify all music in
+        the universe. The gameplay combines driving, rhythm, and puzzle elements. I worked on the
+        dialogue system, an asteroid-shooting rhythm mini-game, vehicle abilities, and various UI
+        implementations and UX improvements. Gameplay video will release as it enters Early Access.
+        <YouTubeVideo link="CYrGysXAIZM?si=y0nOsPX_GhCKj6zf" />
+        <YouTubeVideo link="aOyGwVkFSQw?si=WGVkuaCrZHfN4_jA" />
+      </>
     ),
-    image: 'https://placehold.co/600x450',
+    detailDescription_zh: (
+      <>
+        Interstellar Drive 受《双人成行》和公路旅行启发，将旅程搬到太空，讲述落魄吉他手 David
+        与外星歌手 Sam 的故事。David 被 Sam
+        “绑走”去参加星际音乐节。为了抵达，他们需要驾驶特制车辆穿越各个星球，并与
+        试图统一宇宙音乐的帝国势力对抗。玩法融合驾驶、节奏与解谜。我负责对话系统、小行星射击节奏玩法、载具能力，以及多处
+        UI 实现与 UX 优化。实机视频将在进入抢先体验阶段时发布。
+        <YouTubeVideo link="CYrGysXAIZM?si=y0nOsPX_GhCKj6zf" />
+        <YouTubeVideo link="aOyGwVkFSQw?si=WGVkuaCrZHfN4_jA" />
+      </>
+    ),
+    tools: ['Unreal'],
+    roleName: 'Programmer, UX Designer',
+    links: [
+      {
+        text: 'LinkedIn Post',
+        href: 'https://www.linkedin.com/posts/voyagerstudios_interstellar-drive-teaser-activity-7308195069419737092-FLA1/',
+      },
+    ],
+    timeRange: '2024 September - Now',
+    image: '/assets/images/interstellar-drive-cover.png',
     tags: ['Capstone', 'Team Project', 'Unreal', 'Driving', 'Rhythm', 'Puzzle', 'Perforce'],
   },
   {
