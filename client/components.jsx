@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { t as i18nT, useI18n } from './i18n.js';
+import { t as i18nT, tTag, useI18n } from './i18n.js';
 
 function Carousel({
   images,
@@ -289,7 +289,7 @@ class PortfolioWork extends React.Component {
                   if (e.key === 'Enter' || e.key === ' ') this.closeModal();
                 }}
               >
-                Close
+                {i18nT('close')}
               </div>
             </div>
           </div>
@@ -319,7 +319,7 @@ class PortfolioWork extends React.Component {
             className="image"
             onClick={this.openModal}
             role="button"
-            aria-label="Open work details"
+            aria-label={i18nT('open_work_details')}
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') this.openModal();
@@ -332,7 +332,7 @@ class PortfolioWork extends React.Component {
             className="content"
             onClick={this.openModal}
             role="button"
-            aria-label="Open work details"
+            aria-label={i18nT('open_work_details')}
             tabIndex={0}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') this.openModal();
@@ -344,7 +344,7 @@ class PortfolioWork extends React.Component {
                 {this.props.tags &&
                   this.props.tags.map((tag) => (
                     <span key={String(tag)} className={`ui ${tagColor(tag)} label`}>
-                      {tag}
+                      {tTag(tag)}
                     </span>
                   ))}
               </div>
@@ -353,7 +353,7 @@ class PortfolioWork extends React.Component {
               {this.props.description}
             </div>
             <div className="extra content">
-              <span className="right floated">Click to view details</span>
+              <span className="right floated">{i18nT('click_to_view_details')}</span>
             </div>
           </div>
         </div>
@@ -364,6 +364,8 @@ class PortfolioWork extends React.Component {
 }
 
 function WorkDetail({ title, description, tools, roleName, links, timeRange }) {
+  // Re-render on language change for labels
+  useI18n();
   return (
     <div className="work-detail ui segment">
       {title && <h2 className="ui header">{title}</h2>}
@@ -373,19 +375,19 @@ function WorkDetail({ title, description, tools, roleName, links, timeRange }) {
       <div className="ui relaxed list">
         {tools && (
           <div className="item">
-            <div className="header">Tools</div>
+            <div className="header">{i18nT('tools')}</div>
             <div>{tools.join(', ')}</div>
           </div>
         )}
         {roleName && (
           <div className="item">
-            <div className="header">Role</div>
+            <div className="header">{i18nT('role')}</div>
             <div>{roleName}</div>
           </div>
         )}
         {links && links.length > 0 && (
           <div className="item">
-            <div className="header">Links</div>
+            <div className="header">{i18nT('links')}</div>
             <div className="ui tiny buttons">
               {links.map((link, index) => (
                 <a
@@ -404,7 +406,7 @@ function WorkDetail({ title, description, tools, roleName, links, timeRange }) {
         )}
         {timeRange && (
           <div className="item">
-            <div className="header">Time Range</div>
+            <div className="header">{i18nT('time_range')}</div>
             <div>{timeRange}</div>
           </div>
         )}

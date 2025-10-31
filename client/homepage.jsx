@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 import { createPortal } from 'react-dom';
 import { PortfolioWork, WorkDetail, YouTubeVideo, Carousel } from './components.jsx';
 import './theme.js';
-import { t, useI18n } from './i18n.js';
+import { t, useI18n, tTag } from './i18n.js';
 
 // Initialize Microsoft Clarity (project id provided via meta tag)
 (() => {
@@ -114,7 +114,7 @@ const EXCLUDE_MATCH = [
   'Perlin Noise',
   'pinyin',
   'Roblox',
-  'SMFL',
+  'SFML',
   'Storyline Branches',
   'Substance Painter',
   'Triangle Game Jam',
@@ -614,7 +614,7 @@ const portfolioWorksData = [
       <WorkDetail
         description={
           <>
-            As a course project, this mini game was developed in C++ using SMFL and Box2D, with a
+            As a course project, this mini game was developed in C++ using SFML and Box2D, with a
             dynamic camera, custom font, text display in typing fashion, BGMs and sound effects. The
             game itself is a simple snake game with a twist: the snake is affected by gravity (and
             will not grow). The game features game options such as two difficulty levels and gem
@@ -629,7 +629,7 @@ const portfolioWorksData = [
             <YouTubeVideo link="XSzfin-ZCqM?si=4HNPptaetnpVAkcW" />
           </>
         }
-        tools={['C++', 'SMFL', 'Box2D']}
+        tools={['C++', 'SFML', 'Box2D']}
         roleName="Solo Developer"
         links={[
           {
@@ -641,7 +641,7 @@ const portfolioWorksData = [
       />
     ),
     image: '/assets/images/graphical-snake-cover.png',
-    tags: ['Course Project', 'C++', 'SMFL', 'Box2D', 'Dynamic Camera'],
+    tags: ['Course Project', 'C++', 'SFML', 'Box2D', 'Dynamic Camera'],
   },
   {
     id: 13,
@@ -1215,9 +1215,9 @@ function PortfolioApp() {
                       onKeyDown={(e) =>
                         e.key === 'Enter' || e.key === ' ' ? toggleTag(tag) : null
                       }
-                      title={`Filter: ${tag}`}
+                      title={`Filter: ${tTag(tag)}`}
                     >
-                      {tag}
+                      {tTag(tag)}
                     </div>
                   ))}
                 </div>
@@ -1271,7 +1271,7 @@ function PortfolioApp() {
                   className="ui label"
                   role="button"
                   tabIndex={0}
-                  title={`Selected: ${tag}`}
+                  title={`Selected: ${tTag(tag)}`}
                   onClick={(e) => {
                     e.stopPropagation();
                     toggleTag(tag);
@@ -1284,7 +1284,7 @@ function PortfolioApp() {
                     }
                   }}
                 >
-                  {tag}
+                  {tTag(tag)}
                   <i className="delete icon" aria-hidden="true" />
                 </div>
               ))}

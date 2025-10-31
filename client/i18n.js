@@ -18,6 +18,21 @@ i18next.use(LanguageDetector).init({
   resources: {
     en: {
       translation: {
+        lang_toggle_to_en: 'Switch to English',
+        lang_toggle_to_zh: 'Switch to Chinese',
+        nav_dark: 'Dark',
+        site_name: 'Zhao Jin',
+        nav_works: 'Works',
+        masthead_title: 'Zhao Jin',
+        masthead_subtitle_1:
+          'Looking for 2026 Fall new grad positions – Combat Designer / Technical Designer',
+        masthead_subtitle_2:
+          'MEng, Game Design, Development & Innovation – Duke University (2024-2026)',
+        masthead_subtitle_3:
+          'BS, Game Design & Development – Rochester Institute of Technology (2021-2024)',
+        masthead_bio_before: 'As an',
+        masthead_bio_after:
+          'I embody responsibility, diligence, and altruism. My passion lies in programming, particularly in game development and web applications. I also do video editing and 3D modeling. Proficient in Java, JavaScript, C++, C#, and Lua.',
         filters: 'Filters',
         clear_all: 'Clear All',
         close: 'Close',
@@ -36,10 +51,102 @@ i18next.use(LanguageDetector).init({
         social_linkedin: 'LinkedIn',
         social_github: 'GitHub',
         social_resume: 'Resume',
+        tools: 'Tools',
+        role: 'Role',
+        links: 'Links',
+        time_range: 'Time Range',
+        click_to_view_details: 'Click to view details',
+        // Tag translations (English labels mirror original; used as keys)
+        tag: {
+          rhythm: 'Rhythm',
+          puzzle: 'Puzzle',
+          capstone: 'Capstone',
+          tower_of_the_sorcerer_like: 'Tower of the Sorcerer like',
+          storyline_branches: 'Storyline Branches',
+          perlin_noise: 'Perlin Noise',
+          circleci: 'CircleCI',
+          open_trivia_database: 'Open Trivia Database',
+          sfml: 'SFML',
+          underscore: 'Underscore',
+          howler_js: 'Howler.js',
+          maya: 'Maya',
+          dynamic_camera: 'Dynamic Camera',
+          course_project: 'Course Project',
+          personal_project: 'Personal Project',
+          team_project: 'Team Project',
+          team_of_5: 'Team of 5',
+          team_of_6: 'Team of 6',
+          web: 'Web',
+          idle_game: 'Idle Game',
+          clicker_game: 'Clicker Game',
+          local_storage: 'Local Storage',
+          html_css_js: 'HTML/CSS/JS',
+          p5_js: 'P5.js',
+          aseprite: 'Aseprite',
+          node_js: 'Node.js',
+          express: 'Express',
+          react: 'React',
+          socket_io: 'Socket.io',
+          matter_js: 'Matter.js',
+          phaser: 'Phaser',
+          mongodb: 'MongoDB',
+          redis: 'Redis',
+          unity: 'Unity',
+          c_sharp: 'C#',
+          c_plus_plus: 'C++',
+          shader: 'Shader',
+          minimap: 'Minimap',
+          vr: 'VR',
+          ai: 'AI',
+          tabletop_game: 'Tabletop Game',
+          card_game: 'Card Game',
+          game_design: 'Game Design',
+          game_balance: 'Game Balance',
+          tabletop_simulator: 'Tabletop Simulator',
+          award_winning: 'Award Winning',
+          best_sound_design: 'Best Sound Design',
+          honorable_mention: 'Honorable Mention',
+          triangle_game_jam: 'Triangle Game Jam',
+          perforce: 'Perforce',
+          roguelite: 'Roguelite',
+          driving: 'Driving',
+          skill_editor: 'Skill Editor',
+          http_server: 'Http Server',
+          web_audio: 'Web Audio',
+          canvas: 'Canvas',
+          eslint: 'ESLint',
+          webpack: 'Webpack',
+          archiver: 'Archiver',
+          pinyin: 'Pinyin',
+          cocos_creator: 'Cocos Creator',
+          typescript: 'TypeScript',
+          mobile_game: 'Mobile Game',
+          internship: 'Internship',
+          yoozoo_games: 'Yoozoo Games',
+          roblox: 'Roblox',
+          lua: 'Lua',
+          roblox_studio: 'Roblox Studio',
+          playdate_sdk: 'Playdate SDK',
+          minecraft: 'Minecraft',
+          rpg: 'RPG',
+          rpg_maker_xp: 'RPG Maker XP',
+        },
       },
     },
     zh: {
       translation: {
+        lang_toggle_to_en: '切换到英文',
+        lang_toggle_to_zh: '切换到中文',
+        nav_dark: '深色',
+        site_name: '金钊',
+        nav_works: '作品',
+        masthead_title: '金钊',
+        masthead_subtitle_1: '寻求 2026 秋季应届职位 —— 战斗策划 / 技术策划',
+        masthead_subtitle_2: '硕士，游戏设计、开发与创新 —— 杜克大学（2024–2026）',
+        masthead_subtitle_3: '学士，游戏设计与开发 —— 罗切斯特理工学院（2021–2024）',
+        masthead_bio_before: '作为一名',
+        masthead_bio_after:
+          '，我追求责任、勤奋与帮助他人。我的热情在编程，尤其是游戏开发与 Web 应用。我也做视频剪辑与 3D 建模。熟悉 Java、JavaScript、C++、C# 和 Lua。',
         filters: '筛选',
         clear_all: '清除全部',
         close: '关闭',
@@ -58,6 +165,85 @@ i18next.use(LanguageDetector).init({
         social_linkedin: '领英',
         social_github: 'GitHub',
         social_resume: '简历',
+        tools: '工具',
+        role: '角色',
+        links: '链接',
+        time_range: '时间范围',
+        click_to_view_details: '点击查看详情',
+        tag: {
+          rhythm: '节奏',
+          puzzle: '解谜',
+          capstone: '毕业设计',
+          tower_of_the_sorcerer_like: '魔塔',
+          storyline_branches: '剧情分支',
+          perlin_noise: '柏林',
+          circleci: 'CircleCI',
+          open_trivia_database: 'Open Trivia 数据库',
+          sfml: 'SFML',
+          underscore: 'Underscore',
+          howler_js: 'Howler.js',
+          maya: 'Maya',
+          dynamic_camera: '动态相机',
+          course_project: '课程项目',
+          personal_project: '个人项目',
+          team_project: '团队项目',
+          team_of_5: '五人团队',
+          team_of_6: '六人团队',
+          web: '网页',
+          idle_game: '放置游戏',
+          clicker_game: '点击游戏',
+          local_storage: '本地存储',
+          html_css_js: 'HTML/CSS/JS',
+          p5_js: 'P5.js',
+          aseprite: 'Aseprite',
+          node_js: 'Node.js',
+          express: 'Express',
+          react: 'React',
+          socket_io: 'Socket.io',
+          matter_js: 'Matter.js',
+          phaser: 'Phaser',
+          mongodb: 'MongoDB',
+          redis: 'Redis',
+          unity: 'Unity',
+          c_sharp: 'C#',
+          c_plus_plus: 'C++',
+          shader: '着色器',
+          minimap: '小地图',
+          vr: 'VR',
+          ai: 'AI',
+          tabletop_game: '桌游',
+          card_game: '卡牌游戏',
+          game_design: '游戏设计',
+          game_balance: '游戏平衡',
+          tabletop_simulator: '桌游模拟器',
+          award_winning: '获奖作品',
+          best_sound_design: '最佳音效设计',
+          honorable_mention: '荣誉提名',
+          triangle_game_jam: 'Triangle Game Jam',
+          perforce: 'Perforce',
+          roguelite: 'Roguelite',
+          driving: '驾驶',
+          skill_editor: '技能编辑器',
+          http_server: 'HTTP 服务器',
+          web_audio: 'Web 音频',
+          canvas: 'Canvas',
+          eslint: 'ESLint',
+          webpack: 'Webpack',
+          archiver: 'Archiver',
+          pinyin: '拼音排序',
+          cocos_creator: 'Cocos Creator',
+          typescript: 'TypeScript',
+          mobile_game: '手游',
+          internship: '实习',
+          yoozoo_games: '游族网络',
+          roblox: 'Roblox',
+          lua: 'Lua',
+          roblox_studio: 'Roblox Studio',
+          playdate_sdk: 'Playdate SDK',
+          minecraft: 'Minecraft',
+          rpg: 'RPG',
+          rpg_maker_xp: 'RPG Maker XP',
+        },
       },
     },
   },
@@ -91,8 +277,9 @@ function wireLanguageToggle() {
     if (!btn) return;
     const lang = getLang();
     btn.textContent = lang === 'zh' ? 'EN' : '中文';
-    btn.setAttribute('aria-label', lang === 'zh' ? 'Switch to English' : '切换到中文');
-    btn.title = btn.getAttribute('aria-label');
+    const titleText = lang === 'zh' ? t('lang_toggle_to_en') : t('lang_toggle_to_zh');
+    btn.setAttribute('aria-label', titleText);
+    btn.title = titleText;
   };
 
   const updateDomTranslations = () => {
@@ -128,6 +315,29 @@ if (document.readyState === 'loading') {
 }
 
 export { t, getLang, setLang };
+// Normalize a tag string into a key (e.g., 'C++' -> 'c_plus_plus')
+function tagKey(raw) {
+  return String(raw)
+    .trim()
+    .toLowerCase()
+    .replace(/c\+\+/g, 'c_plus_plus')
+    .replace(/c#/g, 'c_sharp')
+    .replace(/node\.js/g, 'node_js')
+    .replace(/html\/?css\/?js/g, 'html_css_js')
+    .replace(/p5\.js/g, 'p5_js')
+    .replace(/matter\.js/g, 'matter_js')
+    .replace(/playdate\s*sdk/g, 'playdate_sdk')
+    .replace(/rpg\s*maker\s*xp/g, 'rpg_maker_xp')
+    .replace(/\s*&\s*/g, '_and_')
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '');
+}
+
+// Translate a tag; fall back to original label when missing
+export function tTag(raw) {
+  const key = tagKey(raw);
+  return i18next.t(`tag.${key}`, { defaultValue: String(raw) });
+}
 // React hook to re-render components on language change
 export function useI18n() {
   const [lang, setLangState] = useState(getLang());
