@@ -48,11 +48,11 @@ const GAMEPLAY_PRIORITY = [
   'Escape Room',
   'Tabletop Game',
   'Card Game',
-  'Rhythm',
+  // 'Rhythm',
   'MMORPG',
-  'Clicker Game',
+  // 'Clicker Game',
   'Idle Game',
-  'Tower of the Sorcerer like',
+  // 'Tower of the Sorcerer like',
 ];
 
 // Tech tags (order here defines priority within the Tech group)
@@ -1039,6 +1039,7 @@ function PortfolioApp() {
     const meta = takeInOrder(META_PRIORITY, metaPool).list;
 
     // Engine & Language (combined)
+    LANGUAGE_PRIORITY.length = 0;
     const ENGINE_LANG_PRIORITY = [...ENGINE_PRIORITY, ...LANGUAGE_PRIORITY];
     const engineLangPool = all.filter((t) => ENGINE_LANG_PRIORITY.includes(t));
     const engineLang = takeInOrder(ENGINE_LANG_PRIORITY, engineLangPool).list;
@@ -1125,8 +1126,8 @@ function PortfolioApp() {
           { key: 'meta', title: 'Meta tags', list: groupedTags.meta },
           { key: 'engineLang', title: 'Engine & Language tags', list: groupedTags.engineLang },
           { key: 'gameplay', title: 'Gameplay tags', list: groupedTags.gameplay },
-          { key: 'tech', title: 'Tech tags', list: groupedTags.tech },
-          { key: 'others', title: 'Other tags', list: groupedTags.others },
+          // { key: 'tech', title: 'Tech tags', list: groupedTags.tech },
+          // { key: 'others', title: 'Other tags', list: groupedTags.others },
         ];
         const visibleRows = rows.filter((r) => r.list && r.list.length > 0);
         return visibleRows.map((r, idx) => (
