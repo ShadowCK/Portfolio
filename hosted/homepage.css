@@ -324,3 +324,7 @@ body.theme-dark {
 .theme-dark .ui.button:hover {
   background-color: #333 !important;
 }
+
+#works-pusher {
+  height: max-content;
+}

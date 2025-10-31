@@ -48,11 +48,11 @@ const GAMEPLAY_PRIORITY = [
   'Escape Room',
   'Tabletop Game',
   'Card Game',
-  // 'Rhythm',
+  'Rhythm',
   'MMORPG',
-  // 'Clicker Game',
+  'Clicker Game',
   'Idle Game',
-  // 'Tower of the Sorcerer like',
+  'Tower of the Sorcerer like',
 ];
 
 // Tech tags (order here defines priority within the Tech group)
@@ -1004,6 +1004,7 @@ const portfolioWorksData = [
 
 function PortfolioApp() {
   const [selected, setSelected] = useState(() => new Set());
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const groupedTags = useMemo(() => {
     const tagSet = new Set();
@@ -1039,7 +1040,6 @@ function PortfolioApp() {
     const meta = takeInOrder(META_PRIORITY, metaPool).list;
 
     // Engine & Language (combined)
-    LANGUAGE_PRIORITY.length = 0;
     const ENGINE_LANG_PRIORITY = [...ENGINE_PRIORITY, ...LANGUAGE_PRIORITY];
     const engineLangPool = all.filter((t) => ENGINE_LANG_PRIORITY.includes(t));
     const engineLang = takeInOrder(ENGINE_LANG_PRIORITY, engineLangPool).list;
@@ -1119,67 +1119,113 @@ function PortfolioApp() {
   }, []);
 
   return (
-    <div>
-      {/* Render only non-empty tag rows; put All on the first visible row */}
+    <div id="works-pusher" className="ui pushable">
       {(() => {
         const rows = [
-          { key: 'meta', title: 'Meta tags', list: groupedTags.meta },
-          { key: 'engineLang', title: 'Engine & Language tags', list: groupedTags.engineLang },
-          { key: 'gameplay', title: 'Gameplay tags', list: groupedTags.gameplay },
-          // { key: 'tech', title: 'Tech tags', list: groupedTags.tech },
-          // { key: 'others', title: 'Other tags', list: groupedTags.others },
+          { key: 'meta', title: 'Meta', list: groupedTags.meta },
+          { key: 'engineLang', title: 'Engine & Language', list: groupedTags.engineLang },
+          { key: 'gameplay', title: 'Gameplay', list: groupedTags.gameplay },
+          { key: 'tech', title: 'Tech', list: groupedTags.tech },
+          { key: 'others', title: 'Others', list: groupedTags.others },
         ];
         const visibleRows = rows.filter((r) => r.list && r.list.length > 0);
-        return visibleRows.map((r, idx) => (
-          <div
-            key={r.key}
-            className="ui secondary pointing menu small stackable tag-scroll"
-            title={r.title}
-          >
-            {idx === 0 && (
-              <div
-                className={`item ${selected.size === 0 ? 'active' : ''}`}
-                role="button"
-                tabIndex={0}
-                onClick={clearAll}
-                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? clearAll() : null)}
-                title="Show all works"
-              >
-                All
+        return (
+          <div className={`ui left vertical sidebar menu ${sidebarOpen ? 'visible' : ''}`}>
+            <div className="item">
+              <div className="header">Filters</div>
+              <div className="menu">
+                <button
+                  type="button"
+                  className="ui basic fluid button"
+                  onClick={() => setSidebarOpen(false)}
+                >
+                  Close
+                </button>
               </div>
-            )}
-            {r.list.map((tag) => (
-              <div
-                key={tag}
-                className={`item ${selected.has(tag) ? 'active' : ''}`}
-                role="button"
-                tabIndex={0}
-                onClick={() => toggleTag(tag)}
-                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? toggleTag(tag) : null)}
-                title={`Filter by ${tag}`}
-              >
-                {tag}
+            </div>
+            {visibleRows.map((r, idx) => (
+              <div className="item" key={r.key}>
+                <div className="header">{r.title}</div>
+                <div className="menu" title={`${r.title} tags`}>
+                  {idx === 0 && (
+                    <div
+                      className={`item ${selected.size === 0 ? 'active' : ''}`}
+                      role="button"
+                      tabIndex={0}
+                      onClick={clearAll}
+                      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ' ? clearAll() : null)}
+                      title="Show all works"
+                    >
+                      All
+                    </div>
+                  )}
+                  {r.list.map((tag) => (
+                    <div
+                      key={tag}
+                      className={`item ${selected.has(tag) ? 'active' : ''}`}
+                      role="button"
+                      tabIndex={0}
+                      onClick={() => toggleTag(tag)}
+                      onKeyDown={(e) =>
+                        e.key === 'Enter' || e.key === ' ' ? toggleTag(tag) : null
+                      }
+                      title={`Filter by ${tag}`}
+                    >
+                      {tag}
+                    </div>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
-        ));
+        );
       })()}
 
-      <div className="ui three stackable cards" aria-live="polite">
-        {filtered
-          .slice()
-          .sort((a, b) => a.order - b.order || 0)
-          .map((work) => (
-            <PortfolioWork
-              key={`${work.id}-${work.title}`}
-              id={work.id}
-              title={work.title}
-              description={work.description}
-              details={work.details}
-              image={work.image}
-              tags={work.tags}
-            />
-          ))}
+      <div
+        className={`pusher ${sidebarOpen ? 'dimmed' : ''}`}
+        onClick={() => (sidebarOpen ? setSidebarOpen(false) : null)}
+        role="presentation"
+      >
+        <div className="ui clearing basic segment">
+          <button
+            type="button"
+            className="ui icon button"
+            onClick={(e) => {
+              e.stopPropagation();
+              setSidebarOpen(true);
+            }}
+            title="Open filters"
+          >
+            <i className="filter icon" /> Filters
+          </button>
+          {selected.size > 0 && (
+            <button
+              type="button"
+              className="ui basic button right floated"
+              onClick={clearAll}
+              title="Clear all filters"
+            >
+              Clear All
+            </button>
+          )}
+        </div>
+
+        <div className="ui three stackable cards" aria-live="polite">
+          {filtered
+            .slice()
+            .sort((a, b) => a.order - b.order || 0)
+            .map((work) => (
+              <PortfolioWork
+                key={`${work.id}-${work.title}`}
+                id={work.id}
+                title={work.title}
+                description={work.description}
+                details={work.details}
+                image={work.image}
+                tags={work.tags}
+              />
+            ))}
+        </div>
       </div>
     </div>
   );
