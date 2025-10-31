@@ -1,8 +1,22 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
+import Clarity from '@microsoft/clarity';
 import { createRoot } from 'react-dom/client';
 import { createPortal } from 'react-dom';
 import { PortfolioWork, WorkDetail, YouTubeVideo, Carousel } from './components.jsx';
 import './theme.js';
+
+// Initialize Microsoft Clarity (project id provided via meta tag)
+(() => {
+  try {
+    const meta = document.querySelector('meta[name="clarity-project-id"]');
+    const pid = meta && meta.getAttribute('content');
+    if (pid) {
+      Clarity.init(pid);
+    }
+  } catch (e) {
+    // no-op if Clarity not available or project id missing
+  }
+})();
 
 // Tag ordering and grouping (multi-row filters):
 // 1) Meta tags (project type)
