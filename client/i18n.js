@@ -337,6 +337,12 @@ i18next.use(LanguageDetector).init({
   },
 });
 
+// Resume URLs per language
+const RESUME_EN_URL =
+  'https://drive.google.com/file/d/1VNF-EtWS45ZuN_Ou-3PZsgmG2wpX-5Pb/view?usp=sharing';
+const RESUME_ZH_URL =
+  'https://drive.google.com/file/d/13x1uKNoc93He8agLu7oOlOOdvEDT6Q3N/view?usp=sharing';
+
 // Small helper to keep existing imports working
 function t(key, opt) {
   return i18next.t(key, opt);
@@ -384,6 +390,17 @@ function wireLanguageToggle() {
       const node = htmlNodes[i];
       const key = node.getAttribute('data-i18n-html');
       if (key) node.innerHTML = t(key);
+    }
+
+    // Update Resume links to point to language-specific URL
+    const resumeUrl = getLang() === 'zh' ? RESUME_ZH_URL : RESUME_EN_URL;
+    const resumeSpans = document.querySelectorAll("span[data-i18n='social_resume']");
+    for (let i = 0; i < resumeSpans.length; i += 1) {
+      const span = resumeSpans[i];
+      const anchor = span.closest('a');
+      if (anchor) {
+        anchor.setAttribute('href', resumeUrl);
+      }
     }
   };
 
