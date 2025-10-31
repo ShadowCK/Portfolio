@@ -278,7 +278,7 @@ class PortfolioWork extends React.Component {
                 <i aria-hidden className="close icon" />
               </button>
             </div>
-            <div className="content">{this.props.details}</div>
+            <div className="scrolling content">{this.props.details}</div>
             <div className="actions">
               <div
                 className="ui primary button"
