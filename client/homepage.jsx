@@ -937,6 +937,7 @@ const portfolioWorksData = [
         the universe. The gameplay combines driving, rhythm, and puzzle elements. I worked on the
         dialogue system, an asteroid-shooting rhythm mini-game, vehicle abilities, and various UI
         implementations and UX improvements. Gameplay video will release as it enters Early Access.
+        <br />
         <YouTubeVideo link="CYrGysXAIZM?si=y0nOsPX_GhCKj6zf" />
         <YouTubeVideo link="aOyGwVkFSQw?si=WGVkuaCrZHfN4_jA" />
       </>
@@ -948,6 +949,7 @@ const portfolioWorksData = [
         “绑走”去参加星际音乐节。为了抵达，他们需要驾驶特制车辆穿越各个星球，并与
         试图统一宇宙音乐的帝国势力对抗。玩法融合驾驶、节奏与解谜。我负责对话系统、小行星射击节奏玩法、载具能力，以及多处
         UI 实现与 UX 优化。实机视频将在进入抢先体验阶段时发布。
+        <br />
         <YouTubeVideo link="CYrGysXAIZM?si=y0nOsPX_GhCKj6zf" />
         <YouTubeVideo link="aOyGwVkFSQw?si=WGVkuaCrZHfN4_jA" />
       </>
