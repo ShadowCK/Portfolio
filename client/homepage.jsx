@@ -1147,8 +1147,8 @@ const portfolioWorksData = [
     id: 24,
     order: -106,
     title: 'Three Letters',
-    cardDesc_en: 'A web idle game inspired by my Minecraft MMORPG server, TopLand.',
-    cardDesc_zh: '一款受我的 Minecraft MMORPG 服务器 TopLand 启发的网页放置类游戏。',
+    cardDesc_en: 'A dream-core, weird-core visual novel about a desperate student.',
+    cardDesc_zh: '一款梦核/怪核风格规则怪谈视觉小说，讲述一名陷入找工困境的学生。',
     detailDescription_en: (
       <>
         A short dream-core, weird-core Renpy game telling a story about a desperate student, Zhao
